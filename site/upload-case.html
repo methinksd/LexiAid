@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>LexiAid - Upload Case</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+		<![endif]-->
+    <style>
+      .upload-area {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 50px 20px;
+        text-align: center;
+        background-color: #f8f9fa;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+      }
+      
+      .upload-area:hover {
+        border-color: #007bff;
+      }
+      
+      .upload-icon {
+        font-size: 3rem;
+        color: #007bff;
+        margin-bottom: 15px;
+      }
+      
+      .progress-label {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+      }
+      
+      .history-item {
+        transition: transform 0.2s ease;
+      }
+      
+      .history-item:hover {
+        transform: translateY(-3px);
+      }
+      
+      .case-card {
+        border-left: 5px solid #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="preloader-body">
+        <div class="cssload-container">
+          <div class="cssload-speeding-wheel"> </div>
+        </div>
+        <p>Loading...</p>
+      </div>
+    </div>
+    <div class="page">
+      <header class="page-head">
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-default" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="53px" data-xl-stick-up-offset="53px" data-xxl-stick-up-offset="53px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner">
+              <div class="rd-navbar-aside-wrap">
+                <div class="rd-navbar-aside">
+                  <div class="rd-navbar-aside-toggle" data-rd-navbar-toggle=".rd-navbar-aside"><span></span></div>
+                  <div class="rd-navbar-aside-content">
+                    <ul class="rd-navbar-aside-group list-units">
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-calendar"></span></div>
+                          <div class="unit-body"><span class="link-dusty-gray" id="current-date">April 14, 2023</span></div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
+                          <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">support@lexiaid.com</a></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="rd-navbar-group">
+                <div class="rd-navbar-panel">
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <a class="rd-navbar-brand brand" href="index.html">
+                    <h3 class="text-primary">Lexi<span style="color: #4d4d4d;">Aid</span></h3>
+                  </a>
+                </div>
+                <div class="rd-navbar-nav-wrap">
+                  <div class="rd-navbar-nav-inner">
+                    <ul class="rd-navbar-nav">
+                      <li><a href="index.html"><i class="fa fa-home"></i> Dashboard</a>
+                      </li>
+                      <li><a href="search.html"><i class="fa fa-search"></i> Search</a>
+                      </li>
+                      <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a>
+                      </li>
+                      <li><a href="insights.html"><i class="fa fa-chart-bar"></i> Insights</a>
+                      </li>
+                      <li class="active"><a href="upload-case.html"><i class="fa fa-upload"></i> Upload Case</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <section class="section-50 section-md-75 section-lg-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8">
+              <!-- Main Upload Area -->
+              <h2>Upload Legal Case</h2>
+              <p class="text-bigger mb-4">Upload case documents for automatic brief generation and analysis.</p>
+              
+              <div class="card mb-4">
+                <div class="card-body">
+                  <ul class="nav nav-tabs" id="uploadTabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="file-tab" data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="true">
+                        <i class="fa fa-file-pdf"></i> Upload File
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="text-tab" data-toggle="tab" href="#text" role="tab" aria-controls="text" aria-selected="false">
+                        <i class="fa fa-keyboard"></i> Paste Text
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="url-tab" data-toggle="tab" href="#url" role="tab" aria-controls="url" aria-selected="false">
+                        <i class="fa fa-link"></i> URL
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content p-3" id="uploadTabsContent">
+                    <div class="tab-pane fade show active" id="file" role="tabpanel" aria-labelledby="file-tab">
+                      <div class="upload-area" id="dropZone">
+                        <div class="upload-icon">
+                          <i class="fa fa-cloud-upload-alt"></i>
+                        </div>
+                        <h4>Drag & Drop Files Here</h4>
+                        <p class="text-muted">or</p>
+                        <input type="file" id="fileInput" class="d-none" accept=".pdf,.doc,.docx,.txt">
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                          <i class="fa fa-folder-open"></i> Browse Files
+                        </button>
+                        <p class="small text-muted mt-2">Supported formats: PDF, DOC, DOCX, TXT (Max 50MB)</p>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="text-tab">
+                      <div class="form-group">
+                        <label for="caseText">Paste Case Text</label>
+                        <textarea class="form-control" id="caseText" rows="10" placeholder="Paste the text content of the case here..."></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="caseTitle">Case Title</label>
+                        <input type="text" class="form-control" id="caseTitle" placeholder="e.g., Marbury v. Madison">
+                      </div>
+                      <div class="form-group">
+                        <label for="caseYear">Year</label>
+                        <input type="text" class="form-control" id="caseYear" placeholder="e.g., 1803">
+                      </div>
+                      <button class="btn btn-primary">
+                        <i class="fa fa-paper-plane"></i> Submit Text
+                      </button>
+                    </div>
+                    <div class="tab-pane fade" id="url" role="tabpanel" aria-labelledby="url-tab">
+                      <div class="form-group">
+                        <label for="caseUrl">Case URL</label>
+                        <input type="url" class="form-control" id="caseUrl" placeholder="https://www.law.cornell.edu/supremecourt/text/...">
+                      </div>
+                      <div class="alert alert-info">
+                        <i class="fa fa-info-circle"></i> We support content from reputable legal resources including Cornell LII, Justia, Westlaw, LexisNexis, and more.
+                      </div>
+                      <button class="btn btn-primary">
+                        <i class="fa fa-download"></i> Fetch from URL
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Processing Options -->
+              <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0"><i class="fa fa-cogs"></i> Processing Options</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Legal Category</label>
+                        <select class="form-control">
+                          <option value="">Auto-detect</option>
+                          <option>Constitutional Law</option>
+                          <option>Criminal Law</option>
+                          <option>Contracts</option>
+                          <option>Torts</option>
+                          <option>Property</option>
+                          <option>Civil Procedure</option>
+                          <option>Evidence</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Brief Format</label>
+                        <select class="form-control">
+                          <option>Standard (FIRAC)</option>
+                          <option>Extended (with Analysis)</option>
+                          <option>Concise</option>
+                          <option>Custom</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Advanced Options</label>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="extractCitations" checked>
+                      <label class="custom-control-label" for="extractCitations">Extract and link citations</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="generateQuestions" checked>
+                      <label class="custom-control-label" for="generateQuestions">Generate practice questions</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="identifyThemes" checked>
+                      <label class="custom-control-label" for="identifyThemes">Identify key legal themes</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="suggestRelated">
+                      <label class="custom-control-label" for="suggestRelated">Suggest related cases</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Upload Progress -->
+              <div class="card mb-4 d-none" id="uploadProgress">
+                <div class="card-body">
+                  <h5><i class="fa fa-spinner fa-spin"></i> Processing...</h5>
+                  <div class="progress-label d-flex justify-content-between">
+                    <span>Uploading file...</span>
+                    <span>65%</span>
+                  </div>
+                  <div class="progress mb-3">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <small class="text-muted">This may take a few minutes depending on the file size.</small>
+                    <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+              <!-- Upload History -->
+              <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0"><i class="fa fa-history"></i> Recent Uploads</h5>
+                </div>
+                <div class="card-body p-0">
+                  <div class="list-group list-group-flush">
+                    <a href="case-brief.html" class="list-group-item list-group-item-action history-item">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">Marbury v. Madison</h6>
+                        <small class="text-success">Processed</small>
+                      </div>
+                      <small class="text-muted">Uploaded 2 days ago • PDF • 453 KB</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action history-item">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">Roe v. Wade</h6>
+                        <small class="text-success">Processed</small>
+                      </div>
+                      <small class="text-muted">Uploaded 3 days ago • PDF • 621 KB</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action history-item">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">Brown v. Board of Education</h6>
+                        <small class="text-secondary">Processing</small>
+                      </div>
+                      <small class="text-muted">Uploaded today • PDF • 512 KB</small>
+                    </a>
+                  </div>
+                </div>
+                <div class="card-footer text-center">
+                  <a href="#" class="btn btn-sm btn-outline-primary">View All History</a>
+                </div>
+              </div>
+              
+              <!-- Tips -->
+              <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0"><i class="fa fa-lightbulb"></i> Tips</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="pl-3">
+                    <li class="mb-2">PDF files typically produce the most accurate results.</li>
+                    <li class="mb-2">Cases with clear section headings are easier to process.</li>
+                    <li class="mb-2">If you have a case citation, you can use the URL option to fetch directly from legal databases.</li>
+                    <li>After processing, you can edit the generated brief to add your own notes and insights.</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- Sample Brief -->
+              <div class="card case-card">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fa fa-file-alt text-primary"></i> Sample Case Brief</h5>
+                  <p class="card-text">Not sure what to expect? Check out our sample brief to see how LexiAid processes and structures legal cases.</p>
+                  <a href="case-brief.html" class="btn btn-primary btn-block">View Sample Brief</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer page-footer-default bg-gray-dark">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col text-center">
+              <p class="rights">LexiAid &copy; <span id="copyright-year">2023</span>. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      // Set current date
+      document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
+      // Set copyright year
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+      
+      // Drag and drop functionality
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('fileInput');
+      const uploadProgress = document.getElementById('uploadProgress');
+      
+      // Prevent default behavior for drag events
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+      });
+      
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      // Highlight drop area when item is dragged over it
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, highlight, false);
+      });
+      
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+      });
+      
+      function highlight() {
+        dropZone.classList.add('bg-light');
+        dropZone.style.borderColor = '#007bff';
+      }
+      
+      function unhighlight() {
+        dropZone.classList.remove('bg-light');
+        dropZone.style.borderColor = '#ccc';
+      }
+      
+      // Handle dropped files
+      dropZone.addEventListener('drop', handleDrop, false);
+      
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        handleFiles(files);
+      }
+      
+      fileInput.addEventListener('change', function() {
+        handleFiles(this.files);
+      });
+      
+      function handleFiles(files) {
+        if (files.length > 0) {
+          // This would normally upload the file to the server
+          // For demo purposes, we'll just show the progress bar
+          uploadProgress.classList.remove('d-none');
+          
+          // Simulate upload process (would be replaced with actual upload code)
+          setTimeout(() => {
+            alert('Upload complete! The case would now be processed by our NLP engine.');
+            uploadProgress.classList.add('d-none');
+          }, 3000);
+        }
+      }
+    </script>
+  </body>
+</html> 
