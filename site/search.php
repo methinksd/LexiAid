@@ -27,13 +27,45 @@ try {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
-    if (!$data || !isset($data['query'])) {
-        throw new Exception('Invalid request format');
+    // Validate input
+    if (!isset($data['query']) || empty($data['query'])) {
+        throw new Exception('Search query is required');
     }
 
-    // Sanitize the search query
+    // Sanitize the query
     $query = filter_var($data['query'], FILTER_SANITIZE_STRING);
     
+    // Optional: number of results to return
+    $topK = isset($data['top_k']) ? (int)$data['top_k'] : 5;    // Path to Python script
+    $scriptPath = dirname(__DIR__) . '/python/semantic_search.py';
+    
+    if (!file_exists($scriptPath)) {
+        throw new Exception('Semantic search script not found');
+    }
+
+    // Execute Python script using py command
+    $command = sprintf('py %s %s --top_k %s 2>&1', 
+        escapeshellarg($scriptPath),
+        escapeshellarg($query),
+        escapeshellarg($topK)
+    );
+
+    // Execute the command
+    $output = shell_exec($command);
+
+    if ($output === null) {
+        throw new Exception('Failed to execute search command');
+    }
+
+    // Try to decode the JSON output
+    $results = json_decode($output, true);
+    
+    if ($results === null) {
+        // Log the raw output for debugging
+        error_log("Python script output: " . $output);
+        throw new Exception('Invalid response from search engine');
+    }
+
     // Log the search query (optional)
     $logFile = __DIR__ . '/logs/search.log';
     if (!file_exists(dirname($logFile))) {
@@ -42,45 +74,16 @@ try {
     $logEntry = date('Y-m-d H:i:s') . " | Query: " . $query . "\n";
     file_put_contents($logFile, $logEntry, FILE_APPEND);
 
-    // Generate dummy search results
-    $dummyResults = [
-        [
-            'title' => 'Marbury v. Madison',
-            'summary' => 'Landmark case establishing judicial review. The Supreme Court asserted its power to review acts of Congress and determine their constitutionality.',
-            'matched_keywords' => ['judicial review', 'constitution', 'Supreme Court'],
-            'tags' => ['Constitutional Law', 'Judicial Power', 'Historical'],
-            'relevance_score' => 0.95
-        ],
-        [
-            'title' => 'Brown v. Board of Education',
-            'summary' => 'Supreme Court case that declared state laws establishing separate public schools for black and white students unconstitutional.',
-            'matched_keywords' => ['education', 'equal protection', 'segregation'],
-            'tags' => ['Civil Rights', 'Constitutional Law', 'Education'],
-            'relevance_score' => 0.87
-        ],
-        [
-            'title' => 'Miranda v. Arizona',
-            'summary' => 'Established that police must inform suspects of their rights before custodial interrogation.',
-            'matched_keywords' => ['rights', 'criminal procedure', 'police'],
-            'tags' => ['Criminal Law', 'Constitutional Law', 'Police Procedure'],
-            'relevance_score' => 0.82
-        ]
-    ];
-
-    // Prepare response
-    $response = [
+    // Return the search results
+    echo json_encode([
         'status' => 'success',
+        'results' => $results['results'] ?? [],
         'query' => $query,
-        'timestamp' => date('c'),
-        'results' => $dummyResults
-    ];
-
-    // Send response
-    http_response_code(200);
-    echo json_encode($response);
+        'timestamp' => date('c')
+    ]);
 
 } catch (Exception $e) {
-    http_response_code(400);
+    http_response_code(500);
     echo json_encode([
         'status' => 'error',
         'message' => $e->getMessage()

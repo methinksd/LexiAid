@@ -1,0 +1,44 @@
+{
+    "documents": [
+        {
+            "id": 1,
+            "title": "Miranda v. Arizona",
+            "content": "The Supreme Court held that the prosecution may not use statements arising from custodial interrogation of the defendant unless it demonstrates the use of procedural safeguards effective to secure the privilege against self-incrimination. The Court specified that before any custodial questioning, the person must be warned that they have the right to remain silent, that any statement they make may be used as evidence against them, and that they have the right to the presence of an attorney.",
+            "summary": "Established that police must inform suspects of their rights before custodial interrogation.",
+            "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"],
+            "year": 1966
+        },
+        {
+            "id": 2,
+            "title": "Gideon v. Wainwright",
+            "content": "The Supreme Court unanimously ruled that states are required under the Sixth Amendment to provide an attorney to defendants in criminal cases who are unable to afford their own attorneys. The case extended the right to counsel to indigent defendants in state courts, dramatically improving the quality of justice in the United States.",
+            "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.",
+            "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"],
+            "year": 1963
+        },
+        {
+            "id": 3,
+            "title": "Brown v. Board of Education",
+            "content": "The Supreme Court unanimously held that separate educational facilities are inherently unequal, effectively overturning Plessy v. Ferguson and the separate but equal doctrine. The Court found that segregation of children in public schools solely on the basis of race deprives children of the minority group of equal educational opportunities.",
+            "summary": "Ruled that racial segregation in public schools is unconstitutional.",
+            "tags": ["Civil Rights", "Constitutional Law", "Education Law"],
+            "year": 1954
+        },
+        {
+            "id": 4,
+            "title": "Mapp v. Ohio",
+            "content": "The Supreme Court ruled that evidence obtained in violation of the Fourth Amendment protection against unreasonable searches and seizures may not be used in state law criminal prosecutions in state courts, as well as federal criminal law prosecutions in federal courts. This doctrine is known as the exclusionary rule.",
+            "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.",
+            "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"],
+            "year": 1961
+        },
+        {
+            "id": 5,
+            "title": "Terry v. Ohio",
+            "content": "The Supreme Court held that the Fourth Amendment prohibition on unreasonable searches and seizures is not violated when a police officer stops a suspect on the street and frisks them without probable cause to arrest, if the police officer has a reasonable suspicion that the person has committed, is committing, or is about to commit a crime and has a reasonable belief that the person may be armed and presently dangerous.",
+            "summary": "Established the standard for stop and frisk procedures by police.",
+            "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"],
+            "year": 1968
+        }
+    ]
+}

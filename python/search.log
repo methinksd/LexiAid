@@ -1,0 +1,3 @@
+2025-06-12 20:49:53,147 - INFO - Use pytorch device_name: cpu
+2025-06-12 20:49:53,148 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-12 20:50:00,730 - INFO - Loaded 5 documents and computed embeddings
