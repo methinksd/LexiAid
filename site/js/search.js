@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span class="badge badge-light">${formatScore(result.similarity_score)}</span>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">${result.summary}</p>
-                        ${result.tags ? `
-                            <div class="mt-3">
-                                ${result.tags.map(tag => `<span class="badge badge-secondary mr-1">${tag}</span>`).join('')}
-                            </div>
-                        ` : ''}
+                        <p class="card-text"><strong>Summary:</strong> ${result.summary}</p>
+                        <ul class="list-unstyled mb-2">
+                            <li><strong>Year:</strong> ${result.year || 'N/A'}</li>
+                            <li><strong>Tags:</strong> ${result.tags && result.tags.length ? result.tags.map(tag => `<span class='badge badge-secondary mr-1'>${tag}</span>`).join('') : 'None'}</li>
+                        </ul>
+                        ${result.citation ? `<div><strong>Citation:</strong> ${result.citation}</div>` : ''}
                     </div>
                     <div class="card-footer bg-light">
                         ${result.jurisdiction ? `<small class="text-muted">Jurisdiction: ${result.jurisdiction}</small><br>` : ''}
@@ -47,18 +47,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const resultsHTML = results.length > 0 
             ? results.map(createResultCard).join('')
             : '<div class="col-12"><div class="alert alert-info">No results found. Try adjusting your search terms.</div></div>';
-        
         document.querySelector('#search-results-container .row').innerHTML = resultsHTML;
     }
 
     // Function to perform the search
     async function performSearch() {
         const query = searchInput.value.trim();
-        if (!query) return;
-
+        if (!query) {
+            document.querySelector('#search-results-container .row').innerHTML = `<div class='col-12'><div class='alert alert-warning'>Please enter a search query.</div></div>`;
+            return;
+        }
         // Show loading state
         searchButton.disabled = true;
         searchButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Searching...';
+        document.querySelector('#search-results-container .row').innerHTML = `<div class='col-12'><div class='alert alert-info'><span class='spinner-border spinner-border-sm mr-2'></span>Searching for relevant cases...</div></div>`;
         
         try {
             const response = await fetch('search.php', {
@@ -91,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('#search-results-container .row').innerHTML = `
                 <div class="col-12">
                     <div class="alert alert-danger">
-                        An error occurred while searching. Please try again later.
+                        An error occurred while searching. Please try again later.<br>
+                        <small>${error.message || error}</small>
                     </div>
                 </div>
             `;

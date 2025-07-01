@@ -108,8 +108,8 @@
                     <i class="fa fa-clock text-primary" style="font-size: 2rem;"></i>
                   </div>
                   <h5 class="card-title">Total Study Time</h5>
-                  <h2 class="text-primary mb-0">32.5</h2>
-                  <p class="text-muted">Hours This Week</p>
+                  <h2 class="text-primary mb-0" id="total-study-time">0</h2>
+                  <p class="text-muted" id="total-study-time-label">Hours This Week</p>
                 </div>
               </div>
             </div>
@@ -120,8 +120,8 @@
                     <i class="fa fa-book text-primary" style="font-size: 2rem;"></i>
                   </div>
                   <h5 class="card-title">Cases Reviewed</h5>
-                  <h2 class="text-primary mb-0">14</h2>
-                  <p class="text-muted">This Week</p>
+                  <h2 class="text-primary mb-0" id="cases-reviewed">0</h2>
+                  <p class="text-muted" id="cases-reviewed-label">This Week</p>
                 </div>
               </div>
             </div>
@@ -132,8 +132,8 @@
                     <i class="fa fa-check-circle text-primary" style="font-size: 2rem;"></i>
                   </div>
                   <h5 class="card-title">Tasks Completed</h5>
-                  <h2 class="text-primary mb-0">8</h2>
-                  <p class="text-muted">Of 20 Assigned</p>
+                  <h2 class="text-primary mb-0" id="tasks-completed">0</h2>
+                  <p class="text-muted" id="tasks-completed-label">Of 0 Assigned</p>
                 </div>
               </div>
             </div>
@@ -144,8 +144,8 @@
                     <i class="fa fa-graduation-cap text-primary" style="font-size: 2rem;"></i>
                   </div>
                   <h5 class="card-title">Quiz Average</h5>
-                  <h2 class="text-primary mb-0">84%</h2>
-                  <p class="text-muted">Across All Subjects</p>
+                  <h2 class="text-primary mb-0" id="quiz-average">0%</h2>
+                  <p class="text-muted" id="quiz-average-label">Across All Subjects</p>
                 </div>
               </div>
             </div>
@@ -210,40 +210,14 @@
                   <div class="row">
                     <div class="col-md-6">
                       <h5 class="border-bottom pb-2">Weak Areas Identified</h5>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                          Torts: Strict Liability
-                          <span class="badge badge-danger badge-pill">65%</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                          Criminal Law: Inchoate Crimes
-                          <span class="badge badge-warning badge-pill">72%</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                          Property: Adverse Possession
-                          <span class="badge badge-warning badge-pill">73%</span>
-                        </li>
+                      <ul class="list-group list-group-flush" id="weak-areas-list">
+                        <!-- Dynamic weak areas -->
                       </ul>
                     </div>
                     <div class="col-md-6">
                       <h5 class="border-bottom pb-2">Recommendations</h5>
-                      <div class="card mb-2 bg-light">
-                        <div class="card-body py-2">
-                          <p class="mb-1"><strong>Focus on Torts:</strong> Schedule at least 3 hours this week for reviewing strict liability principles.</p>
-                          <a href="#" class="btn btn-sm btn-outline-primary">Add to Tasks</a>
-                        </div>
-                      </div>
-                      <div class="card mb-2 bg-light">
-                        <div class="card-body py-2">
-                          <p class="mb-1"><strong>Criminal Law:</strong> Review the difference between attempt, conspiracy, and solicitation.</p>
-                          <a href="#" class="btn btn-sm btn-outline-primary">Add to Tasks</a>
-                        </div>
-                      </div>
-                      <div class="card mb-2 bg-light">
-                        <div class="card-body py-2">
-                          <p class="mb-1"><strong>Study Group:</strong> Consider joining the Property Law study group on Wednesdays.</p>
-                          <a href="#" class="btn btn-sm btn-outline-primary">View Group</a>
-                        </div>
+                      <div id="recommendations-list">
+                        <!-- Dynamic recommendations -->
                       </div>
                     </div>
                   </div>
@@ -307,23 +281,8 @@
                     </div>
                     <div class="col-lg-4">
                       <h6 class="border-bottom pb-2">Most Used Resources</h6>
-                      <div class="list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                          Constitutional Law Casebook
-                          <span class="badge badge-primary badge-pill">12 hrs</span>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                          Torts Practice Questions
-                          <span class="badge badge-primary badge-pill">8 hrs</span>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                          Criminal Law Study Guide
-                          <span class="badge badge-primary badge-pill">6 hrs</span>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                          Property Supplements
-                          <span class="badge badge-primary badge-pill">5 hrs</span>
-                        </a>
+                      <div class="list-group list-group-flush" id="resource-list">
+                        <!-- Dynamic resources -->
                       </div>
                       <div class="alert alert-warning mt-3 mb-0">
                         <strong>Suggestion:</strong> Try to diversify your study resources for Contracts Law.
@@ -370,277 +329,199 @@
         month: 'long', 
         day: 'numeric' 
       });
-      
       // Set copyright year
       document.getElementById('copyright-year').textContent = new Date().getFullYear();
-      
-      // Study Time Distribution Chart
-      const studyTimeCtx = document.getElementById('studyTimeChart').getContext('2d');
-      const studyTimeChart = new Chart(studyTimeCtx, {
-        type: 'bar',
-        data: {
-          labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-          datasets: [{
-            label: 'Hours Studied',
-            data: [4.5, 6.2, 3.8, 5.5, 4.0, 5.5, 3.0],
-            backgroundColor: 'rgba(54, 162, 235, 0.7)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Hours'
-              }
-            }
-          }
-        }
-      });
-      
-      // Subject Pie Chart
-      const subjectPieCtx = document.getElementById('subjectPieChart').getContext('2d');
-      const subjectPieChart = new Chart(subjectPieCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Constitutional', 'Criminal', 'Contracts', 'Torts', 'Property'],
-          datasets: [{
-            data: [8.5, 6.3, 4.2, 7.8, 5.7],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.7)',
-              'rgba(255, 99, 132, 0.7)',
-              'rgba(255, 206, 86, 0.7)',
-              'rgba(75, 192, 192, 0.7)',
-              'rgba(153, 102, 255, 0.7)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'right'
-            }
-          }
-        }
-      });
-      
-      // Quiz Performance Chart
-      const quizPerformanceCtx = document.getElementById('quizPerformanceChart').getContext('2d');
-      const quizPerformanceChart = new Chart(quizPerformanceCtx, {
-        type: 'line',
-        data: {
-          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-          datasets: [{
-            label: 'Constitutional',
-            data: [75, 82, 79, 85, 88, 92],
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.1)',
-            tension: 0.3,
-            fill: true
-          }, {
-            label: 'Criminal',
-            data: [68, 75, 82, 80, 84, 78],
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.1)',
-            tension: 0.3,
-            fill: true
-          }, {
-            label: 'Torts',
-            data: [60, 65, 68, 72, 70, 75],
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.1)',
-            tension: 0.3,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              min: 50,
-              max: 100,
-              title: {
-                display: true,
-                text: 'Score (%)'
-              }
-            }
-          }
-        }
-      });
-      
-      // Topic Performance Chart
-      const topicPerformanceCtx = document.getElementById('topicPerformanceChart').getContext('2d');
-      const topicPerformanceChart = new Chart(topicPerformanceCtx, {
-        type: 'radar',
-        data: {
-          labels: [
-            'Judicial Review',
-            'Due Process',
-            'Contract Formation',
-            'Negligence',
-            'Strict Liability',
-            'Criminal Intent',
-            'Property Rights'
-          ],
-          datasets: [{
-            label: 'Your Performance',
-            data: [85, 82, 88, 75, 65, 72, 78],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(54, 162, 235, 1)'
-          }, {
-            label: 'Class Average',
-            data: [78, 76, 80, 72, 70, 75, 74],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            r: {
-              angleLines: {
-                display: true
-              },
-              suggestedMin: 50,
-              suggestedMax: 100
-            }
-          }
-        }
-      });
-      
-      // Productivity Chart
-      const productivityCtx = document.getElementById('productivityChart').getContext('2d');
-      const productivityChart = new Chart(productivityCtx, {
-        type: 'line',
-        data: {
-          labels: ['6-8 AM', '8-11 AM', '11-2 PM', '2-5 PM', '5-8 PM', '8-11 PM', 'After 11 PM'],
-          datasets: [{
-            label: 'Productivity Score',
-            data: [72, 95, 83, 78, 88, 75, 62],
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            pointRadius: 5,
-            pointHoverRadius: 7,
-            tension: 0.4,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              min: 50,
-              max: 100,
-              title: {
-                display: true,
-                text: 'Productivity Score'
-              }
-            }
-          }
-        }
-      });
-      
-      // Consistency Chart
-      const consistencyCtx = document.getElementById('consistencyChart').getContext('2d');
-      const consistencyChart = new Chart(consistencyCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Consistent', 'Inconsistent'],
-          datasets: [{
-            data: [85, 15],
-            backgroundColor: [
-              'rgba(40, 167, 69, 0.7)',
-              'rgba(220, 53, 69, 0.7)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: false
-            }
+
+      // --- Chart.js chart instances (will be updated dynamically) ---
+      let studyTimeChart, subjectPieChart, quizPerformanceChart, topicPerformanceChart, productivityChart, consistencyChart, resourceUtilizationChart;
+
+      // --- Chart config templates ---
+      function getChartConfigs(data) {
+        return {
+          studyTime: {
+            type: 'bar',
+            data: {
+              labels: data.studyTime.labels,
+              datasets: [{
+                label: 'Hours Studied',
+                data: data.studyTime.values,
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: { responsive: true, scales: { y: { beginAtZero: true, title: { display: true, text: 'Hours' } } } }
           },
-          cutout: '70%'
-        }
-      });
-      
-      // Resource Utilization Chart
-      const resourceUtilizationCtx = document.getElementById('resourceUtilizationChart').getContext('2d');
-      const resourceUtilizationChart = new Chart(resourceUtilizationCtx, {
-        type: 'bar',
-        data: {
-          labels: ['Casebooks', 'Practice Questions', 'Study Guides', 'Lecture Notes', 'Supplements', 'Online Resources'],
-          datasets: [{
-            label: 'Hours Spent',
-            data: [16, 12, 8, 6, 7, 5],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.7)',
-              'rgba(255, 99, 132, 0.7)',
-              'rgba(255, 206, 86, 0.7)',
-              'rgba(75, 192, 192, 0.7)',
-              'rgba(153, 102, 255, 0.7)',
-              'rgba(255, 159, 64, 0.7)'
-            ],
-            borderColor: [
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 99, 132, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Hours'
-              }
-            }
+          subjectPie: {
+            type: 'doughnut',
+            data: {
+              labels: data.subjectPie.labels,
+              datasets: [{
+                data: data.subjectPie.values,
+                backgroundColor: [
+                  'rgba(54, 162, 235, 0.7)',
+                  'rgba(255, 99, 132, 0.7)',
+                  'rgba(255, 206, 86, 0.7)',
+                  'rgba(75, 192, 192, 0.7)',
+                  'rgba(153, 102, 255, 0.7)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'right' } } }
+          },
+          quizPerformance: {
+            type: 'line',
+            data: {
+              labels: data.quizPerformance.labels,
+              datasets: data.quizPerformance.datasets
+            },
+            options: { responsive: true, scales: { y: { min: 0, max: 100, title: { display: true, text: 'Score (%)' } } } }
+          },
+          topicPerformance: {
+            type: 'radar',
+            data: {
+              labels: data.topicPerformance.labels,
+              datasets: data.topicPerformance.datasets
+            },
+            options: { responsive: true, scales: { r: { angleLines: { display: true }, suggestedMin: 0, suggestedMax: 100 } } }
+          },
+          productivity: {
+            type: 'line',
+            data: {
+              labels: data.productivity.labels,
+              datasets: [{
+                label: 'Productivity Score',
+                data: data.productivity.values,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                tension: 0.4,
+                fill: true
+              }]
+            },
+            options: { responsive: true, scales: { y: { min: 0, max: 100, title: { display: true, text: 'Productivity Score' } } } }
+          },
+          consistency: {
+            type: 'doughnut',
+            data: {
+              labels: ['Consistent', 'Inconsistent'],
+              datasets: [{
+                data: data.consistency.values,
+                backgroundColor: [
+                  'rgba(40, 167, 69, 0.7)',
+                  'rgba(220, 53, 69, 0.7)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } }, cutout: '70%' }
+          },
+          resourceUtilization: {
+            type: 'bar',
+            data: {
+              labels: data.resourceUtilization.labels,
+              datasets: [{
+                label: 'Hours Spent',
+                data: data.resourceUtilization.values,
+                backgroundColor: [
+                  'rgba(54, 162, 235, 0.7)',
+                  'rgba(255, 99, 132, 0.7)',
+                  'rgba(255, 206, 86, 0.7)',
+                  'rgba(75, 192, 192, 0.7)',
+                  'rgba(153, 102, 255, 0.7)',
+                  'rgba(255, 159, 64, 0.7)'
+                ],
+                borderColor: [
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: { responsive: true, scales: { y: { beginAtZero: true, title: { display: true, text: 'Hours' } } } }
           }
-        }
-      });
-      
-      // Period selector functionality
-      document.querySelectorAll('[data-period]').forEach(button => {
-        button.addEventListener('click', function() {
-          // Remove active class from all buttons
-          document.querySelectorAll('[data-period]').forEach(btn => {
-            btn.classList.remove('active');
+        };
+      }
+
+      // --- Fetch analytics data and update charts ---
+      async function loadInsights(period = 'weekly') {
+        try {
+          // Fetch analytics data from backend
+          const response = await fetch(`insights.php?period=${period}`);
+          const data = await response.json();
+
+          // Get chart configs
+          const configs = getChartConfigs(data);
+
+          // Destroy old charts if they exist
+          [studyTimeChart, subjectPieChart, quizPerformanceChart, topicPerformanceChart, productivityChart, consistencyChart, resourceUtilizationChart].forEach(chart => {
+            if (chart) chart.destroy();
           });
-          
-          // Add active class to clicked button
+
+          // Create new charts
+          studyTimeChart = new Chart(document.getElementById('studyTimeChart').getContext('2d'), configs.studyTime);
+          subjectPieChart = new Chart(document.getElementById('subjectPieChart').getContext('2d'), configs.subjectPie);
+          quizPerformanceChart = new Chart(document.getElementById('quizPerformanceChart').getContext('2d'), configs.quizPerformance);
+          topicPerformanceChart = new Chart(document.getElementById('topicPerformanceChart').getContext('2d'), configs.topicPerformance);
+          productivityChart = new Chart(document.getElementById('productivityChart').getContext('2d'), configs.productivity);
+          consistencyChart = new Chart(document.getElementById('consistencyChart').getContext('2d'), configs.consistency);
+          resourceUtilizationChart = new Chart(document.getElementById('resourceUtilizationChart').getContext('2d'), configs.resourceUtilization);
+
+          // --- Update summary cards ---
+          document.getElementById('total-study-time').textContent = data.summary.totalStudyTime;
+          document.getElementById('total-study-time-label').textContent = `Hours ${capitalize(period)}`;
+          document.getElementById('cases-reviewed').textContent = data.summary.casesReviewed;
+          document.getElementById('cases-reviewed-label').textContent = `${capitalize(period)}`;
+          document.getElementById('tasks-completed').textContent = data.summary.tasksCompleted;
+          document.getElementById('tasks-completed-label').textContent = `Of ${data.summary.tasksAssigned} Assigned`;
+          document.getElementById('quiz-average').textContent = data.summary.quizAverage + '%';
+          document.getElementById('quiz-average-label').textContent = 'Across All Subjects';
+
+          // --- Update weak areas ---
+          const weakList = document.getElementById('weak-areas-list');
+          weakList.innerHTML = '';
+          data.weakAreas.forEach(area => {
+            const badgeClass = area.score < 70 ? 'badge-danger' : 'badge-warning';
+            weakList.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">${area.topic}<span class="badge ${badgeClass} badge-pill">${area.score}%</span></li>`;
+          });
+
+          // --- Update recommendations ---
+          const recList = document.getElementById('recommendations-list');
+          recList.innerHTML = '';
+          data.recommendations.forEach(rec => {
+            recList.innerHTML += `<div class="card mb-2 bg-light"><div class="card-body py-2"><p class="mb-1"><strong>${rec.title}:</strong> ${rec.text}</p>${rec.action ? `<a href="#" class="btn btn-sm btn-outline-primary">${rec.action}</a>` : ''}</div></div>`;
+          });
+
+          // --- Update most used resources ---
+          const resList = document.getElementById('resource-list');
+          resList.innerHTML = '';
+          data.resources.forEach(res => {
+            resList.innerHTML += `<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">${res.name}<span class="badge badge-primary badge-pill">${res.hours} hrs</span></a>`;
+          });
+        } catch (err) {
+          // Fallback: show demo data if fetch fails
+          console.error('Failed to load insights:', err);
+        }
+      }
+      function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+      // --- Period button event listeners ---
+      document.querySelectorAll('.btn-group [data-period]').forEach(btn => {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.btn-group [data-period]').forEach(b => b.classList.remove('active'));
           this.classList.add('active');
-          
-          // In a real application, this would update the data period
-          const period = this.getAttribute('data-period');
-          console.log(`Switching to ${period} view`);
-          
-          // For demonstration, we'll just show a message
-          alert(`Switching to ${period} view - this would update all charts in a real application`);
+          loadInsights(this.getAttribute('data-period'));
         });
       });
+
+      // --- Initial load ---
+      loadInsights();
     </script>
   </body>
-</html> 
+</html>

@@ -1,3 +1,18 @@
 2025-06-12 20:49:53,147 - INFO - Use pytorch device_name: cpu
 2025-06-12 20:49:53,148 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
 2025-06-12 20:50:00,730 - INFO - Loaded 5 documents and computed embeddings
+2025-06-24 16:41:23,410 - INFO - Use pytorch device_name: cpu
+2025-06-24 16:41:23,410 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-24 16:41:30,223 - INFO - Loaded 5 documents and computed embeddings
+2025-06-24 16:52:33,445 - INFO - Use pytorch device_name: cpu
+2025-06-24 16:52:33,446 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-24 16:52:38,355 - INFO - Loaded 5 documents and computed embeddings
+2025-07-01 18:08:40,935 - INFO - Use pytorch device_name: cpu
+2025-07-01 18:08:40,938 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-01 18:08:48,202 - INFO - Loaded 5 documents and computed embeddings
+2025-07-01 18:09:02,586 - INFO - Use pytorch device_name: cpu
+2025-07-01 18:09:02,587 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-01 18:09:08,493 - INFO - Loaded 5 documents and computed embeddings
+2025-07-01 18:12:35,419 - INFO - Use pytorch device_name: cpu
+2025-07-01 18:12:35,420 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-01 18:12:41,982 - INFO - Loaded 5 documents and computed embeddings
