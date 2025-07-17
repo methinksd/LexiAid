@@ -1,7 +1,29 @@
 <?php
 /**
  * LexiAid Server Environment Diagnostic
+ * Protected diagnostic page with authentication
  */
+
+// Authentication check
+if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
+    header('WWW-Authenticate: Basic realm="LexiAid Diagnostics"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Access denied. Authentication required.';
+    exit;
+}
+
+// Load environment variables for credentials
+require_once __DIR__ . '/config/database.php';
+
+$validUsername = getenv('ADMIN_USER') ?: 'admin';
+$validPassword = getenv('ADMIN_PASS') ?: 'secure123';
+
+if ($_SERVER['PHP_AUTH_USER'] !== $validUsername || $_SERVER['PHP_AUTH_PW'] !== $validPassword) {
+    header('WWW-Authenticate: Basic realm="LexiAid Diagnostics"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Access denied. Invalid credentials.';
+    exit;
+}
 
 // Start output buffering
 ob_start();
@@ -44,7 +66,11 @@ echo "</ul>\n";
 
 echo "<h2>Database Connection Test</h2>\n";
 try {
-    $conn = new mysqli('localhost', 'root', 'Chegengangav2.1');
+    $dbHost = DB_HOST;
+    $dbUser = DB_USER;
+    $dbPass = DB_PASS;
+    
+    $conn = new mysqli($dbHost, $dbUser, $dbPass);
     if ($conn->connect_error) {
         echo "<p>❌ <strong>Connection Failed:</strong> " . $conn->connect_error . "</p>\n";
     } else {

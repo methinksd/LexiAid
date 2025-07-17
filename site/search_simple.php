@@ -6,9 +6,11 @@
 // Start output buffering
 ob_start();
 
-// Enable error reporting
+// Error reporting configuration
+$isProduction = (getenv('APP_ENV') === 'production');
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', $isProduction ? 0 : 1);
+ini_set('log_errors', 1);
 
 // Configure headers
 header("Access-Control-Allow-Origin: *");
@@ -41,7 +43,7 @@ try {
     }
 
     // Sanitize the query
-    $query = filter_var($data['query'], FILTER_SANITIZE_STRING);
+    $query = htmlspecialchars(strip_tags($data['query']), ENT_QUOTES, 'UTF-8');
     $topK = isset($data['top_k']) ? (int)$data['top_k'] : 5;
 
     // Sample legal documents for testing

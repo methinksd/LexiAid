@@ -83,11 +83,14 @@ try {
                 throw new Exception('Invalid request data - title and category are required');
             }
 
+            // Generate predictable task ID for testing
+            $taskId = 1000000 + (int)(microtime(true) * 1000) % 900000; // Timestamp-based ID
+
             ob_clean();
             echo json_encode([
                 'status' => 'success',
                 'message' => 'Task created successfully',
-                'task_id' => rand(100, 999),
+                'task_id' => $taskId,
                 'timestamp' => date('c')
             ], JSON_PRETTY_PRINT);
             break;

@@ -227,25 +227,50 @@ class LegalSearchEngine:
 
 def main():
     """Main function for command-line usage."""
-    parser = argparse.ArgumentParser(description='Legal document semantic search')
-    parser.add_argument('query', help='The search query')
-    parser.add_argument('--top_k', type=int, default=5, help='Number of results to return')
-    parser.add_argument('--min_score', type=float, default=0.1, help='Minimum similarity score threshold')
-    
-    args = parser.parse_args()
-    
     try:
+        # Check if input is available on stdin (for proc_open usage)
+        if not sys.stdin.isatty():
+            # Read from stdin for proc_open usage
+            stdin_data = sys.stdin.read().strip()
+            if stdin_data:
+                try:
+                    input_data = json.loads(stdin_data)
+                    query = input_data.get('query', '')
+                    top_k = input_data.get('top_k', 5)
+                    min_score = input_data.get('min_score', 0.1)
+                except json.JSONDecodeError:
+                    # Fallback: treat stdin as plain query
+                    query = stdin_data
+                    top_k = 5
+                    min_score = 0.1
+            else:
+                raise ValueError("No input provided via stdin")
+        else:
+            # Use command line arguments
+            parser = argparse.ArgumentParser(description='Legal document semantic search')
+            parser.add_argument('query', help='The search query')
+            parser.add_argument('--top_k', type=int, default=5, help='Number of results to return')
+            parser.add_argument('--min_score', type=float, default=0.1, help='Minimum similarity score threshold')
+            
+            args = parser.parse_args()
+            query = args.query
+            top_k = args.top_k
+            min_score = args.min_score
+        
+        if not query:
+            raise ValueError("Query cannot be empty")
+            
         # Initialize search engine
         search_engine = LegalSearchEngine()
         
         # Perform search
-        results = search_engine.search(args.query, args.top_k, args.min_score)
+        results = search_engine.search(query, top_k, min_score)
         
         # Prepare response
         response = {
             'status': 'success',
             'results': results,
-            'query': args.query,
+            'query': query,
             'count': len(results),
             'search_method': 'semantic' if search_engine.model else 'keyword'
         }
@@ -259,7 +284,7 @@ def main():
         error_response = {
             'status': 'error',
             'message': str(e),
-            'query': getattr(args, 'query', 'unknown')
+            'query': locals().get('query', 'unknown')
         }
         print(json.dumps(error_response, ensure_ascii=False), file=sys.stderr)
         return 1

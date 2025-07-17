@@ -1,18 +1,94 @@
 <?php
 /**
  * Database connection configuration for LexiAid
- * Updated with better error handling and debugging
+ * Updated with better error handling and security
  */
 
-// Database connection configuration
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');     // Change this to your MySQL username
-define('DB_PASS', 'Chegengangav2.1');         // Change this to your MySQL password
-define('DB_NAME', 'lexiaid_db');  // Change this to your database name
+// Load environment variables
+function loadEnvFile($filepath) {
+    if (!file_exists($filepath)) {
+        return;
+    }
+    
+    $lines = file($filepath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($lines === false) {
+        throw new Exception("Failed to read environment file: $filepath");
+    }
+    
+    foreach ($lines as $lineNumber => $line) {
+        $line = trim($line);
+        
+        // Skip empty lines and comments
+        if (empty($line) || strpos($line, '#') === 0) {
+            continue;
+        }
+        
+        // Check if line contains '=' before splitting
+        if (strpos($line, '=') === false) {
+            error_log("Warning: Invalid environment line at $filepath:$lineNumber - missing '=' character");
+            continue;
+        }
+        
+        list($name, $value) = explode('=', $line, 2);
+        $name = trim($name);
+        $value = trim($value);
+        
+        // Validate environment variable name
+        if (!preg_match('/^[A-Z_][A-Z0-9_]*$/i', $name)) {
+            error_log("Warning: Invalid environment variable name '$name' at $filepath:$lineNumber");
+            continue;
+        }
+        
+        // Handle quoted values - remove surrounding quotes
+        if ((substr($value, 0, 1) === '"' && substr($value, -1) === '"') ||
+            (substr($value, 0, 1) === "'" && substr($value, -1) === "'")) {
+            $value = substr($value, 1, -1);
+        }
+        
+        // Only set if not already present in environment
+        if (!array_key_exists($name, $_SERVER) && !array_key_exists($name, $_ENV)) {
+            putenv(sprintf('%s=%s', $name, $value));
+            $_ENV[$name] = $value;
+            $_SERVER[$name] = $value;
+        }
+    }
+}
 
-// Enable error reporting for debugging
+// Validate required environment variables
+function validateRequiredEnvVars($required) {
+    $missing = [];
+    foreach ($required as $var) {
+        $value = getenv($var);
+        if ($value === false || $value === '') {
+            $missing[] = $var;
+        }
+    }
+    
+    if (!empty($missing)) {
+        throw new Exception(
+            'Missing required environment variables: ' . implode(', ', $missing) . 
+            '. Please configure these in your .env file or environment.'
+        );
+    }
+}
+
+// Load environment configuration
+loadEnvFile(__DIR__ . '/.env');
+
+// Validate required database environment variables
+$requiredVars = ['DB_HOST', 'DB_USER', 'DB_PASS', 'DB_NAME'];
+validateRequiredEnvVars($requiredVars);
+
+// Database connection configuration - no fallbacks for security
+define('DB_HOST', getenv('DB_HOST'));
+define('DB_USER', getenv('DB_USER'));
+define('DB_PASS', getenv('DB_PASS'));
+define('DB_NAME', getenv('DB_NAME'));
+
+// Error reporting configuration based on environment
+$isProduction = (getenv('APP_ENV') === 'production');
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', $isProduction ? 0 : 1);
 ini_set('log_errors', 1);
 
 // Create a database connection

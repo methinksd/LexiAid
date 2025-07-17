@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // Log requests for debugging
 $logFile = __DIR__ . '/logs/quizzes.log';
 if (!file_exists(dirname($logFile))) {
-    mkdir(dirname($logFile), 0777, true);
+    mkdir(dirname($logFile), 0755, true);
 }
 $logEntry = date('Y-m-d H:i:s') . " | " . $_SERVER['REQUEST_METHOD'] . " | " . $_SERVER['REQUEST_URI'] . "\n";
 file_put_contents($logFile, $logEntry, FILE_APPEND);

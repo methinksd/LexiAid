@@ -32,11 +32,14 @@ try {
         throw new Exception("MySQLi extension is not loaded");
     }
 
-    // Database connection parameters
-    $dbHost = 'localhost';
-    $dbUser = 'root';
-    $dbPass = 'Chegengangav2.1';
-    $dbName = 'lexiaid_db';
+    // Load database configuration securely
+    require_once __DIR__ . '/config/database.php';
+    
+    // Database connection parameters from configuration
+    $dbHost = DB_HOST;
+    $dbUser = DB_USER;
+    $dbPass = DB_PASS;
+    $dbName = DB_NAME;
 
     // Test basic connection without database selection
     $conn = new mysqli($dbHost, $dbUser, $dbPass);

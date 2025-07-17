@@ -186,8 +186,6 @@ pip install -r python/requirements.txt
 
 ## 🗄️ Database Configuration
 
-## 🗄️ Database Configuration
-
 ### Step 1: Create Database
 #### Using phpMyAdmin (All Platforms):
 1. Open phpMyAdmin:

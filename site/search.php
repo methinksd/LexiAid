@@ -126,21 +126,47 @@ function performPythonSearch($query, $topK = 5) {
             }
         }
         
-        // Build command
-        $command = sprintf('%s %s %s --top_k %d 2>&1', 
-            escapeshellarg($pythonPath),
-            escapeshellarg($scriptPath),
-            escapeshellarg($query),
-            intval($topK)
-        );
+        // Prepare command arguments safely
+        $cmd = $pythonPath;
+        $args = [$scriptPath, $query, '--top_k', strval($topK)];
 
         // Log the command for debugging
-        $logEntry = date('Y-m-d H:i:s') . " | Executing Python Command: " . $command . "\n";
+        $logEntry = date('Y-m-d H:i:s') . " | Executing Python Command: " . $cmd . " " . implode(" ", array_map('escapeshellarg', $args)) . "\n";
         file_put_contents($logFile, $logEntry, FILE_APPEND);
 
-        // Execute the command
-        $output = shell_exec($command);
+        // Use proc_open for safer execution
+        $descriptorSpec = [
+            0 => ["pipe", "r"],  // stdin
+            1 => ["pipe", "w"],  // stdout
+            2 => ["pipe", "w"]   // stderr
+        ];
+
+        $process = proc_open($cmd, $descriptorSpec, $pipes, null, null);
         
+        if (!is_resource($process)) {
+            throw new Exception('Failed to start Python process');
+        }
+
+        // Write arguments to stdin (safer than command line for user input)
+        fwrite($pipes[0], json_encode(['query' => $query, 'top_k' => $topK]));
+        fclose($pipes[0]);
+
+        // Read output and error streams
+        $output = stream_get_contents($pipes[1]);
+        $errorOutput = stream_get_contents($pipes[2]);
+        
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        // Close the process
+        $returnCode = proc_close($process);
+        
+        if ($returnCode !== 0) {
+            $logEntry = date('Y-m-d H:i:s') . " | Python process failed with code: " . $returnCode . " | Error: " . $errorOutput . "\n";
+            file_put_contents($logFile, $logEntry, FILE_APPEND);
+            throw new Exception('Python script execution failed');
+        }
+
         // Log the output for debugging
         $logEntry = date('Y-m-d H:i:s') . " | Python Output: " . ($output ?: 'No output') . "\n";
         file_put_contents($logFile, $logEntry, FILE_APPEND);
@@ -257,7 +283,7 @@ try {
     }
 
     // Sanitize the query
-    $query = filter_var($data['query'], FILTER_SANITIZE_STRING);
+    $query = htmlspecialchars(strip_tags($data['query']), ENT_QUOTES, 'UTF-8');
     
     // Optional: number of results to return
     $topK = isset($data['top_k']) ? (int)$data['top_k'] : 5;
@@ -265,7 +291,7 @@ try {
     // Log the search query for debugging
     $logFile = __DIR__ . '/logs/search.log';
     if (!file_exists(dirname($logFile))) {
-        mkdir(dirname($logFile), 0777, true);
+        mkdir(dirname($logFile), 0755, true);
     }
     $logEntry = date('Y-m-d H:i:s') . " | Search Query: " . $query . " | Top K: " . $topK . "\n";
     file_put_contents($logFile, $logEntry, FILE_APPEND);
@@ -305,7 +331,7 @@ try {
     // Log the error
     $logFile = __DIR__ . '/logs/search.log';
     if (!file_exists(dirname($logFile))) {
-        mkdir(dirname($logFile), 0777, true);
+        mkdir(dirname($logFile), 0755, true);
     }
     $logEntry = date('Y-m-d H:i:s') . " | Error: " . $e->getMessage() . "\n";
     file_put_contents($logFile, $logEntry, FILE_APPEND);

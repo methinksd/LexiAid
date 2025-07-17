@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentResults = [];
 
+    // Function to escape HTML to prevent XSS
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
     // Function to format the similarity score as a percentage
     function formatScore(score) {
         return Math.round(score * 100) + '%';
@@ -16,27 +23,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to generate HTML for a single result card
     function createResultCard(result) {
-        const tags = result.tags && Array.isArray(result.tags) 
-            ? result.tags.map(tag => `<span class='badge badge-secondary mr-1'>${tag}</span>`).join('')
+        const tags = result.tags && result.tags !== null && result.tags !== undefined && Array.isArray(result.tags) 
+            ? result.tags.map(tag => `<span class='badge badge-secondary mr-1'>${escapeHtml(tag)}</span>`).join('')
             : '';
             
         return `
             <div class="col-md-6 col-xl-4 mb-4">
                 <div class="card h-100 case-card">
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">${result.title}</h5>
+                        <h5 class="mb-0">${escapeHtml(result.title)}</h5>
                         <span class="badge badge-light">${formatScore(result.similarity_score)}</span>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
                             ${tags}
                         </div>
-                        <p class="card-text">${result.summary}</p>
+                        <p class="card-text">${escapeHtml(result.summary)}</p>
                         <ul class="list-unstyled mb-2 small">
-                            ${result.year ? `<li><strong>Year:</strong> ${result.year}</li>` : ''}
-                            ${result.citation ? `<li><strong>Citation:</strong> ${result.citation}</li>` : ''}
-                            ${result.jurisdiction ? `<li><strong>Jurisdiction:</strong> ${result.jurisdiction}</li>` : ''}
-                            ${result.type ? `<li><strong>Type:</strong> ${result.type}</li>` : ''}
+                            ${result.year ? `<li><strong>Year:</strong> ${escapeHtml(result.year)}</li>` : ''}
+                            ${result.citation ? `<li><strong>Citation:</strong> ${escapeHtml(result.citation)}</li>` : ''}
+                            ${result.jurisdiction ? `<li><strong>Jurisdiction:</strong> ${escapeHtml(result.jurisdiction)}</li>` : ''}
+                            ${result.type ? `<li><strong>Type:</strong> ${escapeHtml(result.type)}</li>` : ''}
                         </ul>
                     </div>
                     <div class="card-footer">

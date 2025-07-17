@@ -210,10 +210,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadTasks(); // Reload tasks
                 resetTaskForm();
                 
-                // Close the modal if it exists
+                // Close the modal using vanilla JavaScript
                 const modal = document.getElementById('addTaskModal');
-                if (modal && window.$ && window.$().modal) {
-                    window.$('#addTaskModal').modal('hide');
+                if (modal) {
+                    // Try Bootstrap 5 first, then Bootstrap 4
+                    if (window.bootstrap && window.bootstrap.Modal) {
+                        const modalInstance = window.bootstrap.Modal.getInstance(modal) || new window.bootstrap.Modal(modal);
+                        modalInstance.hide();
+                    } else if (window.$ && window.$().modal) {
+                        window.$('#addTaskModal').modal('hide');
+                    } else {
+                        // Fallback: manually hide the modal
+                        modal.style.display = 'none';
+                        modal.classList.remove('show');
+                        document.body.classList.remove('modal-open');
+                        // Remove backdrop if it exists
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
+                    }
                 }
             } else {
                 throw new Error(data.message || 'Failed to create task');
