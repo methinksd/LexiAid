@@ -1,0 +1,81 @@
+2025-07-02 16:41:25 | Search Query: constitutional law | Top K: 5
+2025-07-02 16:41:25 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '5' 2>&1
+2025-07-02 16:41:25 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:43:21 | Search Query: constitutional law | Top K: 10
+2025-07-02 16:43:21 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 16:43:21 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:43:24 | Search Query: constitutional law | Top K: 10
+2025-07-02 16:43:24 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 16:43:24 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:43:25 | Search Query: constitutional law | Top K: 10
+2025-07-02 16:43:25 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 16:43:25 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:43:41 | Search Query: constitutional law | Top K: 10
+2025-07-02 16:43:41 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 16:43:41 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:55:54 | Search Query: constitutional law | Top K: 5
+2025-07-02 16:55:54 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '5' 2>&1
+2025-07-02 16:55:54 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:27:55 | Search Query: constitutional law | Top K: 5
+2025-07-02 17:27:55 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '5' 2>&1
+2025-07-02 17:27:55 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:18 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:18 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:18 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:19 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:19 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:19 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:20 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:20 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:20 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:24 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:24 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:24 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:25 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:25 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:25 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:25 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:25 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:25 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:52 | Search Query: first amendment | Top K: 10
+2025-07-02 17:28:52 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'first amendment' --top_k '10' 2>&1
+2025-07-02 17:28:52 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:55 | Search Query: first amendment | Top K: 10
+2025-07-02 17:28:55 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'first amendment' --top_k '10' 2>&1
+2025-07-02 17:28:55 | Python Output: sh: 1: python: not found
+
+2025-07-02 18:49:12 | Search Query: constitutional law | Top K: 10
+2025-07-02 18:49:13 | Executing Python Command: 'python3' '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k 10 2>&1
+2025-07-02 18:49:13 | Python Output: Traceback (most recent call last):
+  File "/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py", line 11, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+2025-07-02 21:32:08 | Search Query: constitutional law | Top K: 3
+2025-07-02 21:32:08 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k 3 2>&1
+2025-07-02 21:32:09 | Python Output: Traceback (most recent call last):
+  File "/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py", line 12, in <module>
+    from sentence_transformers import SentenceTransformer
+ModuleNotFoundError: No module named 'sentence_transformers'
+
+2025-07-03 15:37:22 | Search Query: criminal law | Top K: 2
+2025-07-03 15:37:22 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'criminal law' --top_k 2 2>&1
+2025-07-03 15:37:23 | Python Output: Traceback (most recent call last):
+  File "/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py", line 12, in <module>
+    from sentence_transformers import SentenceTransformer
+ModuleNotFoundError: No module named 'sentence_transformers'
+

@@ -1,4 +1,15 @@
 <?php
+/**
+ * LexiAid Search API Endpoint
+ * Handles semantic search requests and returns relevant legal documents
+ */
+
+// Start output buffering to catch any accidental output
+ob_start();
+
+// Include database configuration
+require_once __DIR__ . '/config/database.php';
+
 // Enable error reporting for development
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -20,6 +31,163 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'Method not allowed']);
     exit();
+}
+
+// Database-based search function
+function performDatabaseSearch($query, $topK = 5) {
+    try {
+        $conn = getDbConnection();
+        
+        // Perform a basic text search on legal resources
+        $searchQuery = "SELECT * FROM legal_resources 
+                       WHERE title LIKE ? 
+                       OR summary LIKE ? 
+                       OR CAST(tags AS CHAR) LIKE ?
+                       ORDER BY 
+                         CASE 
+                           WHEN title LIKE ? THEN 3
+                           WHEN summary LIKE ? THEN 2  
+                           WHEN CAST(tags AS CHAR) LIKE ? THEN 1
+                           ELSE 0
+                         END DESC
+                       LIMIT ?";
+        
+        $searchTerm = "%$query%";
+        $stmt = $conn->prepare($searchQuery);
+        $stmt->bind_param("ssssssi", $searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $topK);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $results = [];
+        while ($row = $result->fetch_assoc()) {
+            // Calculate a simple relevance score based on matching
+            $score = 0.5; // Base score
+            if (stripos($row['title'], $query) !== false) $score += 0.3;
+            if (stripos($row['summary'], $query) !== false) $score += 0.2;
+            
+            $results[] = [
+                'title' => $row['title'],
+                'summary' => $row['summary'],
+                'similarity_score' => $score,
+                'tags' => json_decode($row['tags']) ?: [],
+                'year' => $row['year'],
+                'citation' => $row['citation'],
+                'jurisdiction' => $row['jurisdiction'],
+                'type' => $row['type']
+            ];
+        }
+        
+        $conn->close();
+        return $results;
+        
+    } catch (Exception $e) {
+        error_log("Database search error: " . $e->getMessage());
+        return performKeywordSearch($query, $topK); // Fallback to keyword search
+    }
+}
+
+// Python-based semantic search function
+function performPythonSearch($query, $topK = 5) {
+    try {
+        $logFile = __DIR__ . '/logs/search.log';
+        
+        // Path to Python script
+        $scriptPath = dirname(__DIR__) . '/python/semantic_search.py';
+        $fallbackScriptPath = dirname(__DIR__) . '/python/simple_search.py';
+        
+        // Use fallback script if main script doesn't exist or has issues
+        if (!file_exists($scriptPath) || !is_readable($scriptPath)) {
+            $scriptPath = $fallbackScriptPath;
+        }
+        
+        if (!file_exists($scriptPath)) {
+            error_log("Python script not found at: " . $scriptPath);
+            return [];
+        }
+        
+        // Try different Python executables
+        $pythonPaths = [
+            '/home/leo/Freelance Projects/LexiAid/.venv/bin/python',
+            'python3',
+            'python',
+            '/usr/bin/python3',
+            '/usr/bin/python'
+        ];
+        
+        $pythonPath = 'python3'; // Default
+        
+        // Find working Python executable
+        foreach ($pythonPaths as $path) {
+            $testCommand = sprintf('"%s" --version 2>&1', $path);
+            $testOutput = shell_exec($testCommand);
+            if ($testOutput && strpos($testOutput, 'Python') !== false) {
+                $pythonPath = $path;
+                break;
+            }
+        }
+        
+        // Build command
+        $command = sprintf('%s %s %s --top_k %d 2>&1', 
+            escapeshellarg($pythonPath),
+            escapeshellarg($scriptPath),
+            escapeshellarg($query),
+            intval($topK)
+        );
+
+        // Log the command for debugging
+        $logEntry = date('Y-m-d H:i:s') . " | Executing Python Command: " . $command . "\n";
+        file_put_contents($logFile, $logEntry, FILE_APPEND);
+
+        // Execute the command
+        $output = shell_exec($command);
+        
+        // Log the output for debugging
+        $logEntry = date('Y-m-d H:i:s') . " | Python Output: " . ($output ?: 'No output') . "\n";
+        file_put_contents($logFile, $logEntry, FILE_APPEND);
+
+        if ($output !== null && trim($output) !== '') {
+            // Clean up the output to extract JSON
+            $lines = explode("\n", trim($output));
+            $jsonLine = '';
+            
+            // Find the line that contains JSON (starts with { and ends with })
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if (strpos($line, '{') === 0 && strrpos($line, '}') === strlen($line) - 1) {
+                    $jsonLine = $line;
+                    break;
+                }
+            }
+            
+            if (!$jsonLine) {
+                // If no single line, try to reconstruct JSON from multiple lines
+                $jsonStart = strpos($output, '{');
+                $jsonEnd = strrpos($output, '}');
+                if ($jsonStart !== false && $jsonEnd !== false && $jsonEnd > $jsonStart) {
+                    $jsonLine = substr($output, $jsonStart, $jsonEnd - $jsonStart + 1);
+                }
+            }
+
+            if ($jsonLine) {
+                // Try to decode the JSON output
+                $pythonResults = json_decode($jsonLine, true);
+                
+                if ($pythonResults !== null) {
+                    if (isset($pythonResults['results']) && is_array($pythonResults['results'])) {
+                        return $pythonResults['results'];
+                    } elseif (isset($pythonResults['status']) && $pythonResults['status'] === 'error') {
+                        error_log("Python script error: " . ($pythonResults['message'] ?? 'Unknown error'));
+                    }
+                }
+            }
+        }
+        
+        return [];
+        
+    } catch (Exception $e) {
+        error_log("Python search error: " . $e->getMessage());
+        return [];
+    }
 }
 
 // Simple keyword-based fallback search
@@ -92,110 +260,61 @@ try {
     $query = filter_var($data['query'], FILTER_SANITIZE_STRING);
     
     // Optional: number of results to return
-    $topK = isset($data['top_k']) ? (int)$data['top_k'] : 5;    // Path to Python script
-    $scriptPath = dirname(__DIR__) . '/python/semantic_search.py';
-    $fallbackScriptPath = dirname(__DIR__) . '/python/search_with_fallback.py';
+    $topK = isset($data['top_k']) ? (int)$data['top_k'] : 5;
     
-    if (!file_exists($scriptPath)) {
-        // Try fallback script
-        if (file_exists($fallbackScriptPath)) {
-            $scriptPath = $fallbackScriptPath;
-        } else {
-            throw new Exception('Search script not found');
+    // Log the search query for debugging
+    $logFile = __DIR__ . '/logs/search.log';
+    if (!file_exists(dirname($logFile))) {
+        mkdir(dirname($logFile), 0777, true);
+    }
+    $logEntry = date('Y-m-d H:i:s') . " | Search Query: " . $query . " | Top K: " . $topK . "\n";
+    file_put_contents($logFile, $logEntry, FILE_APPEND);
+
+    // Try database search first
+    $results = performDatabaseSearch($query, $topK);
+    $searchMethod = 'database';
+    
+    // If database search returns no results, try Python script or fallback
+    if (empty($results)) {
+        // Try Python semantic search
+        $results = performPythonSearch($query, $topK);
+        $searchMethod = 'python';
+        
+        // Final fallback to keyword search if Python also fails
+        if (empty($results)) {
+            $results = performKeywordSearch($query, $topK);
+            $searchMethod = 'fallback';
         }
     }
 
-    // Execute Python script using the virtual environment Python
-    $pythonPath = dirname(__DIR__) . '/.venv/Scripts/python.exe';
-    
-    // Check if virtual environment Python exists, fallback to system Python
-    if (!file_exists($pythonPath)) {
-        $pythonPath = 'python'; // Fallback to system Python
-    }
-    
-    $command = sprintf('"%s" %s %s --top_k %s 2>&1', 
-        $pythonPath,
-        escapeshellarg($scriptPath),
-        escapeshellarg($query),
-        escapeshellarg($topK)
-    );
-
-    // Execute the command
-    $output = shell_exec($command);
-    
-    // Log the command and output for debugging
-    $logFile = __DIR__ . '/logs/search.log';
-    if (!file_exists(dirname($logFile))) {
-        mkdir(dirname($logFile), 0777, true);
-    }
-    $logEntry = date('Y-m-d H:i:s') . " | Command: " . $command . "\n";
-    $logEntry .= date('Y-m-d H:i:s') . " | Output: " . ($output ?: 'No output') . "\n";
-    file_put_contents($logFile, $logEntry, FILE_APPEND);
-
-    if ($output === null || trim($output) === '') {
-        // Fallback to simple keyword search if Python fails
-        $fallbackResults = performKeywordSearch($query, $topK);
-        echo json_encode([
-            'status' => 'success',
-            'results' => $fallbackResults,
-            'query' => $query,
-            'timestamp' => date('c'),
-            'note' => 'Using fallback search due to Python execution issue'
-        ]);
-        exit();
-    }
-
-    // Fix: Find the first valid JSON object and trim trailing non-JSON
-    $jsonStart = strpos($output, '{');
-    $jsonEnd = strrpos($output, '}');
-    if ($jsonStart !== false && $jsonEnd !== false && $jsonEnd > $jsonStart) {
-        $output = substr($output, $jsonStart, $jsonEnd - $jsonStart + 1);
-    }
-
-    // Try to decode the JSON output
-    $results = json_decode($output, true);
-    
-    if ($results === null) {
-        // Log the raw output for debugging
-        error_log("Python script output: " . $output);
-        throw new Exception('Invalid response from search engine');
-    }
-
-    // Log the search query (optional)
-    $logFile = __DIR__ . '/logs/search.log';
-    if (!file_exists(dirname($logFile))) {
-        mkdir(dirname($logFile), 0777, true);
-    }
-    $logEntry = date('Y-m-d H:i:s') . " | Query: " . $query . "\n";
-    file_put_contents($logFile, $logEntry, FILE_APPEND);
-
     // Return the search results
+    ob_clean(); // Clear any accidental output
     echo json_encode([
         'status' => 'success',
-        'results' => $results['results'] ?? [],
+        'results' => $results,
         'query' => $query,
-        'timestamp' => date('c')
+        'count' => count($results),
+        'timestamp' => date('c'),
+        'search_method' => $searchMethod
     ]);
 
 } catch (Exception $e) {
+    // Clear any output
+    ob_clean();
+    
+    // Log the error
+    $logFile = __DIR__ . '/logs/search.log';
+    if (!file_exists(dirname($logFile))) {
+        mkdir(dirname($logFile), 0777, true);
+    }
+    $logEntry = date('Y-m-d H:i:s') . " | Error: " . $e->getMessage() . "\n";
+    file_put_contents($logFile, $logEntry, FILE_APPEND);
+    
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
-        'message' => $e->getMessage()
+        'message' => $e->getMessage(),
+        'timestamp' => date('c')
     ]);
 }
 ?>
-<script>
-fetch('search.php', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        query: 'constitutional law cases'
-    })
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
-</script>

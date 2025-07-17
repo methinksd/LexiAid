@@ -1,0 +1,5 @@
+2025-07-02 16:41:30 | GET | /quizzes.php?user_id=1
+2025-07-02 16:44:20 | POST | /quizzes.php
+2025-07-02 16:44:26 | GET | /quizzes.php?user_id=1
+2025-07-02 16:56:10 | GET | /quizzes.php?user_id=1
+2025-07-02 17:28:04 | GET | /quizzes.php?user_id=1

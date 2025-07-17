@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('semantic-search-input');
     const searchButton = document.getElementById('search-button');
     const resultsContainer = document.getElementById('search-results-container');
-    const dateFilter = document.getElementById('date-filter');
-    const topicFilter = document.getElementById('topic-filter');
-    const courtFilter = document.getElementById('court-filter');
+    const demoResults = document.getElementById('demo-results');
     const resultsSort = document.getElementById('results-sort');
 
     let currentResults = [];
@@ -18,6 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to generate HTML for a single result card
     function createResultCard(result) {
+        const tags = result.tags && Array.isArray(result.tags) 
+            ? result.tags.map(tag => `<span class='badge badge-secondary mr-1'>${tag}</span>`).join('')
+            : '';
+            
         return `
             <div class="col-md-6 col-xl-4 mb-4">
                 <div class="card h-100 case-card">
@@ -26,16 +28,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span class="badge badge-light">${formatScore(result.similarity_score)}</span>
                     </div>
                     <div class="card-body">
-                        <p class="card-text"><strong>Summary:</strong> ${result.summary}</p>
-                        <ul class="list-unstyled mb-2">
-                            <li><strong>Year:</strong> ${result.year || 'N/A'}</li>
-                            <li><strong>Tags:</strong> ${result.tags && result.tags.length ? result.tags.map(tag => `<span class='badge badge-secondary mr-1'>${tag}</span>`).join('') : 'None'}</li>
+                        <div class="mb-3">
+                            ${tags}
+                        </div>
+                        <p class="card-text">${result.summary}</p>
+                        <ul class="list-unstyled mb-2 small">
+                            ${result.year ? `<li><strong>Year:</strong> ${result.year}</li>` : ''}
+                            ${result.citation ? `<li><strong>Citation:</strong> ${result.citation}</li>` : ''}
+                            ${result.jurisdiction ? `<li><strong>Jurisdiction:</strong> ${result.jurisdiction}</li>` : ''}
+                            ${result.type ? `<li><strong>Type:</strong> ${result.type}</li>` : ''}
                         </ul>
-                        ${result.citation ? `<div><strong>Citation:</strong> ${result.citation}</div>` : ''}
                     </div>
-                    <div class="card-footer bg-light">
-                        ${result.jurisdiction ? `<small class="text-muted">Jurisdiction: ${result.jurisdiction}</small><br>` : ''}
-                        ${result.type ? `<small class="text-muted">Type: ${result.type}</small>` : ''}
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
+                        <a href="#" class="btn btn-sm btn-outline-secondary">Add to Task</a>
                     </div>
                 </div>
             </div>
@@ -44,25 +50,53 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to display search results
     function displayResults(results) {
-        const resultsHTML = results.length > 0 
-            ? results.map(createResultCard).join('')
-            : '<div class="col-12"><div class="alert alert-info">No results found. Try adjusting your search terms.</div></div>';
-        document.querySelector('#search-results-container .row').innerHTML = resultsHTML;
+        const resultsList = document.getElementById('search-results-list');
+        
+        if (results.length > 0) {
+            resultsList.innerHTML = results.map(createResultCard).join('');
+            demoResults.style.display = 'none';
+            resultsContainer.style.display = 'block';
+        } else {
+            resultsList.innerHTML = '<div class="col-12"><div class="alert alert-info">No results found. Try adjusting your search terms.</div></div>';
+            demoResults.style.display = 'none';
+            resultsContainer.style.display = 'block';
+        }
+    }
+
+    // Function to show loading state
+    function showLoading() {
+        searchButton.disabled = true;
+        searchButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Searching...';
+        
+        const resultsList = document.getElementById('search-results-list');
+        resultsList.innerHTML = `<div class='col-12'><div class='alert alert-info'><span class='spinner-border spinner-border-sm mr-2'></span>Searching for relevant cases...</div></div>`;
+        
+        demoResults.style.display = 'none';
+        resultsContainer.style.display = 'block';
+    }
+
+    // Function to reset button state
+    function resetButton() {
+        searchButton.disabled = false;
+        searchButton.innerHTML = '<i class="fa fa-search mr-2"></i> Search';
     }
 
     // Function to perform the search
     async function performSearch() {
         const query = searchInput.value.trim();
         if (!query) {
-            document.querySelector('#search-results-container .row').innerHTML = `<div class='col-12'><div class='alert alert-warning'>Please enter a search query.</div></div>`;
+            const resultsList = document.getElementById('search-results-list');
+            resultsList.innerHTML = `<div class='col-12'><div class='alert alert-warning'>Please enter a search query.</div></div>`;
+            demoResults.style.display = 'none';
+            resultsContainer.style.display = 'block';
             return;
         }
-        // Show loading state
-        searchButton.disabled = true;
-        searchButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Searching...';
-        document.querySelector('#search-results-container .row').innerHTML = `<div class='col-12'><div class='alert alert-info'><span class='spinner-border spinner-border-sm mr-2'></span>Searching for relevant cases...</div></div>`;
+        
+        showLoading();
         
         try {
+            console.log('Sending search request for:', query);
+            
             const response = await fetch('search.php', {
                 method: 'POST',
                 headers: {
@@ -70,41 +104,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     query: query,
-                    top_k: 10, // Request more results for filtering
-                    filters: {
-                        date: dateFilter.value,
-                        topic: topicFilter.value,
-                        court: courtFilter.value
-                    }
+                    top_k: 10
                 })
             });
 
+            console.log('Response status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
+            console.log('Search response:', data);
             
             if (data.status === 'success') {
-                currentResults = data.results;
-                displayResults(data.results);
-                resultsContainer.scrollIntoView({ behavior: 'smooth' });
+                currentResults = data.results || [];
+                displayResults(currentResults);
+                
+                // Show success message if results found
+                if (currentResults.length > 0) {
+                    console.log(`Found ${currentResults.length} results using ${data.search_method || 'unknown'} method`);
+                }
             } else {
                 throw new Error(data.message || 'Search failed');
             }
         } catch (error) {
             console.error('Search error:', error);
-            document.querySelector('#search-results-container .row').innerHTML = `
+            const resultsList = document.getElementById('search-results-list');
+            resultsList.innerHTML = `
                 <div class="col-12">
                     <div class="alert alert-danger">
-                        An error occurred while searching. Please try again later.<br>
-                        <small>${error.message || error}</small>
+                        <h6>Search Error</h6>
+                        <p>An error occurred while searching. Please try again later.</p>
+                        <small class="text-muted">Error: ${error.message || error}</small>
+                        <hr>
+                        <small class="text-muted">
+                            <strong>Troubleshooting:</strong><br>
+                            1. Check that your web server is running<br>
+                            2. Verify database connection is working<br>
+                            3. Check browser console for more details
+                        </small>
                     </div>
                 </div>
             `;
+            demoResults.style.display = 'none';
+            resultsContainer.style.display = 'block';
         } finally {
-            // Reset button state
-            searchButton.disabled = false;
-            searchButton.innerHTML = '<i class="fa fa-search mr-2"></i> Search';
+            resetButton();
         }
     }
-
     // Event Listeners
     searchButton.addEventListener('click', performSearch);
     
@@ -114,42 +162,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Handle filters and sorting
-    [dateFilter, topicFilter, courtFilter, resultsSort].forEach(filter => {
-        filter.addEventListener('change', function() {
+    // Handle sorting
+    if (resultsSort) {
+        resultsSort.addEventListener('change', function() {
             if (currentResults.length > 0) {
-                let filtered = [...currentResults];
-
-                // Apply filters
-                if (dateFilter.value) {
-                    const currentYear = new Date().getFullYear();
-                    filtered = filtered.filter(result => {
-                        const year = result.year || currentYear;
-                        switch (dateFilter.value) {
-                            case 'recent': return currentYear - year <= 5;
-                            case 'decade': return currentYear - year <= 10;
-                            case 'century': return currentYear - year <= 100;
-                            default: return true;
-                        }
-                    });
-                }
-
-                if (topicFilter.value) {
-                    filtered = filtered.filter(result => 
-                        result.tags && result.tags.some(tag => 
-                            tag.toLowerCase().includes(topicFilter.value.toLowerCase())
-                        )
-                    );
-                }
-
-                if (courtFilter.value) {
-                    filtered = filtered.filter(result => 
-                        result.jurisdiction && result.jurisdiction.toLowerCase().includes(courtFilter.value.toLowerCase())
-                    );
-                }
+                let sorted = [...currentResults];
 
                 // Apply sorting
-                filtered.sort((a, b) => {
+                sorted.sort((a, b) => {
                     switch (resultsSort.value) {
                         case 'date-desc':
                             return (b.year || 0) - (a.year || 0);
@@ -162,8 +182,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                displayResults(filtered);
+                displayResults(sorted);
             }
         });
-    });
+    }
+
+    // Add test function for debugging
+    window.testSearch = function(query = 'constitutional law') {
+        searchInput.value = query;
+        performSearch();
+    };
+
+    // Log that the search script is loaded
+    console.log('LexiAid Search module loaded successfully');
+    console.log('Use testSearch("your query") to test the search functionality');
 });

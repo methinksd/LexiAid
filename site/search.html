@@ -152,24 +152,39 @@
               </div>
             </div>
           </div>          <!-- Search Results Section -->
-          <div id="search-results-container">
-            <div class="col-12 mb-4">
-              <div class="d-flex justify-content-between align-items-center">
-                <h4>Search Results</h4>
-                <div>
-                  <select class="form-control form-control-sm" id="results-sort">
-                    <option value="relevance">Sort by Relevance</option>
-                    <option value="date-desc">Sort by Date (Newest)</option>
-                    <option value="date-asc">Sort by Date (Oldest)</option>
-                    <option value="citations">Sort by Citations</option>
-                  </select>
+          <div id="search-results-container" style="display: none;">
+            <div class="row">
+              <div class="col-12 mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h4>Search Results</h4>
+                  <div>
+                    <select class="form-control form-control-sm" id="results-sort">
+                      <option value="relevance">Sort by Relevance</option>
+                      <option value="date-desc">Sort by Date (Newest)</option>
+                      <option value="date-asc">Sort by Date (Oldest)</option>
+                      <option value="citations">Sort by Citations</option>
+                    </select>
+                  </div>
                 </div>
+                <hr>
               </div>
-              <hr>
             </div>
             
             <!-- Results will be dynamically inserted here -->
-            <div class="row">
+            <div class="row" id="search-results-list">
+              <!-- Dynamic search results will be inserted here by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Sample/Demo Results Section (shown initially) -->
+          <div id="demo-results" class="row">
+            <div class="col-12 mb-4">
+              <h4>Sample Legal Cases</h4>
+              <p class="text-muted">Enter a search query above to find relevant legal documents</p>
+              <hr>
+            </div>
+            
+            <div class="col-md-6 col-xl-4 mb-4">
               <div class="card h-100 case-card">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">Marbury v. Madison</h5>
@@ -182,7 +197,7 @@
                     <span class="badge badge-secondary">Supreme Court</span>
                   </div>
                   <p class="card-text">Established the principle of judicial review in the United States, which allows federal courts to void laws that violate the Constitution.</p>
-                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Matched Theme: <strong>Separation of Powers</strong></div>
+                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Theme: <strong>Separation of Powers</strong></div>
                 </div>
                 <div class="card-footer">
                   <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
@@ -204,7 +219,7 @@
                     <span class="badge badge-secondary">Supreme Court</span>
                   </div>
                   <p class="card-text">Established that suspects must be informed of their rights to remain silent and to obtain an attorney during interrogations.</p>
-                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Matched Theme: <strong>Rights of the Accused</strong></div>
+                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Theme: <strong>Rights of the Accused</strong></div>
                 </div>
                 <div class="card-footer">
                   <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
@@ -226,7 +241,7 @@
                     <span class="badge badge-secondary">Supreme Court</span>
                   </div>
                   <p class="card-text">Overturned Plessy v. Ferguson and declared that state laws establishing separate public schools for black and white students were unconstitutional.</p>
-                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Matched Theme: <strong>Equal Rights</strong></div>
+                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Theme: <strong>Equal Rights</strong></div>
                 </div>
                 <div class="card-footer">
                   <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
@@ -234,30 +249,7 @@
                 </div>
               </div>
             </div>
-
-            <div class="col-md-6 col-xl-4 mb-4">
-              <div class="card h-100 case-card">
-                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                  <h5 class="mb-0">Roe v. Wade</h5>
-                  <span class="badge badge-light">1973</span>
-                </div>
-                <div class="card-body">
-                  <div class="mb-3">
-                    <span class="badge badge-info">Constitutional Law</span>
-                    <span class="badge badge-secondary">Due Process</span>
-                    <span class="badge badge-secondary">Privacy</span>
-                  </div>
-                  <p class="card-text">Supreme Court ruling that established a woman's legal right to abortion under the Fourteenth Amendment to the Constitution.</p>
-                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Matched Theme: <strong>Privacy Rights</strong></div>
-                </div>
-                <div class="card-footer">
-                  <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
-                  <a href="#" class="btn btn-sm btn-outline-secondary">Add to Task</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 col-xl-4 mb-4">
+          </div>
               <div class="card h-100 case-card">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">Gideon v. Wainwright</h5>

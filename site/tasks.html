@@ -581,17 +581,13 @@
         });
       });
       
-      // Save new task (this would normally save to a database)
+      // Updated save task functionality - now integrated with backend
       document.getElementById('saveTaskBtn').addEventListener('click', function() {
-        // Here you would typically save the task to a database
-        alert('Task saved successfully! (This is just a demo)');
-        
-        // Close the modal
-        $('#addTaskModal').modal('hide');
-        
-        // Reset the form
-        document.getElementById('addTaskForm').reset();
+        // The form submission is now handled by tasks.js
+        // This button will trigger the form submit event
+        document.getElementById('addTaskForm').dispatchEvent(new Event('submit'));
       });
     </script>
+    <script src="js/tasks.js"></script>
   </body>
 </html> 
