@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiAid - Insights Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background-color: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .warning { color: #ffc107; }
+        .info { color: #17a2b8; }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .status-success { background-color: #28a745; }
+        .status-error { background-color: #dc3545; }
+        .status-warning { background-color: #ffc107; }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .metric-card {
+            display: inline-block;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            min-width: 200px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .metric-label {
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>LexiAid Phase 6 - Insights Integration Test</h1>
+    <p><strong>Test Date:</strong> <span id="test-date"></span></p>
+
+    <!-- API Connectivity Test -->
+    <div class="test-section">
+        <h2><span class="status-indicator" id="api-status"></span>API Connectivity Test</h2>
+        <p>Testing connection to insights.php endpoint...</p>
+        <button class="btn" onclick="testAPIConnectivity()">Test API Connection</button>
+        <div id="api-results"></div>
+    </div>
+
+    <!-- Data Validation Test -->
+    <div class="test-section">
+        <h2><span class="status-indicator" id="data-status"></span>Data Validation Test</h2>
+        <p>Validating the structure and content of returned data...</p>
+        <button class="btn" onclick="testDataValidation()">Validate Data Structure</button>
+        <div id="data-results"></div>
+    </div>
+
+    <!-- Period Filter Test -->
+    <div class="test-section">
+        <h2><span class="status-indicator" id="period-status"></span>Period Filter Test</h2>
+        <p>Testing different time period filters...</p>
+        <button class="btn" onclick="testPeriodFilters()">Test Period Filters</button>
+        <div id="period-results"></div>
+    </div>
+
+    <!-- Summary Metrics Display -->
+    <div class="test-section">
+        <h2>Current Summary Metrics</h2>
+        <div id="summary-metrics">
+            <div class="metric-card">
+                <div class="metric-value" id="metric-study-time">-</div>
+                <div class="metric-label">Total Study Time (Hours)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metric-tasks">-</div>
+                <div class="metric-label">Tasks Completed</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metric-quiz">-</div>
+                <div class="metric-label">Quiz Average (%)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metric-cases">-</div>
+                <div class="metric-label">Cases Reviewed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Integration Test -->
+    <div class="test-section">
+        <h2><span class="status-indicator" id="chart-status"></span>Chart.js Integration Test</h2>
+        <p>Testing Chart.js library integration and chart rendering...</p>
+        <button class="btn" onclick="testChartIntegration()">Test Chart Rendering</button>
+        <div id="chart-results"></div>
+        <canvas id="test-chart" width="400" height="200" style="max-width: 100%; display: none;"></canvas>
+    </div>
+
+    <!-- Frontend Integration Test -->
+    <div class="test-section">
+        <h2><span class="status-indicator" id="frontend-status"></span>Frontend Integration Test</h2>
+        <p>Testing if insights.html page loads correctly with data...</p>
+        <button class="btn" onclick="testFrontendIntegration()">Test Frontend Integration</button>
+        <div id="frontend-results"></div>
+    </div>
+
+    <!-- Error Handling Test -->
+    <div class="test-section">
+        <h2><span class="status-indicator" id="error-status"></span>Error Handling Test</h2>
+        <p>Testing error handling for various scenarios...</p>
+        <button class="btn" onclick="testErrorHandling()">Test Error Handling</button>
+        <div id="error-results"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+        // Set test date
+        document.getElementById('test-date').textContent = new Date().toLocaleString();
+
+        // Global test results
+        let testResults = {
+            api: false,
+            data: false,
+            period: false,
+            chart: false,
+            frontend: false,
+            error: false
+        };
+
+        // Update status indicators
+        function updateStatus(testName, success) {
+            testResults[testName] = success;
+            const indicator = document.getElementById(testName + '-status');
+            if (indicator) {
+                indicator.className = 'status-indicator ' + (success ? 'status-success' : 'status-error');
+            }
+        }
+
+        // Test API connectivity
+        async function testAPIConnectivity() {
+            const resultsDiv = document.getElementById('api-results');
+            resultsDiv.innerHTML = '<p class="info">Testing API connection...</p>';
+            
+            try {
+                const response = await fetch('/insights.php?user_id=1');
+                const data = await response.json();
+                
+                if (response.ok && data) {
+                    resultsDiv.innerHTML = `
+                        <p class="success">✅ API connection successful!</p>
+                        <p><strong>Response Status:</strong> ${response.status}</p>
+                        <p><strong>Content-Type:</strong> ${response.headers.get('content-type')}</p>
+                        <p><strong>Data Keys:</strong> ${Object.keys(data).join(', ')}</p>
+                    `;
+                    updateStatus('api', true);
+                    
+                    // Update summary metrics
+                    if (data.summary) {
+                        document.getElementById('metric-study-time').textContent = data.summary.totalStudyTime || 0;
+                        document.getElementById('metric-tasks').textContent = `${data.summary.tasksCompleted}/${data.summary.tasksAssigned}`;
+                        document.getElementById('metric-quiz').textContent = data.summary.quizAverage + '%';
+                        document.getElementById('metric-cases').textContent = data.summary.casesReviewed || 0;
+                    }
+                } else {
+                    throw new Error('Invalid response or data');
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <p class="error">❌ API connection failed!</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+                updateStatus('api', false);
+            }
+        }
+
+        // Test data validation
+        async function testDataValidation() {
+            const resultsDiv = document.getElementById('data-results');
+            resultsDiv.innerHTML = '<p class="info">Validating data structure...</p>';
+            
+            try {
+                const response = await fetch('/insights.php?user_id=1');
+                const data = await response.json();
+                
+                // Required fields
+                const requiredFields = [
+                    'summary', 'studyTime', 'subjectPie', 'quizPerformance',
+                    'topicPerformance', 'productivity', 'consistency',
+                    'resourceUtilization', 'weakAreas', 'recommendations', 'resources'
+                ];
+                
+                let validationResults = [];
+                let allValid = true;
+                
+                requiredFields.forEach(field => {
+                    const exists = data.hasOwnProperty(field);
+                    validationResults.push(`${exists ? '✅' : '❌'} ${field}: ${exists ? 'Present' : 'Missing'}`);
+                    if (!exists) allValid = false;
+                });
+                
+                // Validate summary structure
+                if (data.summary) {
+                    const summaryFields = ['totalStudyTime', 'casesReviewed', 'tasksCompleted', 'tasksAssigned', 'quizAverage'];
+                    summaryFields.forEach(field => {
+                        const exists = data.summary.hasOwnProperty(field);
+                        validationResults.push(`${exists ? '✅' : '❌'} summary.${field}: ${exists ? 'Present' : 'Missing'}`);
+                        if (!exists) allValid = false;
+                    });
+                }
+                
+                resultsDiv.innerHTML = `
+                    <p class="${allValid ? 'success' : 'error'}">${allValid ? '✅ All data structures valid!' : '❌ Some data structures are missing!'}</p>
+                    <pre>${validationResults.join('\n')}</pre>
+                `;
+                updateStatus('data', allValid);
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<p class="error">❌ Data validation failed: ${error.message}</p>`;
+                updateStatus('data', false);
+            }
+        }
+
+        // Test period filters
+        async function testPeriodFilters() {
+            const resultsDiv = document.getElementById('period-results');
+            resultsDiv.innerHTML = '<p class="info">Testing period filters...</p>';
+            
+            const periods = ['weekly', 'monthly', 'semester'];
+            let results = [];
+            let allSuccess = true;
+            
+            for (const period of periods) {
+                try {
+                    const response = await fetch(`/insights.php?user_id=1&period=${period}`);
+                    const data = await response.json();
+                    
+                    if (response.ok && data && data.summary) {
+                        results.push(`✅ ${period}: OK (${data.summary.tasksAssigned} tasks, ${data.summary.quizAverage}% avg)`);
+                    } else {
+                        results.push(`❌ ${period}: Failed`);
+                        allSuccess = false;
+                    }
+                } catch (error) {
+                    results.push(`❌ ${period}: Error - ${error.message}`);
+                    allSuccess = false;
+                }
+            }
+            
+            resultsDiv.innerHTML = `
+                <p class="${allSuccess ? 'success' : 'error'}">${allSuccess ? '✅ All period filters working!' : '❌ Some period filters failed!'}</p>
+                <pre>${results.join('\n')}</pre>
+            `;
+            updateStatus('period', allSuccess);
+        }
+
+        // Test Chart.js integration
+        async function testChartIntegration() {
+            const resultsDiv = document.getElementById('chart-results');
+            resultsDiv.innerHTML = '<p class="info">Testing Chart.js integration...</p>';
+            
+            try {
+                // Check if Chart.js is loaded
+                if (typeof Chart === 'undefined') {
+                    throw new Error('Chart.js library not loaded');
+                }
+                
+                // Get data for chart
+                const response = await fetch('/insights.php?user_id=1');
+                const data = await response.json();
+                
+                if (!data.studyTime) {
+                    throw new Error('No study time data available');
+                }
+                
+                // Create a test chart
+                const canvas = document.getElementById('test-chart');
+                canvas.style.display = 'block';
+                
+                new Chart(canvas.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.studyTime.labels,
+                        datasets: [{
+                            label: 'Study Hours',
+                            data: data.studyTime.values,
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                
+                resultsDiv.innerHTML = `
+                    <p class="success">✅ Chart.js integration successful!</p>
+                    <p>Test chart rendered with ${data.studyTime.labels.length} data points</p>
+                `;
+                updateStatus('chart', true);
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<p class="error">❌ Chart.js integration failed: ${error.message}</p>`;
+                updateStatus('chart', false);
+            }
+        }
+
+        // Test frontend integration
+        async function testFrontendIntegration() {
+            const resultsDiv = document.getElementById('frontend-results');
+            resultsDiv.innerHTML = '<p class="info">Testing frontend integration...</p>';
+            
+            try {
+                // Test if insights.html is accessible
+                const insightsResponse = await fetch('/insights.html');
+                if (!insightsResponse.ok) {
+                    throw new Error('insights.html not accessible');
+                }
+                
+                const htmlContent = await insightsResponse.text();
+                
+                // Check for key elements
+                const checks = [
+                    { name: 'Chart.js CDN', test: htmlContent.includes('chart.js') },
+                    { name: 'Summary Cards', test: htmlContent.includes('total-study-time') },
+                    { name: 'Period Buttons', test: htmlContent.includes('data-period') },
+                    { name: 'Chart Canvases', test: htmlContent.includes('studyTimeChart') },
+                    { name: 'loadInsights Function', test: htmlContent.includes('loadInsights') }
+                ];
+                
+                let allPassed = true;
+                let checkResults = checks.map(check => {
+                    if (!check.test) allPassed = false;
+                    return `${check.test ? '✅' : '❌'} ${check.name}`;
+                });
+                
+                resultsDiv.innerHTML = `
+                    <p class="${allPassed ? 'success' : 'warning'}">${allPassed ? '✅ Frontend integration looks good!' : '⚠️ Some frontend elements may be missing!'}</p>
+                    <pre>${checkResults.join('\n')}</pre>
+                    <p><a href="/insights.html" target="_blank" class="btn">Open Insights Page</a></p>
+                `;
+                updateStatus('frontend', allPassed);
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<p class="error">❌ Frontend integration test failed: ${error.message}</p>`;
+                updateStatus('frontend', false);
+            }
+        }
+
+        // Test error handling
+        async function testErrorHandling() {
+            const resultsDiv = document.getElementById('error-results');
+            resultsDiv.innerHTML = '<p class="info">Testing error handling...</p>';
+            
+            let results = [];
+            let allHandled = true;
+            
+            // Test invalid user ID
+            try {
+                const response = await fetch('/insights.php?user_id=999999');
+                const data = await response.json();
+                
+                if (response.ok && data && !data.error) {
+                    results.push('✅ Invalid user ID handled gracefully (returns empty data)');
+                } else if (data && data.error) {
+                    results.push('✅ Invalid user ID returns proper error message');
+                } else {
+                    results.push('❌ Invalid user ID not handled properly');
+                    allHandled = false;
+                }
+            } catch (error) {
+                results.push('❌ Invalid user ID caused exception: ' + error.message);
+                allHandled = false;
+            }
+            
+            // Test invalid period
+            try {
+                const response = await fetch('/insights.php?user_id=1&period=invalid');
+                const data = await response.json();
+                
+                if (response.ok && data) {
+                    results.push('✅ Invalid period defaults to weekly');
+                } else {
+                    results.push('❌ Invalid period not handled');
+                    allHandled = false;
+                }
+            } catch (error) {
+                results.push('❌ Invalid period caused exception: ' + error.message);
+                allHandled = false;
+            }
+            
+            resultsDiv.innerHTML = `
+                <p class="${allHandled ? 'success' : 'warning'}">${allHandled ? '✅ Error handling working well!' : '⚠️ Some error scenarios need attention!'}</p>
+                <pre>${results.join('\n')}</pre>
+            `;
+            updateStatus('error', allHandled);
+        }
+
+        // Run all tests
+        function runAllTests() {
+            testAPIConnectivity();
+            setTimeout(() => testDataValidation(), 500);
+            setTimeout(() => testPeriodFilters(), 1000);
+            setTimeout(() => testChartIntegration(), 1500);
+            setTimeout(() => testFrontendIntegration(), 2000);
+            setTimeout(() => testErrorHandling(), 2500);
+        }
+
+        // Auto-run API test on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            testAPIConnectivity();
+        });
+    </script>
+
+    <div class="test-section">
+        <h2>Quick Actions</h2>
+        <button class="btn" onclick="runAllTests()">Run All Tests</button>
+        <a href="/insights.html" target="_blank" class="btn">Open Insights Page</a>
+        <a href="/insights.php?user_id=1" target="_blank" class="btn">View Raw API Data</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+2025-06-12 20:49:53,147 - INFO - Use pytorch device_name: cpu
+2025-06-12 20:49:53,148 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-12 20:50:00,730 - INFO - Loaded 5 documents and computed embeddings
+2025-06-24 16:41:23,410 - INFO - Use pytorch device_name: cpu
+2025-06-24 16:41:23,410 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-24 16:41:30,223 - INFO - Loaded 5 documents and computed embeddings
+2025-06-24 16:52:33,445 - INFO - Use pytorch device_name: cpu
+2025-06-24 16:52:33,446 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-24 16:52:38,355 - INFO - Loaded 5 documents and computed embeddings
+2025-07-01 18:08:40,935 - INFO - Use pytorch device_name: cpu
+2025-07-01 18:08:40,938 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-01 18:08:48,202 - INFO - Loaded 5 documents and computed embeddings
+2025-07-01 18:09:02,586 - INFO - Use pytorch device_name: cpu
+2025-07-01 18:09:02,587 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-01 18:09:08,493 - INFO - Loaded 5 documents and computed embeddings
+2025-07-01 18:12:35,419 - INFO - Use pytorch device_name: cpu
+2025-07-01 18:12:35,420 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-01 18:12:41,982 - INFO - Loaded 5 documents and computed embeddings
+2025-07-30 18:51:09,518 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 18:51:09,529 - INFO - Use pytorch device_name: cpu
+2025-07-30 18:51:09,529 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 18:51:15,914 - INFO - Loaded 5 documents from JSON file
+2025-07-30 18:51:16,126 - INFO - Computed embeddings for 5 documents
+2025-07-30 18:51:16,126 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 18:51:16,126 - INFO - Performing search for query: 'criminal law rights' with top_k=5, min_score=0.1
+2025-07-30 18:51:16,140 - INFO - Semantic search returned 5 results
+2025-07-30 18:56:44,986 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 18:56:44,986 - INFO - Use pytorch device_name: cpu
+2025-07-30 18:56:44,987 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 18:56:51,214 - INFO - Loaded 5 documents from JSON file
+2025-07-30 18:56:51,381 - INFO - Computed embeddings for 5 documents
+2025-07-30 18:56:51,382 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 18:56:51,382 - INFO - Performing search for query: 'criminal law rights' with top_k=5, min_score=0.1
+2025-07-30 18:56:51,399 - INFO - Semantic search returned 5 results
+2025-07-30 18:56:57,854 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 18:56:57,854 - INFO - Use pytorch device_name: cpu
+2025-07-30 18:56:57,854 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 18:57:02,908 - INFO - Loaded 5 documents from JSON file
+2025-07-30 18:57:03,094 - INFO - Computed embeddings for 5 documents
+2025-07-30 18:57:03,094 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 18:57:03,094 - INFO - Performing search for query: 'constitutional amendments' with top_k=5, min_score=0.1
+2025-07-30 18:57:03,109 - INFO - Semantic search returned 5 results
+2025-07-30 19:04:46,542 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 19:04:46,543 - INFO - Use pytorch device_name: cpu
+2025-07-30 19:04:46,543 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 19:04:51,712 - INFO - Loaded 5 documents from JSON file
+2025-07-30 19:04:52,035 - INFO - Computed embeddings for 5 documents
+2025-07-30 19:04:52,036 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 19:04:52,036 - INFO - Performing search for query: 'criminal law rights' with top_k=3, min_score=0.1
+2025-07-30 19:04:52,072 - INFO - Semantic search returned 3 results
+2025-07-30 19:07:08,779 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 19:07:08,780 - INFO - Use pytorch device_name: cpu
+2025-07-30 19:07:08,780 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 19:07:22,382 - INFO - Loaded 5 documents from JSON file
+2025-07-30 19:07:22,487 - INFO - Computed embeddings for 5 documents
+2025-07-30 19:07:22,487 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 19:07:22,487 - INFO - Performing search for query: 'criminal law rights' with top_k=3, min_score=0.1
+2025-07-30 19:07:22,501 - INFO - Semantic search returned 3 results
+2025-07-30 19:17:21,892 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 19:17:21,893 - INFO - Use pytorch device_name: cpu
+2025-07-30 19:17:21,893 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 19:17:27,253 - INFO - Loaded 5 documents from JSON file
+2025-07-30 19:17:27,343 - INFO - Computed embeddings for 5 documents
+2025-07-30 19:17:27,343 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 19:17:27,343 - INFO - Performing search for query: 'constitutional amendments free speech' with top_k=4, min_score=0.1
+2025-07-30 19:17:27,356 - INFO - Semantic search returned 4 results
+2025-07-30 19:17:49,380 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 19:17:49,381 - INFO - Use pytorch device_name: cpu
+2025-07-30 19:17:49,381 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 19:17:54,506 - INFO - Loaded 5 documents from JSON file
+2025-07-30 19:17:54,623 - INFO - Computed embeddings for 5 documents
+2025-07-30 19:17:54,624 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 19:17:54,624 - INFO - Performing search for query: 'racial segregation education rights' with top_k=5, min_score=0.1
+2025-07-30 19:17:54,641 - INFO - Semantic search returned 5 results
+2025-07-30 19:43:03,240 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 19:43:03,242 - INFO - Use pytorch device_name: cpu
+2025-07-30 19:43:03,242 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 19:43:08,824 - INFO - Loaded 5 documents from JSON file
+2025-07-30 19:43:08,951 - INFO - Computed embeddings for 5 documents
+2025-07-30 19:43:08,952 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 19:43:08,952 - INFO - Performing search for query: 'first amendment' with top_k=10, min_score=0.1
+2025-07-30 19:43:08,967 - INFO - Semantic search returned 5 results
+2025-07-30 21:32:31,880 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 21:32:31,887 - INFO - Use pytorch device_name: cpu
+2025-07-30 21:32:31,888 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 21:32:42,236 - INFO - Loaded 5 documents from JSON file
+2025-07-30 21:32:42,707 - INFO - Computed embeddings for 5 documents
+2025-07-30 21:32:42,708 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 21:32:42,708 - INFO - Performing search for query: 'constitutional law' with top_k=3, min_score=0.1
+2025-07-30 21:32:42,785 - INFO - Semantic search returned 3 results
+2025-07-30 21:33:56,062 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 21:33:56,064 - INFO - Use pytorch device_name: cpu
+2025-07-30 21:33:56,065 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 21:34:06,882 - INFO - Loaded 5 documents from JSON file
+2025-07-30 21:34:07,362 - INFO - Computed embeddings for 5 documents
+2025-07-30 21:34:07,362 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 21:34:07,362 - INFO - Performing search for query: 'constitutional law' with top_k=3, min_score=0.1
+2025-07-30 21:34:07,394 - INFO - Semantic search returned 3 results
+2025-07-30 22:13:05,015 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 22:13:05,016 - INFO - Use pytorch device_name: cpu
+2025-07-30 22:13:05,016 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 22:13:12,153 - INFO - Loaded 5 documents from JSON file
+2025-07-30 22:13:12,373 - INFO - Computed embeddings for 5 documents
+2025-07-30 22:13:12,373 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 22:13:12,374 - INFO - Performing search for query: 'constitutional law' with top_k=3, min_score=0.1
+2025-07-30 22:13:12,410 - INFO - Semantic search returned 3 results
+2025-07-30 22:18:20,170 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-30 22:18:20,173 - INFO - Use pytorch device_name: cpu
+2025-07-30 22:18:20,174 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-30 22:18:28,307 - INFO - Loaded 5 documents from JSON file
+2025-07-30 22:18:28,586 - INFO - Computed embeddings for 5 documents
+2025-07-30 22:18:28,587 - INFO - LegalSearchEngine initialized successfully
+2025-07-30 22:18:28,587 - INFO - Performing search for query: 'constitutional law' with top_k=3, min_score=0.1
+2025-07-30 22:18:28,619 - INFO - Semantic search returned 3 results
+2025-07-31 08:27:10,122 - INFO - Initializing LegalSearchEngine with model: all-MiniLM-L6-v2
+2025-07-31 08:27:10,128 - INFO - Use pytorch device_name: cpu
+2025-07-31 08:27:10,129 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-07-31 08:27:18,422 - INFO - Loaded 5 documents from JSON file
+2025-07-31 08:27:19,528 - INFO - Computed embeddings for 5 documents
+2025-07-31 08:27:19,529 - INFO - LegalSearchEngine initialized successfully
+2025-07-31 08:27:19,529 - INFO - Performing search for query: 'criminal law' with top_k=5, min_score=0.1
+2025-07-31 08:27:19,599 - INFO - Semantic search returned 5 results

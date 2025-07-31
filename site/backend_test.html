@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiAid - Backend Integration Test</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 3px;
+            background-color: #f8f9fa;
+        }
+        .success { border-left: 4px solid #28a745; }
+        .error { border-left: 4px solid #dc3545; }
+        .info { border-left: 4px solid #007bff; }
+        pre { font-size: 12px; max-height: 200px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-5">LexiAid Backend Integration Test</h1>
+        <p class="text-center text-muted">Testing Phase 3 backend endpoints and database connectivity</p>
+
+        <!-- Database Test Section -->
+        <div class="test-section">
+            <h3>1. Database Connection Test</h3>
+            <p>Tests database connectivity and table creation</p>
+            <button class="btn btn-primary" onclick="testDatabase()">Test Database</button>
+            <div id="db-result" class="test-result" style="display: none;"></div>
+        </div>
+
+        <!-- Search Test Section -->
+        <div class="test-section">
+            <h3>2. Search API Test</h3>
+            <p>Tests the search endpoint with sample queries</p>
+            <div class="form-group">
+                <input type="text" id="search-query" class="form-control" placeholder="Enter search query..." value="constitutional law">
+            </div>
+            <button class="btn btn-primary" onclick="testSearch()">Test Search</button>
+            <div id="search-result" class="test-result" style="display: none;"></div>
+        </div>
+
+        <!-- Search Debug Test Section -->
+        <div class="test-section">
+            <h3>2b. Search Debug API Test</h3>
+            <p>Tests the simplified debug search endpoint</p>
+            <div class="form-group">
+                <input type="text" id="search-debug-query" class="form-control" placeholder="Enter search query..." value="test query">
+            </div>
+            <button class="btn btn-warning" onclick="testSearchDebug()">Test Debug Search</button>
+            <div id="search-debug-result" class="test-result" style="display: none;"></div>
+        </div>
+
+        <!-- Tasks Test Section -->
+        <div class="test-section">
+            <h3>3. Tasks API Test</h3>
+            <p>Tests the tasks CRUD operations</p>
+            <div class="btn-group" role="group">
+                <button class="btn btn-success" onclick="testTasksLoad()">Load Tasks</button>
+                <button class="btn btn-info" onclick="testTaskCreate()">Create Test Task</button>
+            </div>
+            <div id="tasks-result" class="test-result" style="display: none;"></div>
+        </div>
+
+        <!-- Quizzes Test Section -->
+        <div class="test-section">
+            <h3>4. Quizzes API Test</h3>
+            <p>Tests the quizzes data and submission</p>
+            <div class="btn-group" role="group">
+                <button class="btn btn-success" onclick="testQuizzesLoad()">Load Quiz Data</button>
+                <button class="btn btn-info" onclick="testQuizSubmit()">Submit Test Quiz</button>
+            </div>
+            <div id="quizzes-result" class="test-result" style="display: none;"></div>
+        </div>
+
+        <!-- Integration Status -->
+        <div class="test-section">
+            <h3>5. Integration Status</h3>
+            <div id="integration-status">
+                <div class="alert alert-info">
+                    Click the test buttons above to verify backend integration.
+                </div>
+            </div>
+        </div>
+
+        <!-- PHP Environment Test -->
+        <div class="test-section">
+            <h3>6. PHP Environment Test</h3>
+            <p>Tests if PHP is properly configured on your server</p>
+            <button class="btn btn-warning" onclick="testPHP()">Test PHP Environment</button>
+            <div id="php-result" class="test-result" style="display: none;"></div>
+        </div>
+
+        <!-- Simplified API Test -->
+        <div class="test-section">
+            <h3>7. Simplified API Test</h3>
+            <p>Tests simplified endpoints that don't require database</p>
+            <div class="btn-group" role="group">
+                <button class="btn btn-success" onclick="testSimpleSearch()">Test Simple Search</button>
+                <button class="btn btn-info" onclick="testSimpleTasks()">Test Simple Tasks</button>
+                <button class="btn btn-primary" onclick="testSimpleQuizzes()">Test Simple Quizzes</button>
+            </div>
+            <div id="simple-result" class="test-result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Database test
+        async function testDatabase() {
+            const resultDiv = document.getElementById('db-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Testing database connection...';
+            
+            try {
+                const response = await fetch('test_database.php');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Database Connection Successful</h5>
+                        <p><strong>Server Info:</strong> ${data.connection_info.server_info}</p>
+                        <p><strong>Client Info:</strong> ${data.connection_info.client_info}</p>
+                        <h6>Table Status:</h6>
+                        <pre>${JSON.stringify(data.table_tests, null, 2)}</pre>
+                        <h6>Sample Data:</h6>
+                        <pre>${JSON.stringify(data.sample_data, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Database Test Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Search test
+        async function testSearch() {
+            const query = document.getElementById('search-query').value;
+            const resultDiv = document.getElementById('search-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Testing search...';
+            
+            try {
+                const response = await fetch('search.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query, top_k: 5 })
+                });
+                
+                // Get response text first to debug any issues
+                const responseText = await response.text();
+                
+                // Try to parse as JSON
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (parseError) {
+                    throw new Error(`JSON Parse Error: ${parseError.message}. Response received: ${responseText.substring(0, 500)}...`);
+                }
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Search Test Successful</h5>
+                        <p><strong>Query:</strong> "${data.query}"</p>
+                        <p><strong>Results Count:</strong> ${data.count}</p>
+                        <p><strong>Search Method:</strong> ${data.search_method}</p>
+                        <h6>Results:</h6>
+                        <pre>${JSON.stringify(data.results, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message || 'Unknown error occurred');
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Search Test Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Search debug test
+        async function testSearchDebug() {
+            const query = document.getElementById('search-debug-query').value;
+            const resultDiv = document.getElementById('search-debug-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Testing debug search...';
+            
+            try {
+                const response = await fetch('search_debug.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query, top_k: 3 })
+                });
+                
+                // Get response text first to debug any issues
+                const responseText = await response.text();
+                
+                // Try to parse as JSON
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (parseError) {
+                    throw new Error(`JSON Parse Error: ${parseError.message}. Response: ${responseText.substring(0, 500)}`);
+                }
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Debug Search Test Successful</h5>
+                        <p><strong>Query:</strong> "${data.query}"</p>
+                        <p><strong>Results Count:</strong> ${data.count}</p>
+                        <p><strong>Search Method:</strong> ${data.search_method}</p>
+                        <h6>Debug Info:</h6>
+                        <pre>${JSON.stringify(data.debug_info, null, 2)}</pre>
+                        <h6>Results:</h6>
+                        <pre>${JSON.stringify(data.results, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Debug Search Test Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Tasks load test
+        async function testTasksLoad() {
+            const resultDiv = document.getElementById('tasks-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Loading tasks...';
+            
+            try {
+                const response = await fetch('tasks.php?user_id=1');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Tasks Load Successful</h5>
+                        <p><strong>Tasks Count:</strong> ${data.count}</p>
+                        <p><strong>User ID:</strong> ${data.user_id}</p>
+                        <h6>Tasks:</h6>
+                        <pre>${JSON.stringify(data.tasks, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Tasks Load Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Task create test
+        async function testTaskCreate() {
+            const resultDiv = document.getElementById('tasks-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Creating test task...';
+            
+            const testTask = {
+                title: 'Test Task - ' + new Date().toLocaleTimeString(),
+                description: 'This is a test task created by the integration test',
+                category: 'testing',
+                priority: 'medium',
+                deadline: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().slice(0, 19).replace('T', ' ')
+            };
+            
+            try {
+                const response = await fetch('tasks.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testTask)
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Task Creation Successful</h5>
+                        <p><strong>Task ID:</strong> ${data.task_id}</p>
+                        <p><strong>Message:</strong> ${data.message}</p>
+                        <h6>Created Task:</h6>
+                        <pre>${JSON.stringify(testTask, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Task Creation Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Quizzes load test
+        async function testQuizzesLoad() {
+            const resultDiv = document.getElementById('quizzes-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Loading quiz data...';
+            
+            try {
+                const response = await fetch('quizzes.php?user_id=1');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Quiz Data Load Successful</h5>
+                        <p><strong>User ID:</strong> ${data.user_id}</p>
+                        <h6>Statistics:</h6>
+                        <pre>${JSON.stringify(data.statistics, null, 2)}</pre>
+                        <h6>Recent History:</h6>
+                        <pre>${JSON.stringify(data.recent_history, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Quiz Data Load Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Quiz submit test
+        async function testQuizSubmit() {
+            const resultDiv = document.getElementById('quizzes-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Submitting test quiz...';
+            
+            const testQuiz = {
+                topic: 'Integration Test Quiz',
+                score: Math.floor(Math.random() * 40) + 60, // Random score 60-100
+                details: {
+                    questions: 10,
+                    correct: Math.floor(Math.random() * 4) + 6,
+                    time_taken: Math.floor(Math.random() * 10) + 5
+                }
+            };
+            
+            try {
+                const response = await fetch('quizzes.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testQuiz)
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Quiz Submission Successful</h5>
+                        <p><strong>Quiz ID:</strong> ${data.quiz_id}</p>
+                        <p><strong>Score:</strong> ${data.score}%</p>
+                        <p><strong>Message:</strong> ${data.message}</p>
+                        <h6>Submitted Quiz:</h6>
+                        <pre>${JSON.stringify(testQuiz, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Quiz Submission Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Auto-run basic tests on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('LexiAid Backend Integration Test page loaded');
+            document.getElementById('integration-status').innerHTML = `
+                <div class="alert alert-info">
+                    <h5>Phase 3 Integration Test Suite</h5>
+                    <p>This page tests the backend integration for LexiAid Phase 3:</p>
+                    <ul class="mb-0">
+                        <li>Database connectivity and table creation</li>
+                        <li>Search API with database and fallback support</li>
+                        <li>Tasks CRUD operations</li>
+                        <li>Quizzes data management</li>
+                        <li>PHP environment and simplified API tests</li>
+                    </ul>
+                    <div class="mt-3">
+                        <strong>Troubleshooting:</strong> If tests fail, try the simplified API tests below to isolate the issue.
+                    </div>
+                </div>
+            `;
+        });
+
+        // PHP Environment test
+        async function testPHP() {
+            const resultDiv = document.getElementById('php-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Testing PHP environment...';
+            
+            try {
+                const response = await fetch('php_test.php');
+                const text = await response.text();
+                
+                if (text.includes('PHP Version') || text.includes('phpinfo()')) {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ PHP Environment Working</h5>
+                        <p>PHP is properly configured and running on your server.</p>
+                        <details>
+                            <summary>View PHP Info (click to expand)</summary>
+                            <div style="max-height: 200px; overflow-y: scroll; font-size: 12px; margin-top: 10px;">
+                                ${text}
+                            </div>
+                        </details>
+                    `;
+                } else {
+                    throw new Error('PHP not working properly');
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `
+                    <h5>❌ PHP Environment Test Failed</h5>
+                    <p>${error.message}</p>
+                    <small>Make sure you're running this through a web server with PHP support (XAMPP, WAMP, etc.)</small>
+                `;
+            }
+        }
+
+        // Simple Search test
+        async function testSimpleSearch() {
+            const resultDiv = document.getElementById('simple-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Testing simple search...';
+            
+            try {
+                const response = await fetch('search_simple.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: 'constitutional law', top_k: 3 })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Simple Search Working</h5>
+                        <p><strong>Results:</strong> ${data.count} items found</p>
+                        <p><strong>Method:</strong> ${data.search_method}</p>
+                        <pre>${JSON.stringify(data.results, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Simple Search Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Simple Tasks test
+        async function testSimpleTasks() {
+            const resultDiv = document.getElementById('simple-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Testing simple tasks...';
+            
+            try {
+                const response = await fetch('tasks_simple.php?user_id=1');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Simple Tasks Working</h5>
+                        <p><strong>Tasks Count:</strong> ${data.count}</p>
+                        <pre>${JSON.stringify(data.tasks, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Simple Tasks Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        // Simple Quizzes test
+        async function testSimpleQuizzes() {
+            const resultDiv = document.getElementById('simple-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Testing simple quizzes...';
+            
+            try {
+                const response = await fetch('quizzes_simple.php?user_id=1');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.className = 'test-result success';
+                    resultDiv.innerHTML = `
+                        <h5>✅ Simple Quizzes Working</h5>
+                        <p><strong>Statistics:</strong> ${data.statistics.total_quizzes} quizzes, avg score ${data.statistics.average_score}%</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.innerHTML = `<h5>❌ Simple Quizzes Failed</h5><p>${error.message}</p>`;
+            }
+        }
+
+        <!-- Status Update Section -->
+        window.addEventListener('DOMContentLoaded', function() {
+            const statusDiv = document.getElementById('integration-status'); 
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <h5>🔧 Backend Integration Fixes Applied</h5>
+                    <p><strong>Issues Fixed:</strong></p>
+                    <ul>
+                        <li><strong>Database Test SQL Error:</strong> Fixed SQL syntax error by changing 'current_time' to 'current_timestamp'</li>
+                        <li><strong>Search API JSON Error:</strong> Removed HTML/JavaScript code from search.php that was breaking JSON output</li>
+                        <li><strong>Enhanced Error Reporting:</strong> Added better error diagnostics to search test functions</li>
+                        <li><strong>Added Debug Search:</strong> Created search_debug.php for isolated testing</li>
+                    </ul>
+                    <p><strong>New Test Features:</strong></p>
+                    <ul>
+                        <li>Debug Search API Test (Section 2b) - Tests simplified search endpoint</li>
+                        <li>Enhanced error messages showing actual response content</li>
+                        <li>Better JSON parsing error handling</li>
+                    </ul>
+                    <div class="mt-3">
+                        <strong>Next Steps:</strong> 
+                        <ol>
+                            <li>Test Database Connection (should now work)</li>
+                            <li>Test Search API (should now return valid JSON)</li>
+                            <li>If main search still fails, try Debug Search API</li>
+                            <li>All other endpoints should continue working</li>
+                        </ol>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+2025-07-02 16:41:30 | GET | /quizzes.php?user_id=1
+2025-07-02 16:44:20 | POST | /quizzes.php
+2025-07-02 16:44:26 | GET | /quizzes.php?user_id=1
+2025-07-02 16:56:10 | GET | /quizzes.php?user_id=1
+2025-07-02 17:28:04 | GET | /quizzes.php?user_id=1
+2025-07-30 17:44:56 | GET | /quizzes.php?user_id=1
+2025-07-30 17:44:56 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:44:56 | GET | /quizzes.php?user_id=1
+2025-07-30 17:44:56 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:44:56 | POST | /quizzes.php
+2025-07-30 17:44:56 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:48:51 | GET | /quizzes.php?user_id=1
+2025-07-30 17:48:51 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:48:51 | GET | /quizzes.php?user_id=1
+2025-07-30 17:48:51 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:48:51 | POST | /quizzes.php
+2025-07-30 17:48:51 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:19 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:19 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:19 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:19 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:19 | POST | /quizzes.php
+2025-07-30 17:49:19 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:20 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:20 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:21 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:21 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:21 | POST | /quizzes.php
+2025-07-30 17:49:21 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:22 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:22 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:22 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:22 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:22 | POST | /quizzes.php
+2025-07-30 17:49:22 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:23 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:23 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:23 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:23 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:23 | POST | /quizzes.php
+2025-07-30 17:49:23 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:42 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:42 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:42 | GET | /quizzes.php?user_id=1
+2025-07-30 17:49:42 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:49:42 | POST | /quizzes.php
+2025-07-30 17:49:42 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:50:15 | GET | /quizzes.php?user_id=1
+2025-07-30 17:50:15 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:50:15 | GET | /quizzes.php?user_id=1
+2025-07-30 17:50:15 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:50:15 | POST | /quizzes.php
+2025-07-30 17:50:15 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:53:37 | GET | /quizzes.php?user_id=1
+2025-07-30 17:53:37 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:53:37 | GET | /quizzes.php?user_id=1
+2025-07-30 17:53:37 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:53:37 | POST | /quizzes.php
+2025-07-30 17:53:37 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 17:53:43 | POST | /quizzes.php
+2025-07-30 17:53:43 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 18:01:30 | GET | /quizzes.php?user_id=1
+2025-07-30 18:01:30 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:42 | GET | /quizzes.php?user_id=1
+2025-07-30 18:03:42 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:42 | GET | /quizzes.php?user_id=1
+2025-07-30 18:03:42 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:42 | POST | /quizzes.php
+2025-07-30 18:03:42 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:44 | GET | /quizzes.php?user_id=1
+2025-07-30 18:03:44 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:44 | GET | /quizzes.php?user_id=1
+2025-07-30 18:03:44 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:44 | POST | /quizzes.php
+2025-07-30 18:03:44 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:45 | GET | /quizzes.php?user_id=1
+2025-07-30 18:03:45 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:45 | GET | /quizzes.php?user_id=1
+2025-07-30 18:03:45 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:03:46 | POST | /quizzes.php
+2025-07-30 18:03:46 | ERROR: Database connection error: Access denied for user 'root'@'localhost' (using password: NO)
+2025-07-30 18:12:10 | GET | /quizzes.php?user_id=1
+2025-07-30 18:12:35 | GET | /quizzes.php?user_id=1
+2025-07-30 18:12:35 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 18:15:56 | GET | /quizzes.php?user_id=1
+2025-07-30 18:18:14 | GET | /quizzes.php?user_id=1
+2025-07-30 18:19:31 | GET | /quizzes.php?user_id=1
+2025-07-30 18:21:28 | GET | /quizzes.php?user_id=1
+2025-07-30 18:32:00 | GET | /quizzes.php?user_id=1
+2025-07-30 18:32:00 | GET | /quizzes.php?user_id=1
+2025-07-30 18:32:46 | POST | /quizzes.php
+2025-07-30 18:32:46 | POST | /quizzes.php
+2025-07-30 18:33:25 | GET | /quizzes.php?user_id=1
+2025-07-30 18:33:26 | GET | /quizzes.php?user_id=1
+2025-07-30 18:34:10 | POST | /quizzes.php
+2025-07-30 18:46:37 | GET | /quizzes.php?user_id=1
+2025-07-30 18:47:07 | POST | /quizzes.php
+2025-07-30 18:47:07 | ERROR: Invalid request data - topic and score are required
+2025-07-30 18:47:56 | POST | /quizzes.php
+2025-07-30 18:54:14 | POST | /quizzes.php
+2025-07-30 18:54:14 | GET | /quizzes.php?user_id=1
+2025-07-30 18:54:29 | GET | /quizzes.php?user_id=1
+2025-07-30 18:57:24 | POST | /quizzes.php
+2025-07-30 18:57:24 | GET | /quizzes.php?user_id=1
+2025-07-30 19:12:54 | GET | /quizzes.php?user_id=1
+2025-07-30 19:12:54 | GET | /quizzes.php?user_id=1
+2025-07-30 19:13:14 | POST | /quizzes.php
+2025-07-30 19:13:31 | GET | /quizzes.php?user_id=1
+2025-07-30 19:13:31 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 19:14:01 | POST | /quizzes.php
+2025-07-30 19:14:01 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 19:14:09 | GET | /quizzes.php?user_id=1
+2025-07-30 19:14:09 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 19:14:39 | GET | /quizzes.php?user_id=1
+2025-07-30 19:14:39 | ERROR: Database connection error: MySQLi extension is not loaded. Please install php-mysqli.
+2025-07-30 19:18:07 | GET | /quizzes.php?user_id=1
+2025-07-30 19:18:07 | GET | /quizzes.php?user_id=1
+2025-07-30 19:18:30 | POST | /quizzes.php
+2025-07-30 22:57:16 | GET | /quizzes.php?user_id=1
+2025-07-31 05:27:42 | GET | /quizzes.php?user_id=1

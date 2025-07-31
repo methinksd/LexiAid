@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>LexiAid - Task Manager</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lexiaid-polish.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+		<![endif]-->
+    <style>
+      .task-card {
+        transition: all 0.3s ease;
+      }
+      .task-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+      .task-priority-high {
+        border-left: 5px solid #dc3545;
+      }
+      .task-priority-medium {
+        border-left: 5px solid #ffc107;
+      }
+      .task-priority-low {
+        border-left: 5px solid #28a745;
+      }
+      .task-complete {
+        opacity: 0.7;
+      }
+      .task-complete .card-body, .task-complete .card-title {
+        text-decoration: line-through;
+      }
+      .task-filters .btn-outline-secondary.active {
+        background-color: #6c757d;
+        color: white;
+      }
+      .drag-handle {
+        cursor: move;
+        color: #adb5bd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="preloader-body">
+        <div class="cssload-container">
+          <div class="cssload-speeding-wheel"> </div>
+        </div>
+        <p>Loading...</p>
+      </div>
+    </div>
+    <div class="page">
+      <header class="page-head">
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-default" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="53px" data-xl-stick-up-offset="53px" data-xxl-stick-up-offset="53px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner">
+              <div class="rd-navbar-aside-wrap">
+                <div class="rd-navbar-aside">
+                  <div class="rd-navbar-aside-toggle" data-rd-navbar-toggle=".rd-navbar-aside"><span></span></div>
+                  <div class="rd-navbar-aside-content">
+                    <ul class="rd-navbar-aside-group list-units">
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-calendar"></span></div>
+                          <div class="unit-body"><span class="link-dusty-gray" id="current-date">April 14, 2023</span></div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
+                          <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">support@lexiaid.com</a></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="rd-navbar-group">
+                <div class="rd-navbar-panel">
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <a class="rd-navbar-brand brand" href="index.html">
+                    <h3 class="text-primary">Lexi<span style="color: #4d4d4d;">Aid</span></h3>
+                  </a>
+                </div>
+                <div class="rd-navbar-nav-wrap">
+                  <div class="rd-navbar-nav-inner">
+                    <ul class="rd-navbar-nav">
+                      <li><a href="index.html"><i class="fa fa-home"></i> Dashboard</a>
+                      </li>
+                      <li><a href="search.html"><i class="fa fa-search"></i> Search</a>
+                      </li>
+                      <li class="active"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a>
+                      </li>
+                      <li><a href="quizzes.html"><i class="fa fa-question-circle"></i> Quizzes</a>
+                      </li>
+                      <li><a href="insights.html"><i class="fa fa-chart-bar"></i> Insights</a>
+                      </li>
+                      <li><a href="upload-case.html"><i class="fa fa-upload"></i> Upload Case</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <section class="section-50 section-md-75 section-lg-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <h2>Task Manager</h2>
+              <p class="text-bigger mb-4">Organize your law school assignments, readings, and study sessions.</p>
+            </div>
+            <div class="col-md-4 text-md-right">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#addTaskModal">
+                <i class="fa fa-plus"></i> Add New Task
+              </button>
+            </div>
+          </div>
+          
+          <!-- Task Filters & Search -->
+          <div class="row mt-4 mb-4">
+            <div class="col-lg-8">
+              <div class="btn-group task-filters">
+                <button type="button" class="btn btn-outline-secondary active" data-filter="all">All Tasks</button>
+                <button type="button" class="btn btn-outline-secondary" data-filter="reading">Reading</button>
+                <button type="button" class="btn btn-outline-secondary" data-filter="brief">Case Briefs</button>
+                <button type="button" class="btn btn-outline-secondary" data-filter="quiz">Quizzes</button>
+                <button type="button" class="btn btn-outline-secondary" data-filter="study">Study Sessions</button>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search tasks..." id="taskSearchInput">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task Progress Bar -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5>Task Progress</h5>
+                  <div class="progress" style="height: 25px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">40% Complete</div>
+                  </div>
+                  <div class="d-flex justify-content-between mt-2">
+                    <small>8 of 20 tasks completed</small>
+                    <small>Deadline: Finals Week</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Task Lists -->
+          <div class="row">
+            <!-- Upcoming Tasks -->
+            <div class="col-12 mb-4">
+              <h4><i class="fa fa-calendar-day text-primary"></i> Due Soon</h4>
+              <hr>
+              
+              <!-- Task 1 -->
+              <div class="card task-card-enhanced priority-high mb-3 fade-in" data-category="brief">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-1">
+                      <span class="drag-handle mr-2"><i class="fas fa-grip-vertical"></i></span>
+                      Constitutional Law Brief
+                    </h5>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input focus-outline" id="taskCheck1">
+                      <label class="custom-control-label" for="taskCheck1"></label>
+                    </div>
+                  </div>
+                  <p class="card-text text-muted mb-2">Marbury v. Madison case analysis - 3-5 pages</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="task-status-badge status-pending mr-1">Pending</span>
+                      <span class="badge badge-secondary">Brief</span>
+                    </div>
+                    <div>
+                      <small class="text-danger"><i class="fa fa-clock"></i> Due Tomorrow</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-white p-0">
+                  <div class="btn-group btn-group-sm w-100" role="group">
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-edit"></i> Edit</button>
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-file"></i> View Case</button>
+                    <button type="button" class="btn btn-link text-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Task 2 -->
+              <div class="card mb-3 task-card task-priority-medium" data-category="quiz">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-1">
+                      <span class="drag-handle mr-2"><i class="fas fa-grip-vertical"></i></span>
+                      Torts Reading Quiz
+                    </h5>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="taskCheck2">
+                      <label class="custom-control-label" for="taskCheck2"></label>
+                    </div>
+                  </div>
+                  <p class="card-text text-muted mb-2">Negligence and strict liability chapters</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="badge badge-warning mr-1">Medium Priority</span>
+                      <span class="badge badge-secondary">Quiz</span>
+                    </div>
+                    <div>
+                      <small class="text-warning"><i class="fa fa-clock"></i> Due in 2 days</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-white p-0">
+                  <div class="btn-group btn-group-sm w-100" role="group">
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-edit"></i> Edit</button>
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-book"></i> Study Guide</button>
+                    <button type="button" class="btn btn-link text-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Task 3 -->
+              <div class="card mb-3 task-card task-priority-medium" data-category="reading">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-1">
+                      <span class="drag-handle mr-2"><i class="fas fa-grip-vertical"></i></span>
+                      Criminal Law Chapter 8
+                    </h5>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="taskCheck3">
+                      <label class="custom-control-label" for="taskCheck3"></label>
+                    </div>
+                  </div>
+                  <p class="card-text text-muted mb-2">Read pages 245-267 on inchoate crimes</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="badge badge-warning mr-1">Medium Priority</span>
+                      <span class="badge badge-secondary">Reading</span>
+                    </div>
+                    <div>
+                      <small class="text-info"><i class="fa fa-clock"></i> Due in 3 days</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-white p-0">
+                  <div class="btn-group btn-group-sm w-100" role="group">
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-edit"></i> Edit</button>
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-clock"></i> Add Time</button>
+                    <button type="button" class="btn btn-link text-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Later Tasks -->
+            <div class="col-12 mb-4">
+              <h4><i class="fa fa-calendar-week text-primary"></i> This Week</h4>
+              <hr>
+              
+              <!-- Task 4 -->
+              <div class="card mb-3 task-card task-priority-medium" data-category="study">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-1">
+                      <span class="drag-handle mr-2"><i class="fas fa-grip-vertical"></i></span>
+                      Study Group - Contracts
+                    </h5>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="taskCheck4">
+                      <label class="custom-control-label" for="taskCheck4"></label>
+                    </div>
+                  </div>
+                  <p class="card-text text-muted mb-2">Review consideration and promissory estoppel</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="badge badge-warning mr-1">Medium Priority</span>
+                      <span class="badge badge-secondary">Study Session</span>
+                    </div>
+                    <div>
+                      <small class="text-muted"><i class="fa fa-clock"></i> Thursday, 3:00 PM</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-white p-0">
+                  <div class="btn-group btn-group-sm w-100" role="group">
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-edit"></i> Edit</button>
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-users"></i> Group Info</button>
+                    <button type="button" class="btn btn-link text-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Task 5 -->
+              <div class="card mb-3 task-card task-priority-low" data-category="reading">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-1">
+                      <span class="drag-handle mr-2"><i class="fas fa-grip-vertical"></i></span>
+                      Property Law Supplement
+                    </h5>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="taskCheck5">
+                      <label class="custom-control-label" for="taskCheck5"></label>
+                    </div>
+                  </div>
+                  <p class="card-text text-muted mb-2">Review the additional cases on adverse possession</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="badge badge-success mr-1">Low Priority</span>
+                      <span class="badge badge-secondary">Reading</span>
+                    </div>
+                    <div>
+                      <small class="text-muted"><i class="fa fa-clock"></i> Friday, 11:59 PM</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-white p-0">
+                  <div class="btn-group btn-group-sm w-100" role="group">
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-edit"></i> Edit</button>
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-book"></i> View Material</button>
+                    <button type="button" class="btn btn-link text-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Completed Tasks -->
+            <div class="col-12 mb-4">
+              <h4><i class="fa fa-check-circle text-primary"></i> Completed</h4>
+              <hr>
+              
+              <!-- Task 6 -->
+              <div class="card mb-3 task-card task-complete task-priority-high" data-category="brief">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-1">
+                      <span class="drag-handle mr-2"><i class="fas fa-grip-vertical"></i></span>
+                      Civil Procedure Brief
+                    </h5>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="taskCheck6" checked>
+                      <label class="custom-control-label" for="taskCheck6"></label>
+                    </div>
+                  </div>
+                  <p class="card-text text-muted mb-2">International Shoe Co. v. Washington case analysis</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="badge badge-danger mr-1">High Priority</span>
+                      <span class="badge badge-secondary">Brief</span>
+                    </div>
+                    <div>
+                      <small class="text-success"><i class="fa fa-check"></i> Completed on Apr 10</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-white p-0">
+                  <div class="btn-group btn-group-sm w-100" role="group">
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-undo"></i> Reopen</button>
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-file"></i> View Submission</button>
+                    <button type="button" class="btn btn-link text-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Task 7 -->
+              <div class="card mb-3 task-card task-complete task-priority-medium" data-category="reading">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-1">
+                      <span class="drag-handle mr-2"><i class="fas fa-grip-vertical"></i></span>
+                      Constitutional Law Chapter 5
+                    </h5>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="taskCheck7" checked>
+                      <label class="custom-control-label" for="taskCheck7"></label>
+                    </div>
+                  </div>
+                  <p class="card-text text-muted mb-2">First Amendment readings and case summaries</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="badge badge-warning mr-1">Medium Priority</span>
+                      <span class="badge badge-secondary">Reading</span>
+                    </div>
+                    <div>
+                      <small class="text-success"><i class="fa fa-check"></i> Completed on Apr 8</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-white p-0">
+                  <div class="btn-group btn-group-sm w-100" role="group">
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-undo"></i> Reopen</button>
+                    <button type="button" class="btn btn-link text-primary"><i class="fa fa-notes"></i> View Notes</button>
+                    <button type="button" class="btn btn-link text-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add Task Modal -->
+      <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="addTaskForm">
+                <div class="form-group">
+                  <label for="taskTitle">Task Title</label>
+                  <input type="text" class="form-control" id="taskTitle" placeholder="Enter task title" required>
+                </div>
+                <div class="form-group">
+                  <label for="taskDescription">Description</label>
+                  <textarea class="form-control" id="taskDescription" rows="3" placeholder="Enter task details"></textarea>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="taskCategory">Category</label>
+                    <select class="form-control" id="taskCategory" required>
+                      <option value="">Select category</option>
+                      <option value="reading">Reading</option>
+                      <option value="brief">Case Brief</option>
+                      <option value="quiz">Quiz</option>
+                      <option value="study">Study Session</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="taskPriority">Priority</label>
+                    <select class="form-control" id="taskPriority" required>
+                      <option value="">Select priority</option>
+                      <option value="high">High</option>
+                      <option value="medium">Medium</option>
+                      <option value="low">Low</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="taskDueDate">Due Date</label>
+                    <input type="date" class="form-control" id="taskDueDate" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="taskDueTime">Due Time</label>
+                    <input type="time" class="form-control" id="taskDueTime">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="taskRelatedCase">Related Case (Optional)</label>
+                  <select class="form-control" id="taskRelatedCase">
+                    <option value="">None</option>
+                    <option value="marbury">Marbury v. Madison</option>
+                    <option value="miranda">Miranda v. Arizona</option>
+                    <option value="brown">Brown v. Board of Education</option>
+                    <option value="roe">Roe v. Wade</option>
+                    <option value="gideon">Gideon v. Wainwright</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="taskReminder">
+                    <label class="form-check-label" for="taskReminder">
+                      Set reminder
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" id="saveTaskBtn">Save Task</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="page-footer page-footer-default bg-gray-dark">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col text-center">
+              <p class="rights">LexiAid &copy; <span id="copyright-year">2023</span>. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      // Set current date
+      document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
+      // Set copyright year
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+      
+      // Task category filtering
+      document.querySelectorAll('.task-filters .btn').forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          document.querySelectorAll('.task-filters .btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          // Filter tasks
+          document.querySelectorAll('.task-card').forEach(task => {
+            if (filter === 'all' || task.getAttribute('data-category') === filter) {
+              task.style.display = 'block';
+            } else {
+              task.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Task search functionality
+      document.getElementById('taskSearchInput').addEventListener('keyup', function() {
+        const searchText = this.value.toLowerCase();
+        
+        document.querySelectorAll('.task-card').forEach(task => {
+          const taskTitle = task.querySelector('.card-title').textContent.toLowerCase();
+          const taskDesc = task.querySelector('.card-text').textContent.toLowerCase();
+          
+          if (taskTitle.includes(searchText) || taskDesc.includes(searchText)) {
+            task.style.display = 'block';
+          } else {
+            task.style.display = 'none';
+          }
+        });
+      });
+      
+      // Task completion toggling
+      document.querySelectorAll('.custom-control-input').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const taskCard = this.closest('.task-card');
+          
+          if (this.checked) {
+            taskCard.classList.add('task-complete');
+          } else {
+            taskCard.classList.remove('task-complete');
+          }
+        });
+      });
+      
+      // Updated save task functionality - now integrated with backend
+      document.getElementById('saveTaskBtn').addEventListener('click', function() {
+        // The form submission is now handled by tasks.js
+        // This button will trigger the form submit event
+        document.getElementById('addTaskForm').dispatchEvent(new Event('submit'));
+      });
+    </script>
+    <script src="js/tasks.js"></script>
+  </body>
+</html> 

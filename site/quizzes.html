@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>LexiAid - Legal Quizzes</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lexiaid-polish.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+		<![endif]-->
+    <style>
+      .quiz-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .quiz-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      }
+      .quiz-progress {
+        height: 10px;
+        border-radius: 5px;
+      }
+      .quiz-score {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .quiz-question {
+        border-left: 4px solid #007bff;
+        padding-left: 15px;
+      }
+      .answer-option {
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        padding: 12px;
+        margin: 5px 0;
+      }
+      .answer-option:hover {
+        border-color: #007bff;
+        background-color: #f8f9fa;
+      }
+      .answer-option.selected {
+        border-color: #007bff;
+        background-color: #e7f3ff;
+      }
+      .answer-option.correct {
+        border-color: #28a745;
+        background-color: #d4edda;
+      }
+      .answer-option.incorrect {
+        border-color: #dc3545;
+        background-color: #f8d7da;
+      }
+      .quiz-timer {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #dc3545;
+      }
+      .performance-badge {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+      .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+      }
+      .stat-card.success {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      }
+      .stat-card.warning {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+      .quiz-category {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="preloader-body">
+        <div class="cssload-container">
+          <div class="cssload-speeding-wheel"> </div>
+        </div>
+        <p>Loading...</p>
+      </div>
+    </div>
+    <div class="page">
+      <header class="page-head">
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-default" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="53px" data-xl-stick-up-offset="53px" data-xxl-stick-up-offset="53px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner">
+              <div class="rd-navbar-aside-wrap">
+                <div class="rd-navbar-aside">
+                  <div class="rd-navbar-aside-toggle" data-rd-navbar-toggle=".rd-navbar-aside"><span></span></div>
+                  <div class="rd-navbar-aside-content">
+                    <ul class="rd-navbar-aside-group list-units">
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-calendar"></span></div>
+                          <div class="unit-body"><span class="link-dusty-gray" id="current-date">July 30, 2025</span></div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
+                          <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">support@lexiaid.com</a></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="rd-navbar-group">
+                <div class="rd-navbar-panel">
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <a class="rd-navbar-brand brand" href="index.html">
+                    <h3 class="text-primary">Lexi<span style="color: #4d4d4d;">Aid</span></h3>
+                  </a>
+                </div>
+                <div class="rd-navbar-nav-wrap">
+                  <div class="rd-navbar-nav-inner">
+                    <ul class="rd-navbar-nav">
+                      <li><a href="index.html"><i class="fa fa-home"></i> Dashboard</a>
+                      </li>
+                      <li><a href="search.html"><i class="fa fa-search"></i> Search</a>
+                      </li>
+                      <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a>
+                      </li>
+                      <li class="active"><a href="quizzes.html"><i class="fa fa-question-circle"></i> Quizzes</a>
+                      </li>
+                      <li><a href="insights.html"><i class="fa fa-chart-bar"></i> Insights</a>
+                      </li>
+                      <li><a href="upload-case.html"><i class="fa fa-upload"></i> Upload Case</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <section class="section-50 section-md-75 section-lg-100">
+        <div class="container">
+          <!-- Page Header -->
+          <div class="row align-items-center mb-4">
+            <div class="col-md-8">
+              <h2><i class="fa fa-question-circle text-primary"></i> Legal Quizzes</h2>
+              <p class="text-bigger">Test your knowledge with interactive legal quizzes and track your progress.</p>
+            </div>
+            <div class="col-md-4 text-md-right">
+              <button class="btn btn-primary" id="takeQuizBtn">
+                <i class="fa fa-play"></i> Take New Quiz
+              </button>
+            </div>
+          </div>
+
+          <!-- Performance Statistics -->
+          <div class="row mb-4">
+            <div class="col-md-3">
+              <div class="card stat-card">
+                <div class="card-body text-center">
+                  <i class="fa fa-clipboard-list fa-2x mb-2"></i>
+                  <h3 class="mb-0" data-stat="total-quizzes">0</h3>
+                  <small>Total Quizzes</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card stat-card success">
+                <div class="card-body text-center">
+                  <i class="fa fa-percentage fa-2x mb-2"></i>
+                  <h3 class="mb-0" data-stat="avg-score">0%</h3>
+                  <small>Average Score</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card stat-card warning">
+                <div class="card-body text-center">
+                  <i class="fa fa-trophy fa-2x mb-2"></i>
+                  <h3 class="mb-0" data-stat="highest-score">0%</h3>
+                  <small>Highest Score</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card stat-card">
+                <div class="card-body text-center">
+                  <i class="fa fa-check-circle fa-2x mb-2"></i>
+                  <h3 class="mb-0" data-stat="quizzes-passed">0</h3>
+                  <small>Quizzes Passed</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Interface (Hidden initially) -->
+          <div class="row" id="quizInterface" style="display: none;">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                      <span id="quizTitle">Quiz Title</span>
+                      <span class="quiz-category bg-primary text-white ml-2" id="quizCategory">Category</span>
+                    </h5>
+                    <div class="quiz-timer" id="quizTimer">10:00</div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <!-- Progress Bar -->
+                  <div class="progress quiz-progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" id="quizProgress">
+                      Question 1 of 10
+                    </div>
+                  </div>
+
+                  <!-- Question -->
+                  <div class="quiz-question mb-4">
+                    <h5 id="questionText">Sample question text will appear here...</h5>
+                  </div>
+
+                  <!-- Answer Options -->
+                  <div id="answerOptions">
+                    <!-- Options will be populated dynamically -->
+                  </div>
+
+                  <!-- Navigation Buttons -->
+                  <div class="d-flex justify-content-between mt-4">
+                    <button class="btn btn-outline-secondary" id="prevQuestionBtn" disabled>
+                      <i class="fa fa-arrow-left"></i> Previous
+                    </button>
+                    <div>
+                      <button class="btn btn-primary" id="nextQuestionBtn">
+                        Next <i class="fa fa-arrow-right"></i>
+                      </button>
+                      <button class="btn btn-success" id="submitQuizBtn" style="display: none;">
+                        <i class="fa fa-check"></i> Submit Quiz
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Results (Hidden initially) -->
+          <div class="row" id="quizResults" style="display: none;">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header text-center bg-primary text-white">
+                  <h5 class="mb-0"><i class="fa fa-chart-line"></i> Quiz Results</h5>
+                </div>
+                <div class="card-body text-center">
+                  <div class="quiz-score text-primary mb-3" id="finalScore">85%</div>
+                  <h5 class="mb-3" id="scoreMessage">Great job! You passed the quiz.</h5>
+                  
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="card bg-light">
+                        <div class="card-body">
+                          <h6>Correct Answers</h6>
+                          <span class="badge badge-success" id="correctCount">8</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card bg-light">
+                        <div class="card-body">
+                          <h6>Total Questions</h6>
+                          <span class="badge badge-primary" id="totalQuestions">10</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card bg-light">
+                        <div class="card-body">
+                          <h6>Time Taken</h6>
+                          <span class="badge badge-info" id="timeTaken">5:30</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4">
+                    <button class="btn btn-primary mr-2" id="retakeQuizBtn">
+                      <i class="fa fa-redo"></i> Retake Quiz
+                    </button>
+                    <button class="btn btn-outline-primary" id="backToQuizzesBtn">
+                      <i class="fa fa-list"></i> Back to Quizzes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Available Quizzes -->
+          <div class="row" id="availableQuizzes">
+            <div class="col-12">
+              <h4><i class="fa fa-list text-primary"></i> Available Quizzes</h4>
+              <hr>
+            </div>
+
+            <!-- Constitutional Law Quiz -->
+            <div class="col-md-6 mb-4">
+              <div class="card quiz-card" data-quiz="constitutional-law">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title">Constitutional Law Fundamentals</h5>
+                    <span class="quiz-category bg-danger text-white">Constitutional Law</span>
+                  </div>
+                  <p class="card-text">Test your knowledge of constitutional principles, judicial review, and landmark Supreme Court cases.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                      <i class="fa fa-clock"></i> 15 minutes • 
+                      <i class="fa fa-question-circle"></i> 20 questions
+                    </small>
+                    <span class="badge badge-warning">Intermediate</span>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary btn-sm start-quiz" data-quiz="constitutional-law">
+                    <i class="fa fa-play"></i> Start Quiz
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contract Law Quiz -->
+            <div class="col-md-6 mb-4">
+              <div class="card quiz-card" data-quiz="contract-law">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title">Contract Formation & Terms</h5>
+                    <span class="quiz-category bg-success text-white">Contract Law</span>
+                  </div>
+                  <p class="card-text">Master the essentials of contract formation, consideration, and performance obligations.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                      <i class="fa fa-clock"></i> 12 minutes • 
+                      <i class="fa fa-question-circle"></i> 15 questions
+                    </small>
+                    <span class="badge badge-success">Beginner</span>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary btn-sm start-quiz" data-quiz="contract-law">
+                    <i class="fa fa-play"></i> Start Quiz
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Criminal Law Quiz -->
+            <div class="col-md-6 mb-4">
+              <div class="card quiz-card" data-quiz="criminal-law">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title">Criminal Law Principles</h5>
+                    <span class="quiz-category bg-dark text-white">Criminal Law</span>
+                  </div>
+                  <p class="card-text">Explore criminal liability, defenses, and constitutional protections in criminal proceedings.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                      <i class="fa fa-clock"></i> 18 minutes • 
+                      <i class="fa fa-question-circle"></i> 25 questions
+                    </small>
+                    <span class="badge badge-danger">Advanced</span>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary btn-sm start-quiz" data-quiz="criminal-law">
+                    <i class="fa fa-play"></i> Start Quiz
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Torts Quiz -->
+            <div class="col-md-6 mb-4">
+              <div class="card quiz-card" data-quiz="torts">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title">Torts & Liability</h5>
+                    <span class="quiz-category bg-warning text-dark">Torts</span>
+                  </div>
+                  <p class="card-text">Understand negligence, intentional torts, and strict liability in civil law.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                      <i class="fa fa-clock"></i> 14 minutes • 
+                      <i class="fa fa-question-circle"></i> 18 questions
+                    </small>
+                    <span class="badge badge-warning">Intermediate</span>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary btn-sm start-quiz" data-quiz="torts">
+                    <i class="fa fa-play"></i> Start Quiz
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Quiz History -->
+          <div class="row mt-5">
+            <div class="col-12">
+              <h4><i class="fa fa-history text-primary"></i> Recent Quiz History</h4>
+              <hr>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Quiz Topic</th>
+                      <th>Score</th>
+                      <th>Performance</th>
+                      <th>Date Completed</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="quizHistoryTable">
+                    <tr>
+                      <td colspan="5" class="text-center text-muted">
+                        <i class="fa fa-spinner fa-spin"></i> Loading quiz history...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer page-footer-default bg-gray-dark">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col text-center">
+              <p class="rights">LexiAid &copy; <span id="copyright-year">2025</span>. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      // Set current date
+      document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
+      // Set copyright year
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="js/quizzes.js"></script>
+  </body>
+</html>

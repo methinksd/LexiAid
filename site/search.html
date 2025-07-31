@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>LexiAid - Semantic Search</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lexiaid-polish.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+		<![endif]-->
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="preloader-body">
+        <div class="cssload-container">
+          <div class="cssload-speeding-wheel"> </div>
+        </div>
+        <p>Loading...</p>
+      </div>
+    </div>
+    <div class="page">
+      <header class="page-head">
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-default" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="53px" data-xl-stick-up-offset="53px" data-xxl-stick-up-offset="53px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner">
+              <div class="rd-navbar-aside-wrap">
+                <div class="rd-navbar-aside">
+                  <div class="rd-navbar-aside-toggle" data-rd-navbar-toggle=".rd-navbar-aside"><span></span></div>
+                  <div class="rd-navbar-aside-content">
+                    <ul class="rd-navbar-aside-group list-units">
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-calendar"></span></div>
+                          <div class="unit-body"><span class="link-dusty-gray" id="current-date">April 14, 2023</span></div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
+                          <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">support@lexiaid.com</a></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="rd-navbar-group">
+                <div class="rd-navbar-panel">
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <a class="rd-navbar-brand brand" href="index.html">
+                    <h3 class="text-primary">Lexi<span style="color: #4d4d4d;">Aid</span></h3>
+                  </a>
+                </div>
+                <div class="rd-navbar-nav-wrap">
+                  <div class="rd-navbar-nav-inner">
+                    <ul class="rd-navbar-nav">
+                      <li><a href="index.html"><i class="fa fa-home"></i> Dashboard</a>
+                      </li>
+                      <li class="active"><a href="search.html"><i class="fa fa-search"></i> Search</a>
+                      </li>
+                      <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a>
+                      </li>
+                      <li><a href="insights.html"><i class="fa fa-chart-bar"></i> Insights</a>
+                      </li>
+                      <li><a href="upload-case.html"><i class="fa fa-upload"></i> Upload Case</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+            <section class="section-50 section-md-75 section-lg-100 search-container-enhanced">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="text-center mb-4">
+                <h2 class="text-white mb-3">AI-Powered Legal Research</h2>
+                <p class="text-white-50">Search through thousands of legal documents with advanced semantic understanding</p>
+              </div>
+              
+              <div class="card card-enhanced border-0">
+                <div class="card-body p-4">
+                  <div class="form-group">
+                    <label for="semantic-search-input" class="form-label-enhanced">
+                      <i class="fas fa-search text-primary mr-2"></i>Enter your legal question or topic
+                    </label>
+                    <div class="input-group">
+                      <input 
+                        type="text" 
+                        class="form-control form-control-enhanced search-input-enhanced" 
+                        id="semantic-search-input" 
+                        placeholder="e.g., 'contract breach remedies' or 'Fourth Amendment searches'"
+                        autocomplete="off"
+                        aria-describedby="search-help"
+                      >
+                      <div class="input-group-append">
+                        <button 
+                          class="btn search-btn-enhanced" 
+                          type="button" 
+                          id="search-button"
+                          aria-label="Search legal documents"
+                        >
+                          <i class="fas fa-search mr-2"></i>Search
+                        </button>
+                      </div>
+                    </div>
+                    <small id="search-help" class="form-text text-muted mt-2">
+                      <i class="fas fa-lightbulb text-warning mr-1"></i>
+                      Try natural language queries for best results
+                    </small>
+                  </div>
+                  
+                  <!-- Advanced Search Options -->
+                  <div class="mt-3">
+                    <a class="text-primary" data-toggle="collapse" href="#advancedSearchOptions" role="button" aria-expanded="false">
+                      <i class="fa fa-sliders-h"></i> Advanced Search Options
+                    </a>
+                    <div class="collapse mt-3" id="advancedSearchOptions">
+                      <div class="card card-body bg-light">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="court-filter">Court</label>
+                              <select class="form-control" id="court-filter">
+                                <option value="">All Courts</option>
+                                <option value="supreme">Supreme Court</option>
+                                <option value="appellate">Appellate Courts</option>
+                                <option value="district">District Courts</option>
+                                <option value="state">State Courts</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="date-filter">Time Period</label>
+                              <select class="form-control" id="date-filter">
+                                <option value="">All Time</option>
+                                <option value="recent">Last 5 Years</option>
+                                <option value="decade">Last 10 Years</option>
+                                <option value="century">Last 100 Years</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="topic-filter">Legal Topic</label>
+                              <select class="form-control" id="topic-filter">
+                                <option value="">All Topics</option>
+                                <option value="constitutional">Constitutional Law</option>
+                                <option value="criminal">Criminal Law</option>
+                                <option value="contracts">Contract Law</option>
+                                <option value="torts">Torts</option>
+                                <option value="property">Property Law</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>          <!-- Search Results Section -->
+          <div id="search-results-container" style="display: none;">
+            <div class="row">
+              <div class="col-12 mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h4>Search Results</h4>
+                  <div>
+                    <select class="form-control form-control-sm" id="results-sort">
+                      <option value="relevance">Sort by Relevance</option>
+                      <option value="date-desc">Sort by Date (Newest)</option>
+                      <option value="date-asc">Sort by Date (Oldest)</option>
+                      <option value="citations">Sort by Citations</option>
+                    </select>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+            
+            <!-- Results will be dynamically inserted here -->
+            <div class="row" id="search-results-list">
+              <!-- Dynamic search results will be inserted here by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Sample/Demo Results Section (shown initially) -->
+          <div id="demo-results" class="row">
+            <div class="col-12 mb-4">
+              <h4>Sample Legal Cases</h4>
+              <p class="text-muted">Enter a search query above to find relevant legal documents</p>
+              <hr>
+            </div>
+            
+            <div class="col-md-6 col-xl-4 mb-4">
+              <div class="card h-100 case-card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Marbury v. Madison</h5>
+                  <span class="badge badge-light">1803</span>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <span class="badge badge-info">Constitutional Law</span>
+                    <span class="badge badge-secondary">Judicial Review</span>
+                    <span class="badge badge-secondary">Supreme Court</span>
+                  </div>
+                  <p class="card-text">Established the principle of judicial review in the United States, which allows federal courts to void laws that violate the Constitution.</p>
+                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Theme: <strong>Separation of Powers</strong></div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary">Add to Task</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4 mb-4">
+              <div class="card h-100 case-card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Miranda v. Arizona</h5>
+                  <span class="badge badge-light">1966</span>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <span class="badge badge-info">Criminal Law</span>
+                    <span class="badge badge-secondary">Due Process</span>
+                    <span class="badge badge-secondary">Supreme Court</span>
+                  </div>
+                  <p class="card-text">Established that suspects must be informed of their rights to remain silent and to obtain an attorney during interrogations.</p>
+                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Theme: <strong>Rights of the Accused</strong></div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary">Add to Task</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4 mb-4">
+              <div class="card h-100 case-card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Brown v. Board of Education</h5>
+                  <span class="badge badge-light">1954</span>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <span class="badge badge-info">Constitutional Law</span>
+                    <span class="badge badge-secondary">Equal Protection</span>
+                    <span class="badge badge-secondary">Supreme Court</span>
+                  </div>
+                  <p class="card-text">Overturned Plessy v. Ferguson and declared that state laws establishing separate public schools for black and white students were unconstitutional.</p>
+                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Theme: <strong>Equal Rights</strong></div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary">Add to Task</a>
+                </div>
+              </div>
+            </div>
+          </div>
+              <div class="card h-100 case-card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Gideon v. Wainwright</h5>
+                  <span class="badge badge-light">1963</span>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <span class="badge badge-info">Criminal Law</span>
+                    <span class="badge badge-secondary">Sixth Amendment</span>
+                    <span class="badge badge-secondary">Supreme Court</span>
+                  </div>
+                  <p class="card-text">Established the right of an indigent defendant in a criminal trial to have counsel appointed at state expense to represent them.</p>
+                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Matched Theme: <strong>Right to Counsel</strong></div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary">Add to Task</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4 mb-4">
+              <div class="card h-100 case-card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Citizens United v. FEC</h5>
+                  <span class="badge badge-light">2010</span>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <span class="badge badge-info">Constitutional Law</span>
+                    <span class="badge badge-secondary">First Amendment</span>
+                    <span class="badge badge-secondary">Campaign Finance</span>
+                  </div>
+                  <p class="card-text">Held that the First Amendment prohibits the government from restricting political independent expenditures by corporations, associations, or labor unions.</p>
+                  <div class="text-muted small mb-2"><i class="fa fa-star text-warning"></i> Matched Theme: <strong>Free Speech</strong></div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-sm btn-outline-primary mr-2">View Brief</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary">Add to Task</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <nav aria-label="Search results pagination">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                  </li>
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer page-footer-default bg-gray-dark">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col text-center">
+              <p class="rights">LexiAid &copy; <span id="copyright-year">2025</span>. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/search.js"></script>
+    <script>
+      // Set current date
+      document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    </script>
+  </body>
+</html> 

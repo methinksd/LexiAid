@@ -1,0 +1,64 @@
+http://documentation.zemez.io/html/bootstrap/v1-4/
+
+# LexiAid Semantic Search Test Cases
+
+This file documents manual and automated test cases for validating the semantic search pipeline (Phase 4).
+
+## Manual Test Cases
+
+### Test 1: Basic Query
+- **Input:** "right to counsel"
+- **Expected:** Top result should be "Gideon v. Wainwright" with a high similarity score.
+
+### Test 2: Case Name Query
+- **Input:** "Miranda rights"
+- ****Expected:** Top result should be "Miranda v. Arizona".
+
+### Test 3: No Results
+- **Input:** "maritime law in 1800s"
+- **Expected:** Empty or very low similarity results.
+
+### Test 4: Malformed Input
+- **Input:** ""
+- **Expected:** Error response, status: error, message: 'Search query is required'.
+
+---
+
+## Automated Test Script (Python)
+
+```
+import requests
+
+url = 'http://localhost/site/search.php'
+
+test_cases = [
+    {"query": "right to counsel", "expected": "Gideon v. Wainwright"},
+    {"query": "Miranda rights", "expected": "Miranda v. Arizona"},
+    {"query": "maritime law in 1800s", "expected": None},
+    {"query": "", "expected": "error"},
+]
+
+for case in test_cases:
+    resp = requests.post(url, json={"query": case["query"]})
+    print(f"Query: {case['query']}")
+    print(f"Response: {resp.json()}")
+    print()
+```
+
+---
+
+## Logging & Validation
+- Check `python/search.log` and `site/logs/search.log` for query and error logs.
+- Confirm that similarity scores are reasonable and results are relevant.
+
+---
+
+## Assumptions
+- The backend and Python environment are running and accessible.
+- `legal_documents.json` contains the expected sample data.
+
+---
+
+## Next Steps
+- Expand test cases as new features (auto-tagging, brief generation) are added.
+- Automate regression testing for future releases.

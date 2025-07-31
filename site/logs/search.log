@@ -1,0 +1,185 @@
+2025-07-02 16:41:25 | Search Query: constitutional law | Top K: 5
+2025-07-02 16:41:25 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '5' 2>&1
+2025-07-02 16:41:25 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:43:21 | Search Query: constitutional law | Top K: 10
+2025-07-02 16:43:21 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 16:43:21 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:43:24 | Search Query: constitutional law | Top K: 10
+2025-07-02 16:43:24 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 16:43:24 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:43:25 | Search Query: constitutional law | Top K: 10
+2025-07-02 16:43:25 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 16:43:25 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:43:41 | Search Query: constitutional law | Top K: 10
+2025-07-02 16:43:41 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 16:43:41 | Python Output: sh: 1: python: not found
+
+2025-07-02 16:55:54 | Search Query: constitutional law | Top K: 5
+2025-07-02 16:55:54 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '5' 2>&1
+2025-07-02 16:55:54 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:27:55 | Search Query: constitutional law | Top K: 5
+2025-07-02 17:27:55 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '5' 2>&1
+2025-07-02 17:27:55 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:18 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:18 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:18 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:19 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:19 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:19 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:20 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:20 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:20 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:24 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:24 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:24 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:25 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:25 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:25 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:25 | Search Query: constitutional law | Top K: 10
+2025-07-02 17:28:25 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '10' 2>&1
+2025-07-02 17:28:25 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:52 | Search Query: first amendment | Top K: 10
+2025-07-02 17:28:52 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'first amendment' --top_k '10' 2>&1
+2025-07-02 17:28:52 | Python Output: sh: 1: python: not found
+
+2025-07-02 17:28:55 | Search Query: first amendment | Top K: 10
+2025-07-02 17:28:55 | Python Command: "python" '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'first amendment' --top_k '10' 2>&1
+2025-07-02 17:28:55 | Python Output: sh: 1: python: not found
+
+2025-07-02 18:49:12 | Search Query: constitutional law | Top K: 10
+2025-07-02 18:49:13 | Executing Python Command: 'python3' '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k 10 2>&1
+2025-07-02 18:49:13 | Python Output: Traceback (most recent call last):
+  File "/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py", line 11, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+2025-07-02 21:32:08 | Search Query: constitutional law | Top K: 3
+2025-07-02 21:32:08 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'constitutional law' --top_k 3 2>&1
+2025-07-02 21:32:09 | Python Output: Traceback (most recent call last):
+  File "/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py", line 12, in <module>
+    from sentence_transformers import SentenceTransformer
+ModuleNotFoundError: No module named 'sentence_transformers'
+
+2025-07-03 15:37:22 | Search Query: criminal law | Top K: 2
+2025-07-03 15:37:22 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py' 'criminal law' --top_k 2 2>&1
+2025-07-03 15:37:23 | Python Output: Traceback (most recent call last):
+  File "/home/leo/Freelance Projects/LexiAid/LexiAid/python/semantic_search.py", line 12, in <module>
+    from sentence_transformers import SentenceTransformer
+ModuleNotFoundError: No module named 'sentence_transformers'
+
+2025-07-30 16:03:29 | Search Query: criminal law rights | Top K: 3
+2025-07-30 16:03:43 | Search Query: constitutional amendments first amendment | Top K: 5
+2025-07-30 16:05:28 | Search Query: criminal law rights | Top K: 3
+2025-07-30 16:05:28 | Executing Python Command: /home/leo/Freelance Projects/LexiAid/.venv/bin/python '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'criminal law rights' '--top_k' '3'
+2025-07-30 16:05:28 | Python process failed with code: 127 | Error: sh: 1: /home/leo/Freelance: not found
+
+2025-07-30 16:06:14 | Search Query: criminal law rights | Top K: 3
+2025-07-30 16:06:14 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'criminal law rights' --top_k '3'
+2025-07-30 16:06:20 | Python process failed with code: 1 | Error: {"status": "error", "message": "No input provided via stdin", "query": "unknown"}
+
+2025-07-30 16:07:03 | Search Query: criminal law rights | Top K: 3
+2025-07-30 16:07:03 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'criminal law rights' --top_k '3'
+2025-07-30 16:07:23 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.75it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 92.07it/s]
+{"status": "success", "results": [{"title": "Terry v. Ohio", "summary": "Established the standard for stop and frisk procedures by police.", "similarity_score": 0.4623333215713501, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1968}, {"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.4508401155471802, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.44516319036483765, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}], "query": "criminal law rights", "count": 3, "search_method": "semantic"}
+
+2025-07-30 16:17:16 | Search Query: constitutional amendments free speech | Top K: 4
+2025-07-30 16:17:16 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'constitutional amendments free speech' --top_k '4'
+2025-07-30 16:17:28 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:00<00:00, 12.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 103.40it/s]
+{"status": "success", "results": [{"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.36211228370666504, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.3074685335159302, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}, {"title": "Terry v. Ohio", "summary": "Established the standard for stop and frisk procedures by police.", "similarity_score": 0.2900104522705078, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1968}, {"title": "Mapp v. Ohio", "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.", "similarity_score": 0.2630771994590759, "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"], "year": 1961}], "query": "constitutional amendments free speech", "count": 4, "search_method": "semantic"}
+
+2025-07-30 16:17:43 | Search Query: racial segregation education rights | Top K: 5
+2025-07-30 16:17:43 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'racial segregation education rights' --top_k '5'
+2025-07-30 16:17:55 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.06it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 69.26it/s]
+{"status": "success", "results": [{"title": "Brown v. Board of Education", "summary": "Ruled that racial segregation in public schools is unconstitutional.", "similarity_score": 0.6773911714553833, "tags": ["Civil Rights", "Constitutional Law", "Education Law"], "year": 1954}, {"title": "Mapp v. Ohio", "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.", "similarity_score": 0.2577623128890991, "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"], "year": 1961}, {"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.24372464418411255, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Terry v. Ohio", "summary": "Established the standard for stop and frisk procedures by police.", "similarity_score": 0.2368689775466919, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1968}, {"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.23562808334827423, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}], "query": "racial segregation education rights", "count": 5, "search_method": "semantic"}
+
+2025-07-30 16:39:30 | Search Query: constitutional law | Top K: 10
+2025-07-30 16:40:24 | Search Query: criminal law rights | Top K: 5
+2025-07-30 16:40:27 | Search Query: criminal law rights | Top K: 5
+2025-07-30 16:42:58 | Search Query: first amendment | Top K: 10
+2025-07-30 16:42:58 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'first amendment' --top_k '10'
+2025-07-30 16:43:09 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.13it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 90.71it/s]
+{"status": "success", "results": [{"title": "Terry v. Ohio", "summary": "Established the standard for stop and frisk procedures by police.", "similarity_score": 0.42405205965042114, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1968}, {"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.3713941276073456, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Mapp v. Ohio", "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.", "similarity_score": 0.3491804599761963, "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"], "year": 1961}, {"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.3449437618255615, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}, {"title": "Brown v. Board of Education", "summary": "Ruled that racial segregation in public schools is unconstitutional.", "similarity_score": 0.2472134530544281, "tags": ["Civil Rights", "Constitutional Law", "Education Law"], "year": 1954}], "query": "first amendment", "count": 5, "search_method": "semantic"}
+
+2025-07-30 16:48:15 | Search Query: criminal law rights | Top K: 10
+2025-07-30 17:44:56 | Search Query: constitutional law | Top K: 3
+2025-07-30 17:48:51 | Search Query: constitutional law | Top K: 3
+2025-07-30 17:49:19 | Search Query: constitutional law | Top K: 3
+2025-07-30 17:49:21 | Search Query: constitutional law | Top K: 3
+2025-07-30 17:49:22 | Search Query: constitutional law | Top K: 3
+2025-07-30 17:49:23 | Search Query: constitutional law | Top K: 3
+2025-07-30 17:49:42 | Search Query: constitutional law | Top K: 3
+2025-07-30 17:50:15 | Search Query: constitutional law | Top K: 3
+2025-07-30 17:51:55 | Search Query: criminal law rights | Top K: 5
+2025-07-30 17:51:59 | Search Query: criminal law rights | Top K: 5
+2025-07-30 17:52:01 | Search Query: criminal law rights | Top K: 5
+2025-07-30 17:52:46 | Search Query: constitutional law | Top K: 10
+2025-07-30 17:53:37 | Search Query: constitutional law | Top K: 3
+2025-07-30 18:03:42 | Search Query: constitutional law | Top K: 3
+2025-07-30 18:03:44 | Search Query: constitutional law | Top K: 3
+2025-07-30 18:03:46 | Search Query: constitutional law | Top K: 3
+2025-07-30 18:32:00 | Search Query: constitutional law | Top K: 3
+2025-07-30 18:32:00 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '3'
+2025-07-30 18:32:46 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:00<00:00,  2.20it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.43it/s]
+{"status": "success", "results": [{"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.37863487005233765, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}, {"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.34452885389328003, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Mapp v. Ohio", "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.", "similarity_score": 0.33962324261665344, "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"], "year": 1961}], "query": "constitutional law", "count": 3, "search_method": "semantic"}
+
+2025-07-30 18:33:26 | Search Query: constitutional law | Top K: 3
+2025-07-30 18:33:26 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '3'
+2025-07-30 18:34:10 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:00<00:00,  2.16it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 45.39it/s]
+{"status": "success", "results": [{"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.37863487005233765, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}, {"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.34452885389328003, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Mapp v. Ohio", "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.", "similarity_score": 0.33962324261665344, "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"], "year": 1961}], "query": "constitutional law", "count": 3, "search_method": "semantic"}
+
+2025-07-30 19:12:54 | Search Query: constitutional law | Top K: 3
+2025-07-30 19:12:54 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '3'
+2025-07-30 19:13:14 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:00<00:00,  4.73it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 35.07it/s]
+{"status": "success", "results": [{"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.37863487005233765, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}, {"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.34452885389328003, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Mapp v. Ohio", "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.", "similarity_score": 0.33962324261665344, "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"], "year": 1961}], "query": "constitutional law", "count": 3, "search_method": "semantic"}
+
+2025-07-30 19:17:52 | Search Query: criminal law rights | Top K: 5
+2025-07-30 19:17:56 | Search Query: criminal law rights | Top K: 5
+2025-07-30 19:18:07 | Search Query: constitutional law | Top K: 3
+2025-07-30 19:18:07 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'constitutional law' --top_k '3'
+2025-07-30 19:18:30 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:00<00:00,  3.81it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 41.24it/s]
+{"status": "success", "results": [{"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.37863487005233765, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}, {"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.34452885389328003, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Mapp v. Ohio", "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.", "similarity_score": 0.33962324261665344, "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"], "year": 1961}], "query": "constitutional law", "count": 3, "search_method": "semantic"}
+
+2025-07-31 05:26:41 | Search Query: criminal law | Top K: 5
+2025-07-31 05:26:41 | Executing Python Command: '/home/leo/Freelance Projects/LexiAid/.venv/bin/python' '/home/leo/Freelance Projects/LexiAid/python/semantic_search.py' 'criminal law' --top_k '5'
+2025-07-31 05:27:22 | Python Output: Batches:   0%|          | 0/1 [00:00<?, ?it/s]/home/leo/Freelance Projects/LexiAid/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1762: FutureWarning: `encoder_attention_mask` is deprecated and will be removed in version 4.55.0 for `BertSdpaSelfAttention.forward`.
+  return forward_call(*args, **kwargs)
+Batches: 100%|██████████| 1/1 [00:01<00:00,  1.08s/it]Batches: 100%|██████████| 1/1 [00:01<00:00,  1.08s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 22.46it/s]
+{"status": "success", "results": [{"title": "Terry v. Ohio", "summary": "Established the standard for stop and frisk procedures by police.", "similarity_score": 0.4088810086250305, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1968}, {"title": "Mapp v. Ohio", "summary": "Extended the exclusionary rule to state courts, prohibiting the use of illegally obtained evidence.", "similarity_score": 0.34295332431793213, "tags": ["Criminal Law", "Constitutional Law", "Search and Seizure"], "year": 1961}, {"title": "Gideon v. Wainwright", "summary": "Established right to counsel for criminal defendants who cannot afford an attorney.", "similarity_score": 0.34092485904693604, "tags": ["Criminal Law", "Constitutional Law", "Right to Counsel"], "year": 1963}, {"title": "Miranda v. Arizona", "summary": "Established that police must inform suspects of their rights before custodial interrogation.", "similarity_score": 0.34074103832244873, "tags": ["Criminal Law", "Constitutional Law", "Police Procedure"], "year": 1966}, {"title": "Brown v. Board of Education", "summary": "Ruled that racial segregation in public schools is unconstitutional.", "similarity_score": 0.21368056535720825, "tags": ["Civil Rights", "Constitutional Law", "Education Law"], "year": 1954}], "query": "criminal law", "count": 5, "search_method": "semantic"}
+

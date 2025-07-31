@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>LexiAid - Case Brief Viewer</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lexiaid-polish.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+		<![endif]-->
+    <style>
+      .brief-section {
+        margin-bottom: 30px;
+      }
+      .brief-section h4 {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+      }
+      .brief-tag {
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+      .highlight {
+        background-color: #ffffd9;
+        padding: 2px;
+      }
+      .note-card {
+        background-color: #f8f9fa;
+        border-left: 4px solid #007bff;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .case-meta {
+        font-size: 0.9rem;
+      }
+      .case-meta .meta-item {
+        margin-right: 20px;
+      }
+      .sidebar-sticky {
+        position: sticky;
+        top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="preloader-body">
+        <div class="cssload-container">
+          <div class="cssload-speeding-wheel"> </div>
+        </div>
+        <p>Loading...</p>
+      </div>
+    </div>
+    <div class="page">
+      <header class="page-head">
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-default" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="53px" data-xl-stick-up-offset="53px" data-xxl-stick-up-offset="53px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner">
+              <div class="rd-navbar-aside-wrap">
+                <div class="rd-navbar-aside">
+                  <div class="rd-navbar-aside-toggle" data-rd-navbar-toggle=".rd-navbar-aside"><span></span></div>
+                  <div class="rd-navbar-aside-content">
+                    <ul class="rd-navbar-aside-group list-units">
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-calendar"></span></div>
+                          <div class="unit-body"><span class="link-dusty-gray" id="current-date">April 14, 2023</span></div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
+                          <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">support@lexiaid.com</a></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="rd-navbar-group">
+                <div class="rd-navbar-panel">
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <a class="rd-navbar-brand brand" href="index.html">
+                    <h3 class="text-primary">Lexi<span style="color: #4d4d4d;">Aid</span></h3>
+                  </a>
+                </div>
+                <div class="rd-navbar-nav-wrap">
+                  <div class="rd-navbar-nav-inner">
+                    <ul class="rd-navbar-nav">
+                      <li><a href="index.html"><i class="fa fa-home"></i> Dashboard</a>
+                      </li>
+                      <li><a href="search.html"><i class="fa fa-search"></i> Search</a>
+                      </li>
+                      <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a>
+                      </li>
+                      <li><a href="insights.html"><i class="fa fa-chart-bar"></i> Insights</a>
+                      </li>
+                      <li><a href="upload-case.html"><i class="fa fa-upload"></i> Upload Case</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <section class="section-50 section-md-75 section-lg-100">
+        <div class="container">
+          <div class="row">
+            <!-- Main Content Area -->
+            <div class="col-lg-8">
+              <!-- Case Brief Header -->
+              <div class="mb-4">
+                <h2>Marbury v. Madison</h2>
+                <p class="lead">5 U.S. (1 Cranch) 137 (1803)</p>
+                
+                <div class="d-flex flex-wrap mb-3 case-meta">
+                  <div class="meta-item">
+                    <i class="fa fa-gavel text-primary"></i>
+                    <strong>Court:</strong> Supreme Court of the United States
+                  </div>
+                  <div class="meta-item">
+                    <i class="fa fa-calendar text-primary"></i>
+                    <strong>Date:</strong> February 24, 1803
+                  </div>
+                  <div class="meta-item">
+                    <i class="fa fa-user text-primary"></i>
+                    <strong>Chief Justice:</strong> John Marshall
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <span class="badge badge-info brief-tag">Constitutional Law</span>
+                  <span class="badge badge-secondary brief-tag">Judicial Review</span>
+                  <span class="badge badge-secondary brief-tag">Separation of Powers</span>
+                  <span class="badge badge-secondary brief-tag">Article III</span>
+                  <span class="badge badge-secondary brief-tag">Jurisdiction</span>
+                </div>
+                
+                <div class="d-flex justify-content-between mb-4">
+                  <div>
+                    <button class="btn btn-sm btn-outline-secondary mr-2">
+                      <i class="fa fa-bookmark"></i> Save
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary mr-2">
+                      <i class="fa fa-share-alt"></i> Share
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary">
+                      <i class="fa fa-print"></i> Print
+                    </button>
+                  </div>
+                  <div>
+                    <button class="btn btn-sm btn-primary">
+                      <i class="fa fa-pen"></i> Add to Notes
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="alert alert-info">
+                  <i class="fa fa-robot"></i> <strong>AI Generated:</strong> This brief was automatically generated by LexiAid's NLP engine. Always verify important legal information with the original source.
+                </div>
+              </div>
+              
+              <!-- Brief Sections -->
+              <div class="brief-section">
+                <h4><i class="fa fa-balance-scale text-primary"></i> Facts</h4>
+                <p>In the final days of President John Adams' term in 1801, Adams appointed several dozen Federalist Party supporters to new circuit judge and justice of the peace positions in the District of Columbia under the Judiciary Act of 1801. These appointees, the "midnight judges", were confirmed by the Senate, but it was discovered that <span class="highlight">Secretary of State John Marshall had failed to deliver the commissions to the appointees.</span></p>
+                <p>When Thomas Jefferson assumed office the next day, he ordered his new Secretary of State, James Madison, not to deliver the commissions. William Marbury, one of the appointees, petitioned the Supreme Court for a writ of mandamus compelling Madison to deliver his commission.</p>
+              </div>
+              
+              <div class="brief-section">
+                <h4><i class="fa fa-question-circle text-primary"></i> Issues</h4>
+                <ol>
+                  <li>Does Marbury have a right to the commission?</li>
+                  <li>If he has a right, and that right has been violated, do the laws of the country provide him with a remedy?</li>
+                  <li>If they do provide him with a remedy, is it a mandamus issuing from the Supreme Court?</li>
+                </ol>
+              </div>
+              
+              <div class="brief-section">
+                <h4><i class="fa fa-gavel text-primary"></i> Holding</h4>
+                <p>The Supreme Court held that Marbury had a right to his commission, but the Court did not have the power to force Madison to deliver the commission. <span class="highlight">The Court held that the provision in the 1789 Judiciary Act that gave the Supreme Court original jurisdiction to issue writs of mandamus exceeded the scope of Article III of the Constitution and was therefore null and void.</span></p>
+                <p>The Supreme Court's jurisdiction is almost entirely appellate, and the Court has original jurisdiction only when a case involves ambassadors, other public ministers and consuls, and when a state is a party. Thus, the Court had no authority to issue a writ of mandamus to Madison.</p>
+              </div>
+              
+              <div class="brief-section">
+                <h4><i class="fa fa-brain text-primary"></i> Reasoning</h4>
+                <p>Chief Justice Marshall reasoned:</p>
+                <ol>
+                  <li>Marbury had a right to his commission once signed by the President and sealed by the Secretary of State, and the withholding of his commission was unlawful.</li>
+                  <li>When a specific duty is assigned by law to an officer, and individual rights depend upon the performance of that duty, the individual has a right to the remedy of mandamus.</li>
+                  <li>However, the Supreme Court cannot issue a writ of mandamus as a matter of original jurisdiction. <span class="highlight">Article III of the Constitution defines the scope of the Supreme Court's original jurisdiction, and Congress cannot expand it, as it attempted to do in the Judiciary Act of 1789.</span></li>
+                  <li>When a law conflicts with the Constitution, the law is void, and it is the duty of the courts to uphold the Constitution.</li>
+                </ol>
+                <div class="note-card">
+                  <p class="mb-0"><strong>Key Quotation:</strong> "It is emphatically the province and duty of the Judicial Department to say what the law is. Those who apply the rule to particular cases must, of necessity, expound and interpret that rule. If two laws conflict with each other, the Courts must decide on the operation of each."</p>
+                </div>
+              </div>
+              
+              <div class="brief-section">
+                <h4><i class="fa fa-key text-primary"></i> Key Principles</h4>
+                <ul>
+                  <li><strong>Judicial Review:</strong> The Supreme Court has the power to review the constitutionality of laws and executive actions, and to strike down those found unconstitutional.</li>
+                  <li><strong>Constitutional Supremacy:</strong> The Constitution is superior to ordinary legislation, and laws that conflict with the Constitution are void.</li>
+                  <li><strong>Jurisdiction Limits:</strong> The Supreme Court's original jurisdiction is limited by Article III of the Constitution and cannot be expanded by Congress.</li>
+                  <li><strong>Separation of Powers:</strong> This case established clear boundaries between the branches of government while asserting the judiciary's role in interpreting the law.</li>
+                </ul>
+              </div>
+              
+              <div class="brief-section">
+                <h4><i class="fa fa-landmark text-primary"></i> Significance</h4>
+                <p>Marbury v. Madison established the principle of judicial review and reaffirmed the principle of constitutional supremacy. This landmark case gave the Supreme Court the authority to declare acts of Congress unconstitutional, fundamentally shaping the American legal system and the balance of powers between the three branches of government.</p>
+                <p>This precedent has been used countless times throughout American history and remains a cornerstone of American jurisprudence.</p>
+              </div>
+              
+              <!-- User Notes Section -->
+              <div class="brief-section">
+                <h4><i class="fa fa-sticky-note text-primary"></i> My Notes</h4>
+                <div class="note-card">
+                  <p><strong>April 12, 2023:</strong> For the final exam, remember the three questions Marshall asks and the reasoning behind each answer. Pay special attention to how he established judicial review while simultaneously avoiding a direct confrontation with Jefferson.</p>
+                </div>
+                <div class="mt-3">
+                  <textarea class="form-control" rows="3" placeholder="Add a new note..."></textarea>
+                  <button class="btn btn-sm btn-primary mt-2">Save Note</button>
+                </div>
+              </div>
+              
+              <!-- Related Cases -->
+              <div class="brief-section">
+                <h4><i class="fa fa-link text-primary"></i> Related Cases</h4>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <h5 class="card-title">Cooper v. Aaron (1958)</h5>
+                        <p class="card-text small">Reaffirmed the Supreme Court's power of judicial review and declared that its interpretations of the Constitution are the "supreme law of the land."</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">View Brief</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <h5 class="card-title">McCulloch v. Maryland (1819)</h5>
+                        <p class="card-text small">Another Marshall Court decision that broadly interpreted the Necessary and Proper Clause of the Constitution.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">View Brief</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+              <div class="sidebar-sticky">
+                <!-- Table of Contents -->
+                <div class="card mb-4">
+                  <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fa fa-list"></i> Contents</h5>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><a href="#" class="text-primary">Facts</a></li>
+                      <li class="list-group-item"><a href="#" class="text-primary">Issues</a></li>
+                      <li class="list-group-item"><a href="#" class="text-primary">Holding</a></li>
+                      <li class="list-group-item"><a href="#" class="text-primary">Reasoning</a></li>
+                      <li class="list-group-item"><a href="#" class="text-primary">Key Principles</a></li>
+                      <li class="list-group-item"><a href="#" class="text-primary">Significance</a></li>
+                      <li class="list-group-item"><a href="#" class="text-primary">My Notes</a></li>
+                      <li class="list-group-item"><a href="#" class="text-primary">Related Cases</a></li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <!-- Study Tools -->
+                <div class="card mb-4">
+                  <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fa fa-tools"></i> Study Tools</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="list-group">
+                      <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fa fa-file-alt text-primary"></i> Generate Study Guide
+                      </a>
+                      <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fa fa-question-circle text-primary"></i> Generate Practice Questions
+                      </a>
+                      <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fa fa-chart-pie text-primary"></i> View Case Citation Impact
+                      </a>
+                      <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fa fa-history text-primary"></i> Historical Context Analysis
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Key Terms -->
+                <div class="card mb-4">
+                  <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fa fa-book"></i> Key Legal Terms</h5>
+                  </div>
+                  <div class="card-body">
+                    <dl>
+                      <dt>Judicial Review</dt>
+                      <dd>The power of a court to examine and decide if a law or action by the legislative or executive branches is consistent with the Constitution.</dd>
+                      
+                      <dt>Writ of Mandamus</dt>
+                      <dd>A court order compelling an official to properly fulfill their official duties or correct an abuse of discretion.</dd>
+                      
+                      <dt>Original Jurisdiction</dt>
+                      <dd>The power of a court to hear a case for the first time, as opposed to appellate jurisdiction.</dd>
+                    </dl>
+                  </div>
+                </div>
+                
+                <!-- Save to Tasks -->
+                <div class="card">
+                  <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fa fa-tasks"></i> Add to Tasks</h5>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="taskTitle">Task Title</label>
+                        <input type="text" class="form-control" id="taskTitle" value="Review Marbury v. Madison">
+                      </div>
+                      <div class="form-group">
+                        <label for="dueDate">Due Date</label>
+                        <input type="date" class="form-control" id="dueDate">
+                      </div>
+                      <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select class="form-control" id="priority">
+                          <option>High</option>
+                          <option selected>Medium</option>
+                          <option>Low</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea class="form-control" id="notes" rows="2" placeholder="Add notes..."></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Add Task</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer page-footer-default bg-gray-dark">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col text-center">
+              <p class="rights">LexiAid &copy; <span id="copyright-year">2023</span>. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      // Set current date
+      document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
+      // Set copyright year
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html> 

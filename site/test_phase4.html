@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiAid Search Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .loading {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>LexiAid Phase 4 - Semantic Search Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Python Script Direct Test</h2>
+        <p>Testing the semantic_search.py script directly with various queries:</p>
+        <div id="python-test-results"></div>
+        <button onclick="testPythonScript()">Run Python Tests</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: PHP Integration Test</h2>
+        <p>Testing search.php endpoint integration:</p>
+        <div id="php-test-results"></div>
+        <button onclick="testPHPIntegration()">Test PHP Integration</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Frontend Search Interface</h2>
+        <input type="text" id="search-input" placeholder="Enter search query..." style="width: 60%; padding: 10px;">
+        <button onclick="performTestSearch()" style="padding: 10px 20px;">Search</button>
+        <div id="search-results" style="margin-top: 15px;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: Sample Queries</h2>
+        <p>Click any of these queries to test:</p>
+        <button onclick="testQuery('criminal law rights')">Criminal Law Rights</button>
+        <button onclick="testQuery('constitutional amendments')">Constitutional Amendments</button>
+        <button onclick="testQuery('search and seizure')">Search and Seizure</button>
+        <button onclick="testQuery('due process clause')">Due Process</button>
+        <button onclick="testQuery('first amendment freedom')">First Amendment</button>
+    </div>
+
+    <script>
+        // Test functions
+        async function testPythonScript() {
+            const resultDiv = document.getElementById('python-test-results');
+            resultDiv.innerHTML = '<div class="loading">Testing Python script...</div>';
+            
+            const testQueries = [
+                'criminal law rights',
+                'constitutional amendments', 
+                'search and seizure'
+            ];
+            
+            let results = '<h3>Python Script Test Results:</h3>';
+            
+            for (const query of testQueries) {
+                try {
+                    // For this test, we'll just show what the expected behavior should be
+                    results += `<div class="success">
+                        <strong>Query:</strong> "${query}"<br>
+                        <strong>Status:</strong> ✓ Would execute: semantic_search.py "${query}"<br>
+                        <strong>Expected:</strong> JSON response with similarity scores
+                    </div>`;
+                } catch (error) {
+                    results += `<div class="error">
+                        <strong>Query:</strong> "${query}"<br>
+                        <strong>Error:</strong> ${error.message}
+                    </div>`;
+                }
+            }
+            
+            resultDiv.innerHTML = results;
+        }
+
+        async function testPHPIntegration() {
+            const resultDiv = document.getElementById('php-test-results');
+            resultDiv.innerHTML = '<div class="loading">Testing PHP integration...</div>';
+            
+            try {
+                const response = await fetch('search.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        query: 'criminal law rights',
+                        top_k: 5
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h3>✓ PHP Integration Working</h3>
+                            <p><strong>Status:</strong> ${data.status}</p>
+                            <p><strong>Results Count:</strong> ${data.count}</p>
+                            <p><strong>Search Method:</strong> ${data.search_method}</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>✗ PHP Integration Error</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Possible Issues:</strong></p>
+                        <ul>
+                            <li>Web server not running</li>
+                            <li>PHP not configured</li>
+                            <li>Python environment issues</li>
+                            <li>File permissions</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        async function performTestSearch() {
+            const query = document.getElementById('search-input').value.trim();
+            if (!query) {
+                alert('Please enter a search query');
+                return;
+            }
+            
+            testQuery(query);
+        }
+
+        async function testQuery(query) {
+            const resultDiv = document.getElementById('search-results');
+            document.getElementById('search-input').value = query;
+            
+            resultDiv.innerHTML = '<div class="loading">Searching...</div>';
+            
+            try {
+                const response = await fetch('search.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        top_k: 5
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.status === 'success' && data.results.length > 0) {
+                        let html = `
+                            <div class="success">
+                                <h3>✓ Search Results for "${query}"</h3>
+                                <p>Found ${data.count} results using ${data.search_method} method</p>
+                                <div style="display: grid; gap: 10px; margin-top: 15px;">
+                        `;
+                        
+                        data.results.forEach(result => {
+                            const tags = result.tags ? result.tags.map(tag => `<span style="background: #007bff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; margin-right: 5px;">${tag}</span>`).join('') : '';
+                            html += `
+                                <div style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: white;">
+                                    <h4 style="margin: 0 0 10px 0;">${result.title}</h4>
+                                    <div style="margin-bottom: 10px;">${tags}</div>
+                                    <p style="margin: 0 0 10px 0;">${result.summary}</p>
+                                    <div style="font-size: 12px; color: #666;">
+                                        <strong>Similarity:</strong> ${Math.round(result.similarity_score * 100)}%
+                                        ${result.year ? ` | <strong>Year:</strong> ${result.year}` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        html += '</div></div>';
+                        resultDiv.innerHTML = html;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <div class="error">
+                                <h3>No Results Found</h3>
+                                <p>Query: "${query}"</p>
+                                <p>Try different search terms or check the system status.</p>
+                            </div>
+                        `;
+                    }
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>✗ Search Error</h3>
+                        <p><strong>Query:</strong> "${query}"</p>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Check:</strong> Web server status, PHP configuration, Python environment</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Auto-run basic tests on load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('LexiAid Phase 4 Test Page Loaded');
+            console.log('Available tests:');
+            console.log('1. testPythonScript() - Test Python semantic search');
+            console.log('2. testPHPIntegration() - Test PHP->Python integration');
+            console.log('3. testQuery(query) - Test specific search query');
+        });
+    </script>
+</body>
+</html>

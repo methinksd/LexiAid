@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>LexiAid - Law Student Dashboard</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lexiaid-polish.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css">
+		<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+		<![endif]-->
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="preloader-body">
+        <div class="cssload-container">
+          <div class="cssload-speeding-wheel"> </div>
+        </div>
+        <p>Loading...</p>
+      </div>
+    </div>
+    <div class="page">
+      <header class="page-head">
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-default" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="53px" data-xl-stick-up-offset="53px" data-xxl-stick-up-offset="53px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner">
+              <div class="rd-navbar-aside-wrap">
+                <div class="rd-navbar-aside">
+                  <div class="rd-navbar-aside-toggle" data-rd-navbar-toggle=".rd-navbar-aside"><span></span></div>
+                  <div class="rd-navbar-aside-content">
+                    <ul class="rd-navbar-aside-group list-units">
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-calendar"></span></div>
+                          <div class="unit-body"><span class="link-dusty-gray" id="current-date">April 14, 2023</span></div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="unit unit-horizontal unit-spacing-xs align-items-center">
+                          <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
+                          <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">support@lexiaid.com</a></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="rd-navbar-group">
+                <div class="rd-navbar-panel">
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <a class="rd-navbar-brand brand" href="index.html">
+                    <h3 class="text-primary">Lexi<span style="color: #4d4d4d;">Aid</span></h3>
+                  </a>
+                </div>
+                <div class="rd-navbar-nav-wrap">
+                  <div class="rd-navbar-nav-inner">
+                    <ul class="rd-navbar-nav">
+                      <li class="active"><a href="index.html"><i class="fa fa-home"></i> Dashboard</a>
+                      </li>
+                      <li><a href="search.html"><i class="fa fa-search"></i> Search</a>
+                      </li>
+                      <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a>
+                      </li>
+                      <li><a href="quizzes.html"><i class="fa fa-question-circle"></i> Quizzes</a>
+                      </li>
+                      <li><a href="insights.html"><i class="fa fa-chart-bar"></i> Insights</a>
+                      </li>
+                      <li><a href="upload-case.html"><i class="fa fa-upload"></i> Upload Case</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <section class="section-50 section-md-75 section-lg-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8">
+              <h2>Welcome to LexiAid</h2>
+              <p class="text-bigger">Your personal assistant for law school success.</p>
+              
+              <!-- Quick Summary Section -->
+              <div class="row row-30 mt-4">
+                <div class="col-md-6">
+                  <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                      <h5><i class="fa fa-clock"></i> Upcoming Deadlines</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Constitutional Law Brief
+                          <span class="badge bg-danger">Tomorrow</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Torts Reading Quiz
+                          <span class="badge bg-warning">2 days</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Criminal Law Case Analysis
+                          <span class="badge bg-info">5 days</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card-footer">
+                      <a href="tasks.html" class="btn btn-sm btn-primary">View All Tasks</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                      <h5><i class="fa fa-book"></i> Recent Case Uploads</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Marbury v. Madison
+                          <span class="badge bg-success">Processed</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Roe v. Wade
+                          <span class="badge bg-success">Processed</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Brown v. Board of Education
+                          <span class="badge bg-secondary">Processing</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card-footer">
+                      <a href="upload-case.html" class="btn btn-sm btn-primary">Upload New Case</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Performance Metrics -->
+              <div class="row row-30 mt-4">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header bg-primary text-white">
+                      <h5><i class="fa fa-chart-line"></i> Performance Metrics</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                                    <div class="col-md-6">
+              <h6>Quiz Scores by Subject</h6>
+              <div style="height: 250px">
+                <canvas id="quizScoresChart"></canvas>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h6>Study Time by Topic</h6>
+              <div style="height: 250px">
+                <canvas id="studyTimeChart"></canvas>
+              </div>
+            </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <a href="insights.html" class="btn btn-sm btn-primary">View Detailed Insights</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Sidebar -->
+            <div class="col-lg-4 mt-4 mt-lg-0">
+              <!-- Quick Search Widget -->
+              <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                  <h5><i class="fa fa-search"></i> Quick Search</h5>
+                </div>
+                <div class="card-body">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search cases, briefs, notes...">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Study Progress Widget -->
+              <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                  <h5><i class="fa fa-graduation-cap"></i> Study Progress</h5>
+                </div>
+                <div class="card-body">
+                  <h6>Constitutional Law</h6>
+                  <div class="progress mb-3">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                  </div>
+                  
+                  <h6>Criminal Law</h6>
+                  <div class="progress mb-3">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                  </div>
+                  
+                  <h6>Contract Law</h6>
+                  <div class="progress mb-3">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
+                  </div>
+                  
+                  <h6>Torts</h6>
+                  <div class="progress mb-3">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Quick Tips Widget -->
+              <div class="card">
+                <div class="card-header bg-primary text-white">
+                  <h5><i class="fa fa-lightbulb"></i> Study Tips</h5>
+                </div>
+                <div class="card-body">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <p><strong>Tip of the Day:</strong> When briefing cases, focus on identifying the court's specific holding rather than general rules.</p>
+                    </div>
+                  </div>
+                  <p><strong>Suggested Focus:</strong> Based on your recent activity, you might want to spend more time on Torts concepts.</p>
+                  <a href="#" class="btn btn-sm btn-primary">Get More Tips</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer page-footer-default bg-gray-dark">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col text-center">
+              <p class="rights">LexiAid &copy; <span id="copyright-year">2025</span>. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+      // Set current date
+      document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
+      // Quiz Scores Chart
+      const quizScoresCtx = document.getElementById('quizScoresChart').getContext('2d');
+      const quizScoresChart = new Chart(quizScoresCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Constitutional', 'Criminal', 'Contracts', 'Torts', 'Property'],
+          datasets: [{
+            label: 'Quiz Scores',
+            data: [85, 78, 92, 65, 88],
+            backgroundColor: [
+              'rgba(75, 192, 192, 0.7)',
+              'rgba(54, 162, 235, 0.7)',
+              'rgba(153, 102, 255, 0.7)',
+              'rgba(255, 99, 132, 0.7)',
+              'rgba(255, 159, 64, 0.7)'
+            ],
+            borderColor: [
+              'rgba(75, 192, 192, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+      
+      // Study Time Chart
+      const studyTimeCtx = document.getElementById('studyTimeChart').getContext('2d');
+      const studyTimeChart = new Chart(studyTimeCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Constitutional', 'Criminal', 'Contracts', 'Torts', 'Property'],
+          datasets: [{
+            label: 'Hours',
+            data: [25, 18, 15, 10, 12],
+            backgroundColor: [
+              'rgba(75, 192, 192, 0.7)',
+              'rgba(54, 162, 235, 0.7)',
+              'rgba(153, 102, 255, 0.7)',
+              'rgba(255, 99, 132, 0.7)',
+              'rgba(255, 159, 64, 0.7)'
+            ],
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              position: 'right'
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Test</title>
+</head>
+<body>
+    <h1>JavaScript Loading Test</h1>
+    
+    <div id="test-results">
+        <div id="tasks-test">Tasks JS: <span id="tasks-status">Loading...</span></div>
+        <div id="quizzes-test">Quizzes JS: <span id="quizzes-status">Loading...</span></div>
+    </div>
+
+    <script src="js/tasks.js"></script>
+    <script src="js/quizzes.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Test tasks.js
+            setTimeout(() => {
+                const tasksStatus = document.getElementById('tasks-status');
+                if (typeof window.taskManager !== 'undefined') {
+                    tasksStatus.textContent = '✅ Loaded Successfully';
+                    tasksStatus.style.color = 'green';
+                } else {
+                    tasksStatus.textContent = '❌ Failed to Load';
+                    tasksStatus.style.color = 'red';
+                }
+            }, 100);
+
+            // Test quizzes.js
+            setTimeout(() => {
+                const quizzesStatus = document.getElementById('quizzes-status');
+                if (typeof window.quizManager !== 'undefined') {
+                    quizzesStatus.textContent = '✅ Loaded Successfully';
+                    quizzesStatus.style.color = 'green';
+                } else {
+                    quizzesStatus.textContent = '❌ Failed to Load';
+                    quizzesStatus.style.color = 'red';
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

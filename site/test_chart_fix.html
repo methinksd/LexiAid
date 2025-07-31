@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart Fix Test</title>
+    <style>
+        .test-container {
+            width: 600px;
+            height: 300px;
+            border: 2px solid #ccc;
+            margin: 20px;
+            padding: 10px;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 250px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+</head>
+<body>
+    <h1>Productivity Chart Fix Test</h1>
+    
+    <div class="test-container">
+        <h3>Fixed Productivity Chart (should be constrained)</h3>
+        <div class="chart-wrapper">
+            <canvas id="testChart"></canvas>
+        </div>
+    </div>
+    
+    <script>
+        // Test the fixed chart configuration
+        const ctx = document.getElementById('testChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['6-8 AM','8-11 AM','11-2 PM','2-5 PM','5-8 PM','8-11 PM','After 11 PM'],
+                datasets: [{
+                    label: 'Productivity Score',
+                    data: [72,95,83,78,88,75,62],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 2,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Productivity Score'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time of Day'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

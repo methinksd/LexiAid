@@ -1,0 +1,425 @@
+/**
+ * LexiAid Phase 7 - UI/UX Polish Enhancements
+ * Enhanced styling for better user experience, responsiveness, and visual consistency
+ */
+
+/* ===== GLOBAL IMPROVEMENTS ===== */
+
+/* Enhanced Loading Animations */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    gap: 20px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: #6c757d;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Enhanced Button Styles */
+.btn-enhanced {
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.btn-enhanced:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-enhanced:active {
+    transform: translateY(0);
+}
+
+/* Card Enhancements */
+.card-enhanced {
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.card-enhanced:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== MOBILE RESPONSIVENESS IMPROVEMENTS ===== */
+
+/* Mobile Navigation Improvements */
+@media (max-width: 767px) {
+    .rd-navbar-nav {
+        padding: 20px;
+    }
+    
+    .rd-navbar-nav li {
+        margin-bottom: 10px;
+    }
+    
+    .rd-navbar-nav a {
+        padding: 12px 15px;
+        font-size: 16px;
+        border-radius: 6px;
+    }
+}
+
+/* Mobile Card Stack */
+@media (max-width: 575px) {
+    .card-enhanced {
+        margin-bottom: 15px;
+    }
+    
+    .row > [class*="col-"] {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        max-width: 750px;
+    }
+    
+    .task-card, .quiz-card, .case-card {
+        margin-bottom: 20px;
+    }
+}
+
+/* ===== SEARCH PAGE ENHANCEMENTS ===== */
+
+.search-container-enhanced {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px 0;
+    margin-bottom: 30px;
+}
+
+.search-input-enhanced {
+    border-radius: 25px;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.search-input-enhanced:focus {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.search-btn-enhanced {
+    border-radius: 25px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.search-btn-enhanced:hover {
+    background: linear-gradient(45deg, #218838, #1a9c7a);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.result-card-enhanced {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.result-card-enhanced:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.similarity-badge {
+    background: linear-gradient(45deg, #007bff, #6610f2);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ===== TASK PAGE ENHANCEMENTS ===== */
+
+.task-card-enhanced {
+    border-left: 4px solid #007bff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.task-card-enhanced:hover {
+    border-left-color: #0056b3;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+.task-card-enhanced.priority-high {
+    border-left-color: #dc3545;
+}
+
+.task-card-enhanced.priority-medium {
+    border-left-color: #ffc107;
+}
+
+.task-card-enhanced.priority-low {
+    border-left-color: #28a745;
+}
+
+.task-status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-pending { background-color: #fff3cd; color: #856404; }
+.status-in-progress { background-color: #d1ecf1; color: #0c5460; }
+.status-completed { background-color: #d4edda; color: #155724; }
+
+/* ===== QUIZ PAGE ENHANCEMENTS ===== */
+
+.quiz-card-enhanced {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.quiz-option {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quiz-option:hover {
+    border-color: #007bff;
+    background-color: #f8f9ff;
+}
+
+.quiz-option.selected {
+    border-color: #007bff;
+    background-color: #e7f3ff;
+}
+
+.quiz-option.correct {
+    border-color: #28a745;
+    background-color: #d4edda;
+}
+
+.quiz-option.incorrect {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+}
+
+/* ===== INSIGHTS PAGE ENHANCEMENTS ===== */
+
+.insight-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.insight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #6610f2, #e83e8c);
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #007bff;
+    line-height: 1;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+}
+
+/* ===== UPLOAD PAGE ENHANCEMENTS ===== */
+
+.upload-area-enhanced {
+    border: 3px dashed #007bff;
+    border-radius: 15px;
+    padding: 60px 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e7f3ff 100%);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area-enhanced:hover,
+.upload-area-enhanced.dragover {
+    border-color: #0056b3;
+    background: linear-gradient(135deg, #e7f3ff 0%, #cce7ff 100%);
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    font-size: 4rem;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* ===== FORM ENHANCEMENTS ===== */
+
+.form-group-enhanced {
+    margin-bottom: 25px;
+}
+
+.form-control-enhanced {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    padding: 12px 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control-enhanced:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.form-label-enhanced {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+.no-data-placeholder {
+    text-align: center;
+    padding: 60px 30px;
+    color: #6c757d;
+}
+
+.no-data-icon {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 20px;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.focus-outline:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+.will-change-transform {
+    will-change: transform;
+}
+
+.hardware-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+}
+
+/* ===== DARK MODE PREPARATION ===== */
+
+@media (prefers-color-scheme: dark) {
+    .auto-dark {
+        background-color: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .auto-dark .card-enhanced {
+        background-color: #4a5568;
+        border-color: #2d3748;
+    }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .card-enhanced {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "documents": [
+        {
+            "resource_id": 1,
+            "title": "Brown v. Board of Education",
+            "content": "In Brown v. Board of Education (1954), the Supreme Court ruled unanimously that racial segregation of children in public schools was unconstitutional. The Court overturned Plessy v. Ferguson (1896), which had allowed state-sponsored segregation.",
+            "type": "case_law",
+            "jurisdiction": "US Supreme Court",
+            "tags": ["civil rights", "education", "equal protection", "14th amendment"]
+        },
+        {
+            "resource_id": 2,
+            "title": "Miranda v. Arizona",
+            "content": "Miranda v. Arizona (1966) was a landmark decision of the U.S. Supreme Court. The Court held that the Fifth Amendment to the U.S. Constitution requires that law enforcement officials advise suspects of their right to remain silent and to obtain an attorney during interrogations while in police custody.",
+            "type": "case_law",
+            "jurisdiction": "US Supreme Court",
+            "tags": ["criminal law", "constitutional law", "5th amendment", "police procedure"]
+        },
+        {
+            "resource_id": 3,
+            "title": "Elements of Contract Law",
+            "content": "A valid contract requires offer, acceptance, consideration, and mutual intent to be bound. The offer must be clear and definite, acceptance must be unequivocal, consideration must have value, and both parties must intend to create legal relations.",
+            "type": "study_material",
+            "jurisdiction": "General",
+            "tags": ["contracts", "legal principles", "offer and acceptance"]
+        }
+    ]
+}
