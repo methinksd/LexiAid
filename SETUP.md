@@ -184,6 +184,271 @@ pip install -r python/requirements.txt
 
 ---
 
+## 🍎 macOS Setup
+
+### Step 1: Install Homebrew (Package Manager)
+Homebrew is the recommended package manager for macOS and makes installing dependencies much easier.
+
+```bash
+# Install Homebrew if not already installed
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Verify installation
+brew --version
+```
+
+### Step 2: Install PHP and Apache
+```bash
+# Install PHP with required extensions
+brew install php
+
+# Install Apache web server
+brew install httpd
+
+# Start Apache service
+brew services start httpd
+
+# Verify PHP installation
+php --version
+```
+
+#### Configure Apache for PHP:
+1. Edit Apache configuration:
+```bash
+# Open Apache config file
+sudo nano /opt/homebrew/etc/httpd/httpd.conf
+```
+
+2. Add these lines to enable PHP:
+```apache
+# Load PHP module
+LoadModule php_module /opt/homebrew/lib/httpd/modules/libphp.so
+
+# Add PHP file type
+<FilesMatch \.php$>
+    SetHandler application/x-httpd-php
+</FilesMatch>
+
+# Change document root to your preference
+DocumentRoot "/opt/homebrew/var/www"
+
+# Change listening port if needed (default is 8080)
+Listen 80
+```
+
+3. Restart Apache:
+```bash
+brew services restart httpd
+```
+
+### Step 3: Install MySQL
+```bash
+# Install MySQL
+brew install mysql
+
+# Start MySQL service
+brew services start mysql
+
+# Secure MySQL installation
+mysql_secure_installation
+```
+
+**Follow the prompts:**
+- Set root password: Choose a strong password
+- Remove anonymous users: Y
+- Disallow root login remotely: Y (for security)
+- Remove test database: Y
+- Reload privilege tables: Y
+
+### Step 4: Install Python 3.8+
+```bash
+# Install Python (if not already installed)
+brew install python3
+
+# Verify installation
+python3 --version
+pip3 --version
+```
+
+### Step 5: Install Git (Optional but Recommended)
+```bash
+# Install Git
+brew install git
+
+# Verify installation
+git --version
+```
+
+### Step 6: Setup LexiAid Project
+```bash
+# Navigate to web directory (or your preferred location)
+cd /opt/homebrew/var/www
+
+# Clone the project (if using Git)
+git clone <repository-url> lexiaid
+# OR copy the LexiAid folder manually
+
+# Navigate to project directory
+cd lexiaid
+
+# Create Python virtual environment
+python3 -m venv .venv
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Upgrade pip
+pip install --upgrade pip
+
+# Install Python dependencies
+pip install -r python/requirements.txt
+```
+
+### Alternative: Using MAMP (GUI Option)
+For users who prefer a graphical interface similar to XAMPP:
+
+1. **Download MAMP**:
+   - Visit https://www.mamp.info/en/downloads/
+   - Download MAMP (free version)
+
+2. **Install MAMP**:
+   - Run the installer
+   - Choose installation directory (default: `/Applications/MAMP`)
+
+3. **Configure MAMP**:
+   - Open MAMP
+   - Click "Preferences" → "Ports"
+   - Set Apache to port 80, MySQL to port 3306 (or use defaults)
+   - Click "Preferences" → "Web Server"
+   - Set Document Root to where you'll place LexiAid
+
+4. **Start Services**:
+   - Click "Start Servers" in MAMP
+   - Verify by visiting http://localhost (or http://localhost:8888 if using default ports)
+
+5. **Setup LexiAid with MAMP**:
+```bash
+# Navigate to MAMP htdocs directory
+cd /Applications/MAMP/htdocs
+
+# Clone or copy LexiAid project
+git clone <repository-url> lexiaid
+# OR copy manually
+
+# Setup Python environment (same as above)
+cd lexiaid
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r python/requirements.txt
+```
+
+### macOS-Specific Configuration Notes
+
+#### File Permissions:
+```bash
+# Make sure web server can access files
+chmod -R 755 /opt/homebrew/var/www/lexiaid/
+# OR for MAMP:
+chmod -R 755 /Applications/MAMP/htdocs/lexiaid/
+
+# Create logs directory with write permissions
+mkdir -p site/logs
+chmod 777 site/logs
+```
+
+#### Environment Variables (Optional):
+Add to your `~/.zshrc` or `~/.bash_profile`:
+```bash
+# Add Homebrew to PATH (if not automatically added)
+export PATH="/opt/homebrew/bin:$PATH"
+
+# Add MySQL to PATH
+export PATH="/opt/homebrew/mysql/bin:$PATH"
+
+# Python virtual environment helper
+alias activate-lexiaid="cd /opt/homebrew/var/www/lexiaid && source .venv/bin/activate"
+```
+
+#### System Preferences:
+- **Security**: Allow Apache through macOS firewall if enabled
+- **Permissions**: Grant Terminal full disk access if needed (System Preferences → Security & Privacy → Privacy → Full Disk Access)
+
+### Testing macOS Installation
+
+#### Access LexiAid:
+- **Homebrew Apache**: http://localhost/lexiaid/site/
+- **MAMP**: http://localhost:8888/lexiaid/site/ (or your configured port)
+
+#### Verify Services:
+```bash
+# Check if services are running
+brew services list | grep -E "(httpd|mysql|php)"
+
+# Test PHP
+php -v
+
+# Test MySQL connection
+mysql -u root -p -e "SHOW DATABASES;"
+
+# Test Python environment
+source .venv/bin/activate
+python -c "import sentence_transformers; print('Python setup OK')"
+```
+
+### macOS Troubleshooting
+
+**Common Issues:**
+
+**Homebrew permission errors:**
+```bash
+# Fix Homebrew permissions
+sudo chown -R $(whoami) $(brew --prefix)/*
+```
+
+**Apache won't start:**
+```bash
+# Check what's using port 80
+sudo lsof -i :80
+
+# Use different port if needed
+sudo nano /opt/homebrew/etc/httpd/httpd.conf
+# Change: Listen 80 to Listen 8080
+```
+
+**MySQL socket errors:**
+```bash
+# Check MySQL socket location
+mysql_config --socket
+
+# Update socket path in PHP if needed
+sudo nano /opt/homebrew/etc/php/*/php.ini
+# Add: mysql.default_socket = /tmp/mysql.sock
+```
+
+**Python SSL certificate errors:**
+```bash
+# Update certificates
+/Applications/Python\ 3.*/Install\ Certificates.command
+# OR
+pip install --upgrade certifi
+```
+
+**Permission denied errors:**
+```bash
+# Give Terminal full disk access
+# System Preferences → Security & Privacy → Privacy → Full Disk Access
+# Add Terminal application
+```
+
+### Performance Tips for macOS
+
+1. **Use SSD**: Ensure LexiAid is on an SSD for faster ML model loading
+2. **Memory management**: Close unnecessary applications when running ML models
+3. **Power settings**: Use "High Performance" when plugged in
+4. **Activity Monitor**: Monitor memory usage during ML model downloads
+
+---
+
 ## 🗄️ Database Configuration
 
 ### Step 1: Create Database
@@ -340,6 +605,51 @@ sudo systemctl reload apache2
 echo "127.0.0.1 lexiaid.local" | sudo tee -a /etc/hosts
 ```
 
+#### macOS (Homebrew Apache):
+1. Create virtual host file:
+```bash
+sudo nano /opt/homebrew/etc/httpd/extra/httpd-vhosts.conf
+```
+
+2. Add configuration:
+```apache
+<VirtualHost *:80>
+    DocumentRoot /opt/homebrew/var/www/lexiaid/site
+    ServerName lexiaid.local
+    ServerAlias www.lexiaid.local
+    ErrorLog /opt/homebrew/var/log/httpd/lexiaid_error.log
+    CustomLog /opt/homebrew/var/log/httpd/lexiaid_access.log combined
+</VirtualHost>
+```
+
+3. Enable virtual hosts in main config:
+```bash
+sudo nano /opt/homebrew/etc/httpd/httpd.conf
+```
+Uncomment this line:
+```apache
+Include /opt/homebrew/etc/httpd/extra/httpd-vhosts.conf
+```
+
+4. Add to hosts file:
+```bash
+echo "127.0.0.1 lexiaid.local" | sudo tee -a /etc/hosts
+```
+
+5. Restart Apache:
+```bash
+brew services restart httpd
+```
+
+#### macOS (MAMP):
+1. Open MAMP → Preferences → Hosts → Add Host
+2. Host name: `lexiaid.local`
+3. Document root: `/Applications/MAMP/htdocs/lexiaid/site`
+4. Add to hosts file:
+```bash
+echo "127.0.0.1 lexiaid.local" | sudo tee -a /etc/hosts
+```
+
 ### Performance Optimization
 
 #### Python Model Caching:
@@ -385,6 +695,14 @@ post_max_size = 64M
   sudo setsebool -P httpd_can_network_connect 1
   sudo setsebool -P httpd_execmem 1
   ```
+
+#### macOS-Specific:
+- **Homebrew permission errors**: Fix with `sudo chown -R $(whoami) $(brew --prefix)/*`
+- **Apache won't start**: Check port conflicts with `sudo lsof -i :80`
+- **MySQL socket errors**: Verify socket path in PHP configuration
+- **Python SSL errors**: Run `/Applications/Python\ 3.*/Install\ Certificates.command`
+- **Permission denied**: Grant Terminal full disk access in System Preferences
+- **Xcode command line tools**: Install with `xcode-select --install` if needed
 
 ### Common Issues (All Platforms)
 
@@ -587,6 +905,42 @@ sudo tail -f /var/www/html/lexiaid/site/logs/search.log
 # File permissions
 sudo chown -R www-data:www-data /var/www/html/lexiaid/
 sudo chmod -R 755 /var/www/html/lexiaid/
+```
+
+### macOS Commands:
+```bash
+# Start/stop services (Homebrew)
+brew services start httpd mysql
+brew services stop httpd mysql
+
+# Start/stop services (MAMP)
+# Use MAMP application interface
+
+# Activate Python environment
+source .venv/bin/activate
+
+# Check service status
+brew services list | grep -E "(httpd|mysql)"
+
+# View logs (Homebrew)
+tail -f /opt/homebrew/var/log/httpd/error_log
+tail -f /opt/homebrew/var/www/lexiaid/site/logs/search.log
+
+# View logs (MAMP)
+tail -f /Applications/MAMP/logs/apache_error.log
+tail -f /Applications/MAMP/logs/mysql_error_log.err
+
+# File permissions
+chmod -R 755 /opt/homebrew/var/www/lexiaid/
+# OR for MAMP:
+chmod -R 755 /Applications/MAMP/htdocs/lexiaid/
+
+# Check what's using a port
+sudo lsof -i :80
+sudo lsof -i :3306
+
+# Fix Homebrew permissions
+sudo chown -R $(whoami) $(brew --prefix)/*
 ```
 
 ---
